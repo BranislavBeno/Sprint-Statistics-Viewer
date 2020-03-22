@@ -1,0 +1,3 @@
+| GitLab-CI | Test coverage |
+| --- | --- |
+| [![pipeline status](https://gitlab.websupport.sk/biea/sprint-statistics-viewer/badges/master/pipeline.svg)](https://gitlab.websupport.sk/biea/sprint-statistics-viewer/commits/master) | [![coverage report](https://gitlab.websupport.sk/biea/sprint-statistics-viewer/badges/master/coverage.svg)](https://gitlab.websupport.sk/biea/sprint-statistics-viewer/commits/master) |
