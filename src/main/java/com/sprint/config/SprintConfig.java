@@ -1,0 +1,32 @@
+/**
+ * 
+ */
+package com.sprint.config;
+
+import javax.sql.DataSource;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+/**
+ * @author benito
+ *
+ */
+@Configuration
+@ComponentScan("com.sprint")
+public class SprintConfig {
+
+	@Bean
+	public DataSource mysqlDataSource() {
+		final DriverManagerDataSource dataSource = new DriverManagerDataSource();
+		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/sprint_stats");
+		dataSource.setUsername("benito");
+		dataSource.setPassword("benito");
+
+		return dataSource;
+	}
+
+}
