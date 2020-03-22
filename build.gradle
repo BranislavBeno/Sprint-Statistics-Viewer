@@ -6,7 +6,14 @@ plugins {
 
 group = 'com.sprint'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+ext {
+  springJdbcVersion = '5.2.4.RELEASE'
+  mysqlConnectorVersion = '8.0.19'
+}
 
 repositories {
 	mavenCentral()
@@ -14,8 +21,8 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework:spring-jdbc:5.2.4.RELEASE'
-	implementation 'mysql:mysql-connector-java:8.0.19'
+	implementation "org.springframework:spring-jdbc:${springJdbcVersion}"
+	implementation "mysql:mysql-connector-java:${mysqlConnectorVersion}"
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
