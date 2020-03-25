@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 services:
   #MySQL Service
   db:
@@ -9,12 +9,14 @@ services:
     ports:
       - "3306:3306"
     environment:
-      MYSQL_DATABASE: sprint_stats      
-      MYSQL_ROOT_PASSWORD: root
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: sprints
+      MYSQL_PASSWORD: sprints
+      MYSQL_DATABASE: sprints
     volumes:
-      - dbdata:/var/lib/mysql
+      - dbdata:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
     networks:
       - app-network
