@@ -1,4 +1,6 @@
 version: '3.5'
+
+## Services
 services:
   #MySQL Service
   db:
@@ -21,7 +23,7 @@ services:
     networks:
       - app-network
 
-#Docker Networks
+#Networks
 networks:
   app-network:
     driver: bridge

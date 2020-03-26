@@ -22,9 +22,9 @@ public class SprintConfig {
 	public DataSource mysqlDataSource() {
 		final DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/sprint_stats");
-		dataSource.setUsername("benito");
-		dataSource.setPassword("benito");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/sprints");
+		dataSource.setUsername("sprints");
+		dataSource.setPassword("sprints");
 
 		return dataSource;
 	}
