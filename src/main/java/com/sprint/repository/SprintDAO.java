@@ -39,16 +39,16 @@ public class SprintDAO {
 	 * @return the count of employees
 	 */
 	public int getCountOfEmployees() {
-		return jdbcTemplate.queryForObject("select count(*) from team_red", Integer.class);
+		return jdbcTemplate.queryForObject("select count(*) from team_banana", Integer.class);
 	}
 
 	public Sprint getSprintById(final int id) {
-		final String query = "select * from team_red where id = ?";
+		final String query = "select * from team_banana where id = ?";
 		return jdbcTemplate.queryForObject(query, new Object[] { id }, new SprintRowMapper());
 	}
 
 	public Sprint getSprintByLabel(final String label) {
-		final String query = "select * from team_red where sprint = ?";
+		final String query = "select * from team_banana where sprint = ?";
 		return jdbcTemplate.queryForObject(query, new Object[] { label }, new SprintRowMapper());
 	}
 }
