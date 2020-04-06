@@ -3,6 +3,9 @@
  */
 package com.sprint.controllers;
 
+import java.sql.SQLException;
+import java.util.StringJoiner;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,5 +39,14 @@ public class SprintController {
 		sb.append("Sprint = ").append(sprints.getSprintById(sprints.getCountOfEmployees()).toString());
 
 		return sb.toString();
+	}
+
+	@RequestMapping("/tables")
+	public String tables() throws SQLException {
+		StringJoiner sj = new StringJoiner(", ", "[", "]");
+
+		sprints.getListOfTables().forEach(sj::add);
+
+		return new StringBuilder("Tables = ").append(sj.toString()).toString();
 	}
 }
