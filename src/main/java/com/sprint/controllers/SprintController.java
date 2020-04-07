@@ -25,18 +25,20 @@ public class SprintController {
 	}
 
 	@RequestMapping("/sprintscount")
-	public String sprintsCount() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Sprint count = ").append(sprints.getCountOfEmployees());
+	public String sprintsCount() throws SQLException {
+		StringBuilder sb = new StringBuilder("Sprint count for ");
+		sprints.getListOfTables()
+				.forEach(table -> sb.append(table).append(" = ").append(sprints.getRowCount(table)).append(", "));
 
 		return sb.toString();
 	}
 
 	@RequestMapping("/sprintprogress")
-	public String sprintsProgress() {
-		StringBuilder sb = new StringBuilder();
+	public String sprintsProgress() throws SQLException {
+		StringBuilder sb = new StringBuilder("Sprintprogress = ");
 
-		sb.append("Sprint = ").append(sprints.getSprintById(sprints.getCountOfEmployees()).toString());
+		sprints.getListOfTables().forEach(
+				table -> sb.append(sprints.getSprintById(table, sprints.getRowCount(table)).toString()).append("\n"));
 
 		return sb.toString();
 	}

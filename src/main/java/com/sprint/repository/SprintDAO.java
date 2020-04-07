@@ -39,25 +39,6 @@ public class SprintDAO {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
-	/**
-	 * Gets the count of employees.
-	 *
-	 * @return the count of employees
-	 */
-	public int getCountOfEmployees() {
-		return jdbcTemplate.queryForObject("select count(*) from team_red", Integer.class);
-	}
-
-	public Sprint getSprintById(final int id) {
-		final String query = "select * from team_red where id = ?";
-		return jdbcTemplate.queryForObject(query, new Object[] { id }, new SprintRowMapper());
-	}
-
-	public Sprint getSprintByLabel(final String label) {
-		final String query = "select * from team_red where sprint = ?";
-		return jdbcTemplate.queryForObject(query, new Object[] { label }, new SprintRowMapper());
-	}
-
 	public List<String> getListOfTables() throws SQLException {
 		List<String> list = new ArrayList<>();
 
@@ -68,5 +49,19 @@ public class SprintDAO {
 			}
 		}
 		return list;
+	}
+
+	public int getRowCount(final String tableName) {
+		return jdbcTemplate.queryForObject("select count(*) from " + tableName, Integer.class);
+	}
+
+	public Sprint getSprintById(final String tableName, final int id) {
+		final String query = "select * from " + tableName + " where id = ?";
+		return jdbcTemplate.queryForObject(query, new Object[] { id }, new SprintRowMapper());
+	}
+
+	public Sprint getSprintByLabel(final String tableName, final String label) {
+		final String query = "select * from " + tableName + " where sprint = ?";
+		return jdbcTemplate.queryForObject(query, new Object[] { label }, new SprintRowMapper());
 	}
 }
