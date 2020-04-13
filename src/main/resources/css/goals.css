@@ -1,0 +1,87 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    background-color: black;
+}
+
+h1, h3, p, li{
+    color: white;
+}
+
+ul {
+    padding-left: 7%;
+}
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.header-row {
+    height: 14%;
+    position: relative;
+    text-align: center;
+}
+
+.header-row  > h1 {
+    position: absolute;
+    top: 5%;
+    left: 0;
+    right: 0;
+    font-size:2vw;
+    font-weight: bold;
+}
+.header-row  > p {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    font-size:0.875vw;
+    font-weight: bold;;
+}
+
+.div-row {
+    height: 3%;
+}
+
+.team-rows {
+    height: 40%;
+    clear: both;
+    display: block; 
+}
+
+li, p {
+    font-size:1.20vw;
+
+}
+
+* {
+    box-sizing: border-box;
+}
+
+[class*="col-"] {
+    float: left;
+    padding: 15px 30px 10px 15px;
+    border-radius: 25px;
+    text-overflow: ellipsis; 
+    overflow: hidden;
+    white-space: wrap;
+}
+
+[class*="col-"] > h1 {
+    margin-block-start: 0.20em;
+}
+
+[class*="col-"] > h3 {
+    margin-inline-start: 0.80em;
+}
+
+.col-left-margin {width: 7.5%;}
+.col-center-div {width: 5%;}
+.col-right-margin {width: 7.5%;}
+
+.col-blue {width: 40%; height: 100%; border: 2px solid blue;}
+.col-red {width: 40%; height: 100%; border: 2px solid red;}
+.col-green {width: 40%; height: 100%; border: 2px solid green;}
+.col-black {width: 40%; height: 100%; border: 2px solid grey;}

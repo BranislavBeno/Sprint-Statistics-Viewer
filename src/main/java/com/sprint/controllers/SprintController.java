@@ -6,8 +6,8 @@ package com.sprint.controllers;
 import java.sql.SQLException;
 import java.util.StringJoiner;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.sprint.repository.SprintDAO;
 
@@ -15,7 +15,7 @@ import com.sprint.repository.SprintDAO;
  * @author benito
  *
  */
-@RestController
+@Controller
 public class SprintController {
 
 	private SprintDAO sprints;
@@ -24,7 +24,12 @@ public class SprintController {
 		this.sprints = dao;
 	}
 
-	@RequestMapping("/sprintscount")
+	@GetMapping("/goals")
+	public String goals() {
+		return "goals";
+	}
+
+	@GetMapping("/sprintscount")
 	public String sprintsCount() throws SQLException {
 		StringBuilder sb = new StringBuilder("Sprint count for ");
 		sprints.getListOfTables()
@@ -33,17 +38,17 @@ public class SprintController {
 		return sb.toString();
 	}
 
-	@RequestMapping("/sprintprogress")
+	@GetMapping("/sprintprogress")
 	public String sprintsProgress() throws SQLException {
 		StringBuilder sb = new StringBuilder("Sprintprogress = ");
 
-		sprints.getListOfTables().forEach(
+		sprints.getListOfTables().stream().filter(t -> t.startsWith("team_")).forEach(
 				table -> sb.append(sprints.getSprintById(table, sprints.getRowCount(table)).toString()).append("\n"));
 
 		return sb.toString();
 	}
 
-	@RequestMapping("/tables")
+	@GetMapping("/tables")
 	public String tables() throws SQLException {
 		StringJoiner sj = new StringJoiner(", ", "[", "]");
 
