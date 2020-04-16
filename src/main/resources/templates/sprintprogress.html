@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<title>Employee Directory</title>
+</head>
+<body>
+	<div class="container">
+		<h3>Sprint progress</h3>
+		<hr>
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th>Sprint Label</th>
+					<th>Team Name</th>
+					<th>To Do</th>
+					<th>In Progress</th>
+					<th>Done</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="team : ${teamList}">
+					<td th:text="${team.sprintLabel}" />
+					<td th:text="${team.teamName}" />
+					<td th:text="${team.toDoStoryPointsSum}" />
+					<td th:text="${team.inProgressStoryPointsSum}" />
+					<td th:text="${team.finishedStoryPointsSum}" />
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

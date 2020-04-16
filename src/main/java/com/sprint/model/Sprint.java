@@ -3,7 +3,6 @@
  */
 package com.sprint.model;
 
-import java.util.Optional;
 import java.util.StringJoiner;
 
 /**
@@ -51,8 +50,8 @@ public class Sprint {
 	 *
 	 * @return the sprint label
 	 */
-	public Optional<String> getSprintLabel() {
-		return Optional.ofNullable(sprintLabel);
+	public String getSprintLabel() {
+		return sprintLabel;
 	}
 
 	/**
@@ -69,8 +68,8 @@ public class Sprint {
 	 *
 	 * @return the team name
 	 */
-	public Optional<String> getTeamName() {
-		return Optional.ofNullable(teamName);
+	public String getTeamName() {
+		return teamName;
 	}
 
 	/**
@@ -87,8 +86,8 @@ public class Sprint {
 	 *
 	 * @return the to do story points sum
 	 */
-	public Optional<Integer> getToDoStoryPointsSum() {
-		return Optional.ofNullable(toDoStoryPointsSum);
+	public Integer getToDoStoryPointsSum() {
+		return toDoStoryPointsSum;
 	}
 
 	/**
@@ -105,8 +104,8 @@ public class Sprint {
 	 *
 	 * @return the in progress story points sum
 	 */
-	public Optional<Integer> getInProgressStoryPointsSum() {
-		return Optional.ofNullable(inProgressStoryPointsSum);
+	public Integer getInProgressStoryPointsSum() {
+		return inProgressStoryPointsSum;
 	}
 
 	/**
@@ -123,8 +122,8 @@ public class Sprint {
 	 *
 	 * @return the finished story points sum
 	 */
-	public Optional<Integer> getFinishedStoryPointsSum() {
-		return Optional.ofNullable(finishedStoryPointsSum);
+	public Integer getFinishedStoryPointsSum() {
+		return finishedStoryPointsSum;
 	}
 
 	/**

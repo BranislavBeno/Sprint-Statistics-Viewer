@@ -4,11 +4,14 @@
 package com.sprint.controllers;
 
 import java.sql.SQLException;
-import java.util.StringJoiner;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.sprint.model.Sprint;
 import com.sprint.repository.SprintDAO;
 
 /**
@@ -29,31 +32,21 @@ public class SprintController {
 		return "goals";
 	}
 
-	@GetMapping("/sprintscount")
-	public String sprintsCount() throws SQLException {
-		StringBuilder sb = new StringBuilder("Sprint count for ");
-		sprints.getListOfTables()
-				.forEach(table -> sb.append(table).append(" = ").append(sprints.getRowCount(table)).append(", "));
-
-		return sb.toString();
-	}
-
 	@GetMapping("/sprintprogress")
-	public String sprintsProgress() throws SQLException {
-		StringBuilder sb = new StringBuilder("Sprintprogress = ");
+	public String sprintsProgress(Model model) throws SQLException {
+		// Get list of database tables
+		List<Sprint> teams = sprints.getListOfTables().stream().filter(t -> t.startsWith("team_"))
+				.map(tn -> sprints.getSprintById(tn, sprints.getRowCount(tn))).collect(Collectors.toList());
 
-		sprints.getListOfTables().stream().filter(t -> t.startsWith("team_")).forEach(
-				table -> sb.append(sprints.getSprintById(table, sprints.getRowCount(table)).toString()).append("\n"));
-
-		return sb.toString();
+		model.addAttribute("teamList", teams);
+		return "sprintprogress";
 	}
 
 	@GetMapping("/tables")
-	public String tables() throws SQLException {
-		StringJoiner sj = new StringJoiner(", ", "[", "]");
+	public String tables(Model model) throws SQLException {
+		// Get list of database tables
+		model.addAttribute("tableList", sprints.getListOfTables());
 
-		sprints.getListOfTables().forEach(sj::add);
-
-		return new StringBuilder("Tables = ").append(sj.toString()).toString();
+		return "tables";
 	}
 }
