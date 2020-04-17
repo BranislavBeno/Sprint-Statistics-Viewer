@@ -22,46 +22,12 @@
 		<div class="row row-cols-1 row-cols-md-2">
 			<div class="col mb-4">
 				<div class="card border-secondary mb-3 h-100 w-100 d-inline-block">
-					<div class="card-header text-white bg-danger">
-						<p class="h3" th:text="'Team ' + ${teamOneName}" />
-					</div>
-					<div class="h5 card-body">
-						<ul>
-							<li>Work together on the optimisation of the system, the
-								defibrillation modes and the quick settings</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-4">
-				<div class="card border-secondary mb-3 h-100 w-100 d-inline-block">
-					<div class="card-header text-white bg-success">
-						<h3>Team Green</h3>
-					</div>
-					<div class="h5 card-body">
-						<ul>
-							<li>be able to update firmware of USB devices (ECG, DE-ECG,
-								NIBP)</li>
-							<li>be able to update firmware of HID controller</li>
-							<li>implement validity checks for SWPF</li>
-							<li>collect local version information</li>
-							<li>collect SWPF information</li>
-							<li>scan for SWPF on USB devices; copy SWPF to remote nodes</li>
-							<li>camera flash light; NIBP: base timestamp; NIBP:
-								intersteering comm.</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="col mb-4">
-				<div class="card border-secondary mb-3 h-100 w-100 d-inline-block">
 					<div class="card-header text-white bg-secondary">
-						<h3>Team Black</h3>
+						<p class="h3" th:text="'Team ' + ${teamName0}" />
 					</div>
 					<div class="h5 card-body">
-						<ul>
-							<li>Work with new Design and adapt current functionality to
-								it</li>
+						<ul th:each="goal : ${teamGoals0}">
+							<li th:text="${goal}" />
 						</ul>
 					</div>
 				</div>
@@ -69,14 +35,35 @@
 			<div class="col mb-4">
 				<div class="card border-secondary mb-3 h-100 w-100 d-inline-block">
 					<div class="card-header text-white bg-info">
-						<h3>Team Blue</h3>
+						<p class="h3" th:text="'Team ' + ${teamName1}" />
 					</div>
 					<div class="h5 card-body">
-						<ul>
-							<li>Talking the motto from the workshop "Stabilization is
-								valued higher than features" we would like to have the test
-								bench far enough so we can start performance testing and
-								documentation of the test bench itself.</li>
+						<ul th:each="goal : ${teamGoals1}">
+							<li th:text="${goal}" />
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col mb-4">
+				<div class="card border-secondary mb-3 h-100 w-100 d-inline-block">
+					<div class="card-header text-white bg-success">
+						<p class="h3" th:text="'Team ' + ${teamName2}" />
+					</div>
+					<div class="h5 card-body">
+						<ul th:each="goal : ${teamGoals2}">
+							<li th:text="${goal}" />
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col mb-4">
+				<div class="card border-secondary mb-3 h-100 w-100 d-inline-block">
+					<div class="card-header text-white bg-danger">
+						<p class="h3" th:text="'Team ' + ${teamName3}" />
+					</div>
+					<div class="h5 card-body">
+						<ul th:each="goal : ${teamGoals3}">
+							<li th:text="${goal}" />
 						</ul>
 					</div>
 				</div>
