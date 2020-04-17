@@ -3,8 +3,6 @@
  */
 package com.sprint.model;
 
-import java.util.StringJoiner;
-
 /**
  * The Class Sprint.
  *
@@ -26,24 +24,6 @@ public class Sprint {
 
 	/** The finished story points summary. */
 	private int finishedStoryPointsSum = 0;
-
-	/**
-	 * To string.
-	 *
-	 * @return the string
-	 */
-	@Override
-	public String toString() {
-		StringJoiner sj = new StringJoiner(", ", "[", "]");
-
-		sj.add("'" + sprintLabel + "'");
-		sj.add("'" + teamName + "'");
-		sj.add(String.valueOf(toDoStoryPointsSum));
-		sj.add(String.valueOf(inProgressStoryPointsSum));
-		sj.add(String.valueOf(finishedStoryPointsSum));
-
-		return sj.toString();
-	}
 
 	/**
 	 * Gets the sprint label.
@@ -134,5 +114,4 @@ public class Sprint {
 	public void setFinishedStoryPointsSum(int finishedStoryPointsSum) {
 		this.finishedStoryPointsSum = finishedStoryPointsSum;
 	}
-
 }

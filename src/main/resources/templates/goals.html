@@ -16,14 +16,14 @@
 		<blockquote class="blockquote text-center m-5">
 			<h3 class="mb-0">Sprint goals</h3>
 			<footer class="blockquote-footer">
-				<p class="h5">Sprint #55</p>
+				<p class="h5" th:text="${sprintLabel}" />
 			</footer>
 		</blockquote>
 		<div class="row row-cols-1 row-cols-md-2">
 			<div class="col mb-4">
 				<div class="card border-secondary mb-3 h-100 w-100 d-inline-block">
 					<div class="card-header text-white bg-danger">
-						<h3>Team Red</h3>
+						<p class="h3" th:text="'Team ' + ${teamOneName}" />
 					</div>
 					<div class="h5 card-body">
 						<ul>

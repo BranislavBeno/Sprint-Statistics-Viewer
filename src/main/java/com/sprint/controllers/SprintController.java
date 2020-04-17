@@ -15,23 +15,32 @@ import com.sprint.model.Sprint;
 import com.sprint.repository.SprintDAO;
 
 /**
- * @author benito
+ * The Class SprintController.
  *
+ * @author benito
  */
 @Controller
 public class SprintController {
 
+	/** The sprints. */
 	private SprintDAO sprints;
 
+	/**
+	 * Instantiates a new sprint controller.
+	 *
+	 * @param dao the dao
+	 */
 	public SprintController(SprintDAO dao) {
 		this.sprints = dao;
 	}
 
-	@GetMapping("/goals")
-	public String goals() {
-		return "goals";
-	}
-
+	/**
+	 * Sprints progress.
+	 *
+	 * @param model the model
+	 * @return the string
+	 * @throws SQLException the SQL exception
+	 */
 	@GetMapping("/sprintprogress")
 	public String sprintsProgress(Model model) throws SQLException {
 		// Get list of database tables
@@ -42,6 +51,13 @@ public class SprintController {
 		return "sprintprogress";
 	}
 
+	/**
+	 * Tables.
+	 *
+	 * @param model the model
+	 * @return the string
+	 * @throws SQLException the SQL exception
+	 */
 	@GetMapping("/tables")
 	public String tables(Model model) throws SQLException {
 		// Get list of database tables
