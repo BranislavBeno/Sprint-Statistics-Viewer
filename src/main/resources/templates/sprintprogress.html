@@ -12,7 +12,7 @@
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 <!-- Dark theme CSS -->
-<!-- link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" /-->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
 <!-- Custom CSS -->
 <link rel="stylesheet" th:href="@{/css/style.css}">
 
@@ -49,27 +49,17 @@
 				<li><a href="#"> <i class="fas fa-paper-plane"></i> Contact
 				</a></li>
 			</ul>
+
+			<div class="container-fluid">
+				<button type="button" id="sidebarCollapse"
+					class="btn btn-ghost-dark btn-block">
+					<i class="fas fa-align-justify"></i>
+				</button>
+			</div>
 		</nav>
 
 		<!-- Page Content  -->
 		<div id="content">
-
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<div class="container-fluid">
-
-					<button type="button" id="sidebarCollapse" class="btn btn-info">
-						<i class="fas fa-align-left"></i>
-					</button>
-					<button class="btn btn-dark d-inline-block d-lg-none ml-auto"
-						type="button" data-toggle="collapse"
-						data-target="#navbarSupportedContent"
-						aria-controls="navbarSupportedContent" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<i class="fas fa-align-justify"></i>
-					</button>
-				</div>
-			</nav>
-
 			<h3>Sprint progress</h3>
 			<hr>
 			<table class="table table-bordered table-striped">
