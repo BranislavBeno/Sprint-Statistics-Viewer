@@ -2,21 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Add JS to Thymeleaf</title>
-<!-- Bootstrap CSS -->
+<title>Chart example</title>
+
+<!-- CSS -->
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<!-- link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" /-->
+<link rel="stylesheet" th:href="@{/chart/Chart.min.css}">
 </head>
 <body>
 	<div class="container">
-	<h2>Chart example</h2>
-		<canvas id="myChart" style="max-width: 1500px;"></canvas>
+		<h2>Chart example</h2>
+		<canvas id="myChart" style="max-width: 1700px;"></canvas>
 	</div>
-
-	<!-- SCRIPTS -->
-	<script type="text/javascript" src="js/Chart.js"></script>
-
-	<script th:inline="javascript">var nameJs = /*[[${name}]]*/;</script>
-	<script type="text/javascript" src="/js/actions.js"></script>
+<!-- SCRIPTS -->
+<script type="text/javascript"
+	th:src="@{/moment/moment-with-locales.min.js}"></script>
+<script type="text/javascript" th:src="@{/chart/Chart.min.js}"></script>
+<script th:inline="javascript">var nameJs = /*[[${name}]]*/;</script>
+<script type="text/javascript" src="/js/actions.js"></script>
 </body>
 </html>
