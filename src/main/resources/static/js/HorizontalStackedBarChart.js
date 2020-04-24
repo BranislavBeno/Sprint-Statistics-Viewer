@@ -1,7 +1,3 @@
-function showName(name) {
-	alert("Here's the name: " + name);
-}
-
 var barOptions_stacked = {
 	tooltips : {
 		enabled : false,

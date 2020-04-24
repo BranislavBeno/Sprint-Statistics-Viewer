@@ -78,19 +78,12 @@
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 	<!-- Charts -->
-	<!-- script type="text/javascript"
-		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script -->
-	<script type="text/javascript" th:src="@{/chart/Chart.min.js}"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 	<!-- Own -->
-	<script th:inline="javascript">var nameJs = /*[[${name}]]*/;</script>
-	<script type="text/javascript" src="/js/actions.js"></script>
-
-	<script type="text/javascript">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
-        });
-    </script>
+	<!-- Chart drawing -->
+	<script type="text/javascript" src="/js/HorizontalStackedBarChart.js"></script>
+	<!-- Side bar handling -->
+	<script type="text/javascript" src="/js/Sidebar.js"></script>
 </body>
 </html>
