@@ -15,22 +15,6 @@
 <title>Chart example</title>
 </head>
 <body>
-	<div class="pos-f-t">
-		<div class="collapse" id="navbarToggleExternalContent">
-			<div class="bg-dark p-4">
-				<h5 class="text-white h4">Collapsed content</h5>
-				<span class="text-muted">Toggleable via the navbar brand.</span>
-			</div>
-		</div>
-		<nav class="navbar navbar-dark bg-dark">
-			<button class="navbar-toggler" type="button" data-toggle="collapse"
-				data-target="#navbarToggleExternalContent"
-				aria-controls="navbarToggleExternalContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-		</nav>
-	</div>
 	<div class="container">
 		<h2>Chart example</h2>
 		<canvas id="myChart" style="max-width: 1700px;"></canvas>
@@ -47,7 +31,7 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script -->
 	<script type="text/javascript" th:src="@{/chart/Chart.min.js}"></script>
 	<!-- Own -->
-	<script th:inline="javascript">var nameJs = /*[[${name}]]*/;</script>
+	<script th:inline="javascript">var nameJs = [[${name}]];</script>
 	<script type="text/javascript" src="/js/actions.js"></script>
 </body>
 </html>

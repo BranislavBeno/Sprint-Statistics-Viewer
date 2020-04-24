@@ -69,6 +69,7 @@ public class SprintController {
 	@GetMapping("/chart")
 	public String getStyledPage(Model model) {
 		model.addAttribute("name", "Baeldung Reader");
+
 		return "chart";
 	}
 }

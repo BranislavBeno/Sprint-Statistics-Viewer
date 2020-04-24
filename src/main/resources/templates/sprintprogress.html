@@ -59,28 +59,12 @@
 
 		<!-- Page Content  -->
 		<div class="container-fluid px-5">
-			<h3>Sprint progress</h3>
-			<hr>
-			<table class="table table-bordered table-striped">
-				<thead class="thead-dark">
-					<tr>
-						<th>Sprint Label</th>
-						<th>Team Name</th>
-						<th>To Do</th>
-						<th>In Progress</th>
-						<th>Done</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="team : ${teamList}">
-						<td th:text="${team.sprintLabel}" />
-						<td th:text="${team.teamName}" />
-						<td th:text="${team.toDoStoryPointsSum}" />
-						<td th:text="${team.inProgressStoryPointsSum}" />
-						<td th:text="${team.finishedStoryPointsSum}" />
-					</tr>
-				</tbody>
-			</table>
+			<blockquote class="blockquote text-center m-5">
+				<h3 class="mb-0">Sprint progress</h3>
+				<footer class="blockquote-footer">
+					<p class="h5" th:text="${sprintLabel}" />
+				</footer>
+			</blockquote>
 			<div class="container">
 				<canvas id="myChart" style="max-width: 1700px;"></canvas>
 			</div>
