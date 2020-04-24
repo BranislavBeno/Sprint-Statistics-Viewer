@@ -32,12 +32,15 @@
 			</div>
 
 			<ul class="list-unstyled components">
-				<li><a href="#homeSubmenu"> <i class="fas fa-home"></i>
-						Home
-				</a></li>
+				<!-- Home page -->
+				<li><a th:href="@{/sprintprogress}"><i class="fas fa-home"></i>
+						Home</a></li>
+				<!-- Goals page -->
+				<li><a href="#"><i class="fas fa-list-ul"></i> Goals</a></li>
+				<!-- Team Red pages -->
 				<li><a href="#pageSubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle"> <i
-						class="fas fa-copy"></i> Pages
+						class="fas fa-copy"></i> Team Red
 				</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu">
 						<li><a href="#">Page 1</a></li>
