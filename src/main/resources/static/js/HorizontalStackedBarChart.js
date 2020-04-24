@@ -1,3 +1,25 @@
+// Labels
+var labels = [ "Black", "Blue", "Green", "Red", "Total", "Time elapsed" ];
+
+// ToDo percentage
+var toDoPercentage = [ 88, 62, 93, 92, 79, 92 ];
+// ToDo story points
+var toDoSP = [ 35, 38, 68, 35, 176, 11 ];
+
+// In progress percentage
+var inProgressPercentage = [ 12, 38, 7, 8, 21 ];
+// In progress story points
+var inProgressSP = [ 5, 23, 5, 3, 36 ];
+
+// Done percentage
+var donePercentage = [ 0, 0, 0, 0, 0, 8 ];
+// Done story points
+var doneSP = [ 0, 0, 0, 0, 0, 1 ];
+
+// Default font color
+Chart.defaults.global.defaultFontColor = '#bebebe';
+
+// Configure look and feel of chart
 var barOptions_stacked = {
 	tooltips : {
 		enabled : false,
@@ -49,29 +71,29 @@ var barOptions_stacked = {
 	},
 };
 
-Chart.defaults.global.defaultFontColor = '#bebebe';
-
+// Get element representing chart
 var ctx = document.getElementById("myChart").getContext('2d');
+// Equip chart with data
 var myChart = new Chart(ctx, {
 	type : 'horizontalBar',
 	data : {
-		labels : [ "Red", "Green", "Black", "Blue", "Total", "Time elapsed" ],
+		labels : labels,
 
 		datasets : [ {
-			data : [ 88, 62, 93, 92, 79, 92 ],
-			data_c : [ 35, 38, 68, 35, 176, 11 ],
+			data : toDoPercentage,
+			data_c : toDoSP,
 			label : "To do",
 			backgroundColor : "rgba(235,0,0,1)",
 			hoverBackgroundColor : "rgba(255,0,0,1)"
 		}, {
-			data : [ 12, 38, 7, 8, 21 ],
-			data_c : [ 5, 23, 5, 3, 36 ],
+			data : inProgressPercentage,
+			data_c : inProgressSP,
 			label : "In progress",
 			backgroundColor : "rgba(80,145,205,1)",
 			hoverBackgroundColor : "rgba(100,185,255,1)"
 		}, {
-			data : [ 0, 0, 0, 0, 0, 8 ],
-			data_c : [ 0, 0, 0, 0, 0, 1 ],
+			data : donePercentage,
+			data_c : doneSP,
 			label : "Done",
 			backgroundColor : "rgba(50,205,50,1)",
 			hoverBackgroundColor : "rgba(0,255,0,1)"

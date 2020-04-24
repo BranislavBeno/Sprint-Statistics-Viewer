@@ -47,7 +47,17 @@ public class SprintController {
 		List<Sprint> teams = sprints.getListOfTables().stream().filter(t -> t.startsWith("team_"))
 				.map(tn -> sprints.getSprintById(tn, sprints.getRowCount(tn))).collect(Collectors.toList());
 
-		model.addAttribute("teamList", teams);
+		// Get sprint label
+		String sprintLabel = "";
+		if (!teams.isEmpty())
+			sprintLabel = teams.get(0).getSprintLabel();
+
+		// Labels
+		List<String> labels = List.of("Black", "Blue", "Green", "Red", "Total", "Time elapsed");
+
+		// Add model attributes for Thymeleaf template
+		model.addAttribute("sprintLabel", sprintLabel);
+		model.addAttribute("labels", labels);
 		return "sprintprogress";
 	}
 
