@@ -3,6 +3,8 @@
  */
 package com.sprint.model;
 
+import java.time.LocalDate;
+
 /**
  * The Class Sprint.
  *
@@ -24,6 +26,12 @@ public class Sprint {
 
 	/** The finished story points summary. */
 	private int finishedStoryPointsSum = 0;
+
+	/** The sprint start. */
+	private LocalDate sprintStart = LocalDate.of(1970, 1, 1);
+
+	/** The sprint end. */
+	private LocalDate sprintEnd = LocalDate.of(1970, 1, 1);
 
 	/**
 	 * Gets the sprint label.
@@ -113,5 +121,41 @@ public class Sprint {
 	 */
 	public void setFinishedStoryPointsSum(int finishedStoryPointsSum) {
 		this.finishedStoryPointsSum = finishedStoryPointsSum;
+	}
+
+	/**
+	 * Gets the sprint start.
+	 *
+	 * @return the sprint start
+	 */
+	public LocalDate getSprintStart() {
+		return sprintStart;
+	}
+
+	/**
+	 * Sets the sprint start.
+	 *
+	 * @param sprintStart the new sprint start
+	 */
+	public void setSprintStart(LocalDate sprintStart) {
+		this.sprintStart = sprintStart;
+	}
+
+	/**
+	 * Gets the sprint end.
+	 *
+	 * @return the sprint end
+	 */
+	public LocalDate getSprintEnd() {
+		return sprintEnd;
+	}
+
+	/**
+	 * Sets the sprint end.
+	 *
+	 * @param sprintEnd the new sprint end
+	 */
+	public void setSprintEnd(LocalDate sprintEnd) {
+		this.sprintEnd = sprintEnd;
 	}
 }

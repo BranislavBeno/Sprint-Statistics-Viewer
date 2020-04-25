@@ -21,20 +21,35 @@ import com.sprint.model.SprintGoal;
 import com.sprint.repository.SprintGoalDAO;
 
 /**
- * @author benito
+ * The Class SprintGoalController.
  *
+ * @author benito
  */
 @Controller
 public class SprintGoalController {
 
+	/** The log. */
 	private static Log log = LogFactory.getLog(SprintGoalController.class);
 
+	/** The sprint goals. */
 	private SprintGoalDAO sprintGoals;
 
+	/**
+	 * Instantiates a new sprint goal controller.
+	 *
+	 * @param dao the dao
+	 */
 	public SprintGoalController(SprintGoalDAO dao) {
 		this.sprintGoals = dao;
 	}
 
+	/**
+	 * Goals.
+	 *
+	 * @param model the model
+	 * @return the string
+	 * @throws SQLException the SQL exception
+	 */
 	@GetMapping("/goals")
 	public String goals(Model model) throws SQLException {
 		// Get list of database tables
@@ -49,6 +64,12 @@ public class SprintGoalController {
 		return "goals";
 	}
 
+	/**
+	 * Prepare team data.
+	 *
+	 * @param model the model
+	 * @param teams the teams
+	 */
 	private void prepareTeamData(Model model, List<SprintGoal> teams) {
 		for (int i = 0; i < 4; i++) {
 			// Extract team
@@ -63,7 +84,7 @@ public class SprintGoalController {
 			try {
 				goals = mapper.readValue(team.getSprintGoals(), String[].class);
 			} catch (JsonProcessingException e) {
-				log.info("Conversion from json to list of goals for team " + team.getTeamName() + " failed.");
+				log.warn("Conversion from json to list of goals for team " + team.getTeamName() + " failed.");
 			}
 
 			// Prepare attribute names

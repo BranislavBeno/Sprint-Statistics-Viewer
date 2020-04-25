@@ -21,6 +21,11 @@
 	src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"></script>
 <script defer
 	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
+<!-- Own -->
+<script th:inline="javascript">
+	var labels = [[${mLabels}]];
+	var toDoSP = [[${mToDoSP}]];
+</script>
 </head>
 <body>
 	<div class="wrapper">
@@ -65,7 +70,7 @@
 			<blockquote class="blockquote text-center m-5">
 				<h3 class="mb-0">Sprint progress</h3>
 				<footer class="blockquote-footer">
-					<p class="h5" th:text="${sprintLabel}" />
+					<p class="h5" th:text="${mSprintLabel}" />
 				</footer>
 			</blockquote>
 			<div class="container">

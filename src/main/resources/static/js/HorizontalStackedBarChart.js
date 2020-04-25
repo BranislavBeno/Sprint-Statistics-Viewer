@@ -1,10 +1,5 @@
-// Labels
-var labels = [ "Black", "Blue", "Green", "Red", "Total", "Time elapsed" ];
-
 // ToDo percentage
 var toDoPercentage = [ 88, 62, 93, 92, 79, 92 ];
-// ToDo story points
-var toDoSP = [ 35, 38, 68, 35, 176, 11 ];
 
 // In progress percentage
 var inProgressPercentage = [ 12, 38, 7, 8, 21 ];

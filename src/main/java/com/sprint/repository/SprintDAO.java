@@ -39,6 +39,12 @@ public class SprintDAO {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
+	/**
+	 * Gets the list of tables.
+	 *
+	 * @return the list of tables
+	 * @throws SQLException the SQL exception
+	 */
 	public List<String> getListOfTables() throws SQLException {
 		List<String> list = new ArrayList<>();
 
@@ -51,15 +57,35 @@ public class SprintDAO {
 		return list;
 	}
 
+	/**
+	 * Gets the row count.
+	 *
+	 * @param tableName the table name
+	 * @return the row count
+	 */
 	public int getRowCount(final String tableName) {
 		return jdbcTemplate.queryForObject("select count(*) from " + tableName, Integer.class);
 	}
 
+	/**
+	 * Gets the sprint by id.
+	 *
+	 * @param tableName the table name
+	 * @param id the id
+	 * @return the sprint by id
+	 */
 	public Sprint getSprintById(final String tableName, final int id) {
 		final String query = "select * from " + tableName + " where id = ?";
 		return jdbcTemplate.queryForObject(query, new Object[] { id }, new SprintRowMapper());
 	}
 
+	/**
+	 * Gets the sprint by label.
+	 *
+	 * @param tableName the table name
+	 * @param label the label
+	 * @return the sprint by label
+	 */
 	public Sprint getSprintByLabel(final String tableName, final String label) {
 		final String query = "select * from " + tableName + " where sprint = ?";
 		return jdbcTemplate.queryForObject(query, new Object[] { label }, new SprintRowMapper());
