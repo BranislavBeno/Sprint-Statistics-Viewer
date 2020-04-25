@@ -6,7 +6,9 @@ package com.sprint.controllers;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.apache.commons.logging.Log;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.sprint.enums.ProgressState;
 import com.sprint.model.Sprint;
 import com.sprint.repository.SprintDAO;
 
@@ -61,27 +64,13 @@ public class SprintController {
 		return sprintLabel;
 	}
 
-	private List<String> collectTeamNames(List<Sprint> sprints) {
-		// Initialize list of team names
-		List<String> list = new ArrayList<>();
-
-		if (sprints != null) {
-			// Get list of to do story points pro scrum team
-			list = sprints.stream().map(Sprint::getTeamName).collect(Collectors.toList());
-		}
-
-		list.addAll(List.of("Total", "Time elapsed"));
-
-		return list;
-	}
-
 	/**
 	 * Find sprint by label.
 	 *
 	 * @param label the label
 	 * @return the list
 	 */
-	private List<Sprint> findSprintByLabel(String label) {
+	private List<Sprint> findSprintByLabel(final String label) {
 		// Initialize list of trams
 		List<Sprint> teams = null;
 		try {
@@ -99,7 +88,21 @@ public class SprintController {
 		return teams;
 	}
 
-	private List<Integer> collectTodoList(List<Sprint> sprints) {
+	private List<String> collectTeamNames(final List<Sprint> sprints) {
+		// Initialize list of team names
+		List<String> list = new ArrayList<>();
+
+		if (sprints != null) {
+			// Get list of scrum team names
+			list = sprints.stream().map(Sprint::getTeamName).collect(Collectors.toList());
+		}
+
+		list.addAll(List.of("Total", "Time elapsed"));
+
+		return list;
+	}
+
+	private List<Integer> collectTodoSPList(final List<Sprint> sprints) {
 		// Initialize list of team related sprint data
 		List<Integer> list = new ArrayList<>();
 
@@ -117,10 +120,125 @@ public class SprintController {
 			// If current date exceeds end of the sprint return 0
 			if (count < 0)
 				count = 0;
+			// Add remaining time
 			list.add(count);
 		}
 
 		return list;
+	}
+
+	private List<Integer> collectInProgressSPList(final List<Sprint> sprints) {
+		// Initialize list of team related sprint data
+		List<Integer> list = new ArrayList<>();
+
+		if (sprints != null) {
+			// Get list of in progress story points pro scrum team
+			list = sprints.stream().map(Sprint::getInProgressStoryPointsSum).collect(Collectors.toList());
+
+			// Extend list of in progress story points with summary of all story points
+			list.add(list.stream().collect(Collectors.summingInt(Integer::intValue)));
+
+			// Add zero for in progress category
+			list.add(0);
+		}
+
+		return list;
+	}
+
+	private List<Integer> collectDoneSPList(final List<Sprint> sprints) {
+		// Initialize list of team related sprint data
+		List<Integer> list = new ArrayList<>();
+
+		if (sprints != null) {
+			// Get list of done story points pro scrum team
+			list = sprints.stream().map(Sprint::getFinishedStoryPointsSum).collect(Collectors.toList());
+
+			// Extend list of done story points with summary of all story points
+			list.add(list.stream().collect(Collectors.summingInt(Integer::intValue)));
+
+			// Get sprint starting date
+			LocalDate start = sprints.stream().map(Sprint::getSprintStart).findFirst().orElseThrow();
+			// Extend list with day count from start of sprint
+			int count = start.until(LocalDate.now()).getDays();
+
+			// Get sprint ending date
+			LocalDate end = sprints.stream().map(Sprint::getSprintEnd).findFirst().orElseThrow();
+			// Get sprint length
+			int length = start.until(end).getDays();
+
+			// If current date exceeds sprint length return sprint length
+			if (count > length)
+				count = length;
+
+			// If sprint start exceeds current date return sprint 0
+			if (count < 0)
+				count = 0;
+
+			// Add spent time
+			list.add(count);
+		}
+
+		return list;
+	}
+
+	private Map<ProgressState, List<Integer>> collectSPLists(final List<Sprint> sprintList) {
+		// Initialize collection of story points lists
+		Map<ProgressState, List<Integer>> collectedSP = new EnumMap<>(ProgressState.class);
+
+		// Add to do story points list
+		collectedSP.put(ProgressState.TO_DO, collectTodoSPList(sprintList));
+
+		// Add in progress story points list
+		collectedSP.put(ProgressState.IN_PROGRESS, collectInProgressSPList(sprintList));
+
+		// Add done story points list
+		collectedSP.put(ProgressState.DONE, collectDoneSPList(sprintList));
+
+		return collectedSP;
+	}
+
+	private Map<ProgressState, List<Integer>> collectPercentageLists(final Map<ProgressState, List<Integer>> spLists) {
+		// Initialize collection of percentage lists
+		Map<ProgressState, List<Integer>> collectedPercentage = new EnumMap<>(ProgressState.class);
+
+		// Initialize particular percentage lists
+		List<Integer> toDoList = new ArrayList<>();
+		List<Integer> inProgressList = new ArrayList<>();
+		List<Integer> doneList = new ArrayList<>();
+
+		// Count length of first list
+		int count = spLists.get(ProgressState.TO_DO).size();
+
+		// Fill particular percentage lists
+		for (int i = 0; i < count; i++) {
+			// Get to do value
+			int toDo = spLists.get(ProgressState.TO_DO).get(i);
+			// Get in progress value
+			int inProgress = spLists.get(ProgressState.IN_PROGRESS).get(i);
+			// Get done value
+			int done = spLists.get(ProgressState.DONE).get(i);
+			// Sum of particular states
+			int sum = toDo + inProgress + done;
+
+			// Compute to do percentage
+			Long toDoPercentage = Math.round((double) toDo / sum * 100);
+			// Compute in progress percentage
+			Long inProgressPercentage = Math.round((double) inProgress / sum * 100);
+			// Compute done percentage
+			int donePercentage = 100 - toDoPercentage.intValue() - inProgressPercentage.intValue();
+
+			// Fill particular percentage lists
+			toDoList.add(toDoPercentage.intValue());
+			inProgressList.add(inProgressPercentage.intValue());
+			doneList.add(donePercentage);
+		}
+
+		// Add percentage lists to resulting map
+		collectedPercentage.put(ProgressState.TO_DO, toDoList);
+		collectedPercentage.put(ProgressState.IN_PROGRESS, inProgressList);
+		collectedPercentage.put(ProgressState.DONE, doneList);
+
+		return collectedPercentage;
 	}
 
 	/**
@@ -132,10 +250,38 @@ public class SprintController {
 	 */
 	@GetMapping("/sprintprogress")
 	public String sprintsProgress(Model model) throws SQLException {
-		// Add model attributes for Thymeleaf template
-		model.addAttribute("mSprintLabel", currentSprintLabel());
-		model.addAttribute("mLabels", collectTeamNames(findSprintByLabel("")));
-		model.addAttribute("mToDoSP", collectTodoList(findSprintByLabel("")));
+		// Get string label
+		String sprintLabel = currentSprintLabel();
+
+		// Get list of sprint related team data
+		List<Sprint> sprintList = findSprintByLabel(sprintLabel);
+
+		// Collect story points lists
+		Map<ProgressState, List<Integer>> spLists = collectSPLists(sprintList);
+
+		// Collect percentage lists
+		Map<ProgressState, List<Integer>> percentageLists = collectPercentageLists(spLists);
+
+		// Create model attributes for Thymeleaf template
+		// Add sprint label
+		model.addAttribute("mSprintLabel", sprintLabel);
+
+		// Add graph labels
+		model.addAttribute("mLabels", collectTeamNames(sprintList));
+
+		// Add to do story points list
+		model.addAttribute("mToDoSP", spLists.get(ProgressState.TO_DO));
+		// Add to do percentage list
+		model.addAttribute("mToDoPercentage", percentageLists.get(ProgressState.TO_DO));
+
+		// Add in progress story points list
+		model.addAttribute("mInProgressSP", spLists.get(ProgressState.IN_PROGRESS));
+		// Add in progress percentage list
+		model.addAttribute("mInProgressPercentage", percentageLists.get(ProgressState.IN_PROGRESS));
+
+		// Add done story points list
+		model.addAttribute("mDoneSP", spLists.get(ProgressState.DONE));
+		model.addAttribute("mDonePercentage", percentageLists.get(ProgressState.DONE));
 
 		return "sprintprogress";
 	}

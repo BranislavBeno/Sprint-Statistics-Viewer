@@ -1,16 +1,3 @@
-// ToDo percentage
-var toDoPercentage = [ 88, 62, 93, 92, 79, 92 ];
-
-// In progress percentage
-var inProgressPercentage = [ 12, 38, 7, 8, 21 ];
-// In progress story points
-var inProgressSP = [ 5, 23, 5, 3, 36 ];
-
-// Done percentage
-var donePercentage = [ 0, 0, 0, 0, 0, 8 ];
-// Done story points
-var doneSP = [ 0, 0, 0, 0, 0, 1 ];
-
 // Default font color
 Chart.defaults.global.defaultFontColor = '#bebebe';
 
@@ -23,7 +10,7 @@ var barOptions_stacked = {
 		xAxes : [ {
 			ticks : {
 				beginAtZero : true,
-				fontSize : 11
+				fontSize : 15
 			},
 			scaleLabel : {
 				display : false,
@@ -50,7 +37,6 @@ var barOptions_stacked = {
 		onComplete : function() {
 			var chartInstance = this.chart;
 			var ctx = chartInstance.ctx;
-			ctx.font = "15px";
 			ctx.fillStyle = "#fff";
 
 			Chart.helpers.each(this.data.datasets.forEach(function(dataset, i) {
@@ -58,7 +44,12 @@ var barOptions_stacked = {
 				Chart.helpers.each(meta.data.forEach(function(bar, index) {
 					data = dataset.data_c[index];
 					if (data != 0) {
-						ctx.fillText(data, bar._model.x - 30, bar._model.y);
+						shift = 24;
+						if (data < 100)
+							shift = 18;
+						if (data < 10)
+							shift = 12;
+						ctx.fillText(data, bar._model.x - shift, bar._model.y);
 					}
 				}), this)
 			}), this);
