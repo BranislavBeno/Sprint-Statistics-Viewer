@@ -3,12 +3,15 @@
  */
 package com.sprint.controllers;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 import org.apache.commons.logging.Log;
@@ -33,6 +36,8 @@ public class SprintController {
 	/** The log. */
 	private static Log log = LogFactory.getLog(SprintController.class);
 
+	private static final String TEAM_TABLE_PREFIX = "team_";
+
 	/** The sprints. */
 	private SprintDAO sprints;
 
@@ -55,7 +60,7 @@ public class SprintController {
 		String sprintLabel = "";
 
 		try {
-			sprintLabel = sprints.getListOfTables().stream().filter(t -> t.startsWith("team_"))
+			sprintLabel = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
 					.map(tn -> sprints.getSprintById(tn, sprints.getRowCount(tn))).collect(Collectors.toList()).get(0)
 					.getSprintLabel();
 		} catch (Exception e) {
@@ -75,11 +80,11 @@ public class SprintController {
 		// Initialize list of trams
 		List<Sprint> teams = null;
 		try {
-			teams = sprints.getListOfTables().stream().filter(t -> t.startsWith("team_"))
+			teams = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
 					.map(tn -> sprints.getSprintByLabel(tn, label)).collect(Collectors.toList());
 		} catch (Exception e) {
 			try {
-				teams = sprints.getListOfTables().stream().filter(t -> t.startsWith("team_"))
+				teams = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
 						.map(tn -> sprints.getSprintById(tn, sprints.getRowCount(tn))).collect(Collectors.toList());
 			} catch (SQLException e1) {
 				log.warn("No sprint data found.");
@@ -89,6 +94,12 @@ public class SprintController {
 		return teams;
 	}
 
+	/**
+	 * Collect team names.
+	 *
+	 * @param sprints the sprints
+	 * @return the list
+	 */
 	private List<String> collectTeamNames(final List<Sprint> sprints) {
 		// Initialize list of team names
 		List<String> list = new ArrayList<>();
@@ -103,6 +114,12 @@ public class SprintController {
 		return list;
 	}
 
+	/**
+	 * Collect to do story points list.
+	 *
+	 * @param sprints the sprints
+	 * @return the list
+	 */
 	private List<Integer> collectTodoSPList(final List<Sprint> sprints) {
 		// Initialize list of team related sprint data
 		List<Integer> list = new ArrayList<>();
@@ -128,6 +145,12 @@ public class SprintController {
 		return list;
 	}
 
+	/**
+	 * Collect in progress story points list.
+	 *
+	 * @param sprints the sprints
+	 * @return the list
+	 */
 	private List<Integer> collectInProgressSPList(final List<Sprint> sprints) {
 		// Initialize list of team related sprint data
 		List<Integer> list = new ArrayList<>();
@@ -146,6 +169,12 @@ public class SprintController {
 		return list;
 	}
 
+	/**
+	 * Collect done story points list.
+	 *
+	 * @param sprints the sprints
+	 * @return the list
+	 */
 	private List<Integer> collectDoneSPList(final List<Sprint> sprints) {
 		// Initialize list of team related sprint data
 		List<Integer> list = new ArrayList<>();
@@ -182,6 +211,12 @@ public class SprintController {
 		return list;
 	}
 
+	/**
+	 * Collect story points lists.
+	 *
+	 * @param sprintList the sprint list
+	 * @return the map
+	 */
 	private Map<ProgressState, List<Integer>> collectSPLists(final List<Sprint> sprintList) {
 		// Initialize collection of story points lists
 		Map<ProgressState, List<Integer>> collectedSP = new EnumMap<>(ProgressState.class);
@@ -198,6 +233,12 @@ public class SprintController {
 		return collectedSP;
 	}
 
+	/**
+	 * Collect percentage lists.
+	 *
+	 * @param spLists the sp lists
+	 * @return the map
+	 */
 	private Map<ProgressState, List<Integer>> collectPercentageLists(final Map<ProgressState, List<Integer>> spLists) {
 		// Initialize collection of percentage lists
 		Map<ProgressState, List<Integer>> collectedPercentage = new EnumMap<>(ProgressState.class);
@@ -242,16 +283,37 @@ public class SprintController {
 		return collectedPercentage;
 	}
 
-	private void computeDataForSprintProgress(Model model, String sprintLabel) {
+	private Set<String> collectSprints() throws SQLException {
+		// Initialize empty set of sprints
+		Set<String> sprintSet = new TreeSet<>();
+
+		List<String> teams = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX)).collect(Collectors.toList());
+
+		String name = teams.get(0);
+		ResultSet set = sprints.getSprints(name);
+		
+		return sprintSet;
+	}
+
+	/**
+	 * Compute data for sprint progress.
+	 *
+	 * @param model       the model
+	 * @param sprintLabel the sprint label
+	 * @throws SQLException
+	 */
+	private void computeDataForSprintProgress(Model model, String sprintLabel) throws SQLException {
 		// Get list of sprint related team data
-		List<Sprint> sprintList = findSprintByLabel(sprintLabel);
+		List<Sprint> teamList = findSprintByLabel(sprintLabel);
+
+		//Set<String> sprints = collectSprints();
 
 		// Refresh sprint label in case, that desired sprint wasn't found in database
-		if (sprintList != null)
-			sprintLabel = sprintList.stream().findFirst().orElseThrow().getSprintLabel();
+		if (teamList != null)
+			sprintLabel = teamList.stream().findFirst().orElseThrow().getSprintLabel();
 
 		// Collect story points lists
-		Map<ProgressState, List<Integer>> spLists = collectSPLists(sprintList);
+		Map<ProgressState, List<Integer>> spLists = collectSPLists(teamList);
 
 		// Collect percentage lists
 		Map<ProgressState, List<Integer>> percentageLists = collectPercentageLists(spLists);
@@ -261,7 +323,7 @@ public class SprintController {
 		model.addAttribute("mSprintLabel", sprintLabel);
 
 		// Add graph labels
-		model.addAttribute("mLabels", collectTeamNames(sprintList));
+		model.addAttribute("mLabels", collectTeamNames(teamList));
 
 		// Add to do story points list
 		model.addAttribute("mToDoSP", spLists.get(ProgressState.TO_DO));
@@ -295,6 +357,14 @@ public class SprintController {
 		return "sprintprogress";
 	}
 
+	/**
+	 * Sprints progress for.
+	 *
+	 * @param label the label
+	 * @param model the model
+	 * @return the string
+	 * @throws SQLException the SQL exception
+	 */
 	@GetMapping("/sprintprogressfor")
 	public String sprintsProgressFor(@RequestParam("sprint") String label, Model model) throws SQLException {
 		// Get string label

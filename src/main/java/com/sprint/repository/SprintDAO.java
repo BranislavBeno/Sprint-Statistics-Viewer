@@ -67,11 +67,21 @@ public class SprintDAO {
 		return jdbcTemplate.queryForObject("select count(*) from " + tableName, Integer.class);
 	}
 
+	public ResultSet getSprints(final String tableName) throws SQLException {
+		ResultSet set = jdbcTemplate.queryForObject("select 'sprint' from " + tableName, ResultSet.class);
+
+		while (set.next()) {
+			System.out.println(set.toString());
+		}
+	
+		return set;
+	}
+
 	/**
 	 * Gets the sprint by id.
 	 *
 	 * @param tableName the table name
-	 * @param id the id
+	 * @param id        the id
 	 * @return the sprint by id
 	 */
 	public Sprint getSprintById(final String tableName, final int id) {
@@ -83,7 +93,7 @@ public class SprintDAO {
 	 * Gets the sprint by label.
 	 *
 	 * @param tableName the table name
-	 * @param label the label
+	 * @param label     the label
 	 * @return the sprint by label
 	 */
 	public Sprint getSprintByLabel(final String tableName, final String label) {
