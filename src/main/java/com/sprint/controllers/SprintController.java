@@ -16,6 +16,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sprint.enums.ProgressState;
 import com.sprint.model.Sprint;
@@ -241,20 +242,13 @@ public class SprintController {
 		return collectedPercentage;
 	}
 
-	/**
-	 * Sprints progress.
-	 *
-	 * @param model the model
-	 * @return the string
-	 * @throws SQLException the SQL exception
-	 */
-	@GetMapping("/sprintprogress")
-	public String sprintsProgress(Model model) throws SQLException {
-		// Get string label
-		String sprintLabel = currentSprintLabel();
-
+	private void computeDataForSprintProgress(Model model, String sprintLabel) {
 		// Get list of sprint related team data
 		List<Sprint> sprintList = findSprintByLabel(sprintLabel);
+
+		// Refresh sprint label in case, that desired sprint wasn't found in database
+		if (sprintList != null)
+			sprintLabel = sprintList.stream().findFirst().orElseThrow().getSprintLabel();
 
 		// Collect story points lists
 		Map<ProgressState, List<Integer>> spLists = collectSPLists(sprintList);
@@ -282,6 +276,31 @@ public class SprintController {
 		// Add done story points list
 		model.addAttribute("mDoneSP", spLists.get(ProgressState.DONE));
 		model.addAttribute("mDonePercentage", percentageLists.get(ProgressState.DONE));
+	}
+
+	/**
+	 * Sprints progress.
+	 *
+	 * @param model the model
+	 * @return the string
+	 * @throws SQLException the SQL exception
+	 */
+	@GetMapping("/sprintprogress")
+	public String sprintsProgress(Model model) throws SQLException {
+		// Get string label
+		String sprintLabel = currentSprintLabel();
+
+		computeDataForSprintProgress(model, sprintLabel);
+
+		return "sprintprogress";
+	}
+
+	@GetMapping("/sprintprogressfor")
+	public String sprintsProgressFor(@RequestParam("sprint") String label, Model model) throws SQLException {
+		// Get string label
+		String sprintLabel = label;
+
+		computeDataForSprintProgress(model, sprintLabel);
 
 		return "sprintprogress";
 	}
