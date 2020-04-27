@@ -25,16 +25,22 @@ import com.sprint.enums.ProgressState;
 import com.sprint.model.SprintProgress;
 import com.sprint.repository.SprintProgressDAO;
 
+/**
+ * The Class SprintProgressController.
+ */
 @Controller
 public class SprintProgressController {
 
 	/** The log. */
 	private static Log log = LogFactory.getLog(SprintProgressController.class);
 
+	/** The Constant TEAM_TABLE_PREFIX. */
 	private static final String TEAM_TABLE_PREFIX = "team_";
 
+	/** The Constant TIME_ELAPSED_COLUMN. */
 	private static final String TIME_ELAPSED_COLUMN = "Time elapsed";
 
+	/** The Constant TOTAL_COLUMN. */
 	private static final String TOTAL_COLUMN = "Total";
 
 	/** The sprints. */
@@ -73,6 +79,12 @@ public class SprintProgressController {
 		return teams;
 	}
 
+	/**
+	 * Count remaining time.
+	 *
+	 * @param theSprints the the sprints
+	 * @return the int
+	 */
 	private int countRemainingTime(final List<SprintProgress> theSprints) {
 		// Get sprint ending date
 		LocalDate end = theSprints.stream().map(SprintProgress::getSprintEnd).findFirst().orElseThrow();
@@ -95,6 +107,12 @@ public class SprintProgressController {
 		return count;
 	}
 
+	/**
+	 * Count spent time.
+	 *
+	 * @param sprints the sprints
+	 * @return the int
+	 */
 	private int countSpentTime(final List<SprintProgress> sprints) {
 		// Get sprint starting date
 		LocalDate start = sprints.stream().map(SprintProgress::getSprintStart).findFirst().orElseThrow();
@@ -285,15 +303,33 @@ public class SprintProgressController {
 		return collectedPercentage;
 	}
 
+	/**
+	 * Collect sprints.
+	 *
+	 * @return the sets the
+	 * @throws SQLException the SQL exception
+	 */
 	private Set<String> collectSprints() throws SQLException {
 		// Initialize empty set of sprints
 		Set<String> sprintSet = new TreeSet<>();
 
+		// Get list of database tables related with team related sprint data
 		List<String> teams = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
 				.collect(Collectors.toList());
 
-		String name = teams.get(0);
-		List<Map<String, Object>> set = sprints.getSprints(name);
+		// Get set of sprint labels
+		if (!teams.isEmpty()) {
+			// Initialize counter
+			int i = 0;
+			// Get first set
+			sprintSet = new TreeSet<>(sprints.getSprintList(teams.get(i)));
+
+			// Create intersection of sprint labels over all team related sprint data
+			for (i = 1; i < teams.size(); i++) {
+				Set<String> newSet = new TreeSet<>(sprints.getSprintList(teams.get(i)));
+				sprintSet.retainAll(newSet);
+			}
+		}
 
 		return sprintSet;
 	}
@@ -303,15 +339,15 @@ public class SprintProgressController {
 	 *
 	 * @param model       the model
 	 * @param sprintLabel the sprint label
-	 * @throws SQLException
+	 * @throws SQLException the SQL exception
 	 */
 	private void computeDataForSprintProgress(Model model, String sprintLabel) throws SQLException {
 		// Get list of sprint related team data
 		List<SprintProgress> teamList = findSprintByLabel(sprintLabel);
 
-		collectSprints();
-
-		// Refresh sprint label in case, that desired sprint wasn't found in database
+		// In case that method parameter 'sprintLabel' is not compliant with data in database,
+		// last sprint related data record in database is chosen
+		// In that case is sprint label updated
 		if (teamList != null)
 			sprintLabel = teamList.stream().findFirst().orElseThrow().getSprintLabel();
 
@@ -320,6 +356,9 @@ public class SprintProgressController {
 
 		// Collect percentage lists
 		Map<ProgressState, List<Integer>> percentageLists = collectPercentageLists(spLists);
+
+		// Find sprint labels for all available team related sprint data
+		Set<String> sprintSet = collectSprints();
 
 		// Create model attributes for Thymeleaf template
 		// Add sprint label

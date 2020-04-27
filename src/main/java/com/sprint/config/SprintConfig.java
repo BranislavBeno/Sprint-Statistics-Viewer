@@ -11,13 +11,19 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 /**
- * @author benito
+ * The Class SprintConfig.
  *
+ * @author benito
  */
 @Configuration
 @ComponentScan("com.sprint")
 public class SprintConfig {
 
+	/**
+	 * Mysql data source.
+	 *
+	 * @return the data source
+	 */
 	@Bean
 	public DataSource mysqlDataSource() {
 		final DriverManagerDataSource dataSource = new DriverManagerDataSource();

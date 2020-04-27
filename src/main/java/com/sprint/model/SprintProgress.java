@@ -5,6 +5,9 @@ package com.sprint.model;
 
 import java.time.LocalDate;
 
+/**
+ * The Class SprintProgress.
+ */
 public class SprintProgress {
 
 	/** The sprint label. */

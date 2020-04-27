@@ -11,6 +11,9 @@ import org.springframework.jdbc.core.RowMapper;
 
 import com.sprint.model.SprintProgress;
 
+/**
+ * The Class SprintProgressRowMapper.
+ */
 public class SprintProgressRowMapper implements RowMapper<SprintProgress> {
 
 	/**

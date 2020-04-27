@@ -8,17 +8,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SingleColumnRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.sprint.jdbc.SprintProgressRowMapper;
 import com.sprint.model.SprintProgress;
 
+/**
+ * The Class SprintProgressDAO.
+ */
 @Repository
 public class SprintProgressDAO {
 
@@ -63,12 +66,15 @@ public class SprintProgressDAO {
 		return jdbcTemplate.queryForObject("select count(*) from " + tableName, Integer.class);
 	}
 
-	public List<Map<String,Object>> getSprints(final String tableName) throws SQLException {
-		List<Map<String,Object>> set = jdbcTemplate.queryForList("select 'sprint' from " + tableName);
-
-		set.stream().forEach(s -> System.out.println(s.toString()));
-
-		return set;
+	/**
+	 * Gets the sprint list.
+	 *
+	 * @param tableName the table name
+	 * @return the sprint list
+	 * @throws SQLException the SQL exception
+	 */
+	public List<String> getSprintList(final String tableName) throws SQLException {
+		return jdbcTemplate.query("select sprint from " + tableName, new SingleColumnRowMapper<>(String.class));
 	}
 
 	/**
