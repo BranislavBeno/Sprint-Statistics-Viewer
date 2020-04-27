@@ -42,7 +42,6 @@
 			<div class="sidebar-header">
 				<h3>Sprint statistics</h3>
 			</div>
-
 			<ul class="list-unstyled components">
 				<!-- Home page -->
 				<li><a href="#"><i class="fas fa-home"></i> Home</a></li>
@@ -74,7 +73,21 @@
 		</nav>
 
 		<!-- Page Content  -->
-		<div class="container-fluid px-5">
+		<div id="content" class="container-fluid">
+			<!-- Nav bar  -->
+			<nav id="navbar" class="navbar border-secondary navbar-dark bg-dark">
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button"
+						id="dropdownMenuButton" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">Sprint</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+						<a class="dropdown-item" href="#">Action</a> <a
+							class="dropdown-item" href="#">Another action</a> <a
+							class="dropdown-item" href="#">Something else here</a>
+					</div>
+				</div>
+			</nav>
+
 			<blockquote class="blockquote text-center m-5">
 				<h3 class="mb-0">Sprint progress</h3>
 				<footer class="blockquote-footer">
