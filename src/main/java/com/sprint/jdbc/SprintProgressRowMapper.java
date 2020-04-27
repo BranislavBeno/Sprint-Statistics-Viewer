@@ -45,5 +45,4 @@ public class SprintProgressRowMapper implements RowMapper<SprintProgress> {
 
 		return sprint;
 	}
-
 }

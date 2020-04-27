@@ -50,26 +50,6 @@ public class SprintProgressController {
 	}
 
 	/**
-	 * Current sprint label.
-	 *
-	 * @return the string
-	 */
-	private String currentSprintLabel() {
-		// Get sprint label
-		String sprintLabel = "";
-
-		try {
-			sprintLabel = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
-					.map(tn -> sprints.getSprintById(tn, sprints.getRowCount(tn))).collect(Collectors.toList()).get(0)
-					.getSprintLabel();
-		} catch (Exception e) {
-			log.warn("No sprint label found.");
-		}
-
-		return sprintLabel;
-	}
-
-	/**
 	 * Find sprint by label.
 	 *
 	 * @param label the label
@@ -97,14 +77,21 @@ public class SprintProgressController {
 		// Get sprint ending date
 		LocalDate end = theSprints.stream().map(SprintProgress::getSprintEnd).findFirst().orElseThrow();
 
-		// Extend list with day count till end of sprint without weekend days
-		Long days = LocalDate.now().datesUntil(end.plusDays(1))
-				.filter(d -> d.getDayOfWeek() != DayOfWeek.SATURDAY && d.getDayOfWeek() != DayOfWeek.SUNDAY).count();
-		int count = days.intValue();
+		// Extend list with day count till end of sprint
+		int count = LocalDate.now().until(end).getDays();
 
-		// If current date exceeds end of the sprint return 0
-		if (count < 0)
+		// Handle period length
+		if (count > 0) {
+			// Exclude weekend days
+			Long days = LocalDate.now().datesUntil(end.plusDays(1))
+					.filter(d -> d.getDayOfWeek() != DayOfWeek.SATURDAY && d.getDayOfWeek() != DayOfWeek.SUNDAY)
+					.count();
+			count = days.intValue();
+		} else {
+			// If current date exceeds end of the sprint return 0
 			count = 0;
+		}
+
 		return count;
 	}
 
@@ -120,7 +107,7 @@ public class SprintProgressController {
 		// Get sprint ending date
 		LocalDate end = sprints.stream().map(SprintProgress::getSprintEnd).findFirst().orElseThrow();
 		// Get sprint length without weekend days
-		days = start.datesUntil(end)
+		days = start.datesUntil(end.plusDays(1))
 				.filter(d -> d.getDayOfWeek() != DayOfWeek.SATURDAY && d.getDayOfWeek() != DayOfWeek.SUNDAY).count();
 		int length = days.intValue();
 
@@ -306,7 +293,7 @@ public class SprintProgressController {
 				.collect(Collectors.toList());
 
 		String name = teams.get(0);
-		List<Map<String,Object>> set = sprints.getSprints(name);
+		List<Map<String, Object>> set = sprints.getSprints(name);
 
 		return sprintSet;
 	}

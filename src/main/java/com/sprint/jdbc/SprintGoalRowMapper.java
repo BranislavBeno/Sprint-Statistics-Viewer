@@ -15,7 +15,7 @@ public class SprintGoalRowMapper implements RowMapper<SprintGoal> {
 	/**
 	 * Map row.
 	 *
-	 * @param rs the rs
+	 * @param rs     the rs
 	 * @param rowNum the row num
 	 * @return the sprint goal
 	 * @throws SQLException the SQL exception
@@ -30,5 +30,4 @@ public class SprintGoalRowMapper implements RowMapper<SprintGoal> {
 
 		return sprintGoal;
 	}
-
 }
