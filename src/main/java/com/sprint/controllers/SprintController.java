@@ -5,6 +5,7 @@ package com.sprint.controllers;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -37,6 +38,10 @@ public class SprintController {
 	private static Log log = LogFactory.getLog(SprintController.class);
 
 	private static final String TEAM_TABLE_PREFIX = "team_";
+
+	private static final String TIME_ELAPSED_COLUMN = "Time elapsed";
+
+	private static final String TOTAL_COLUMN = "Total";
 
 	/** The sprints. */
 	private SprintDAO sprints;
@@ -94,6 +99,47 @@ public class SprintController {
 		return teams;
 	}
 
+	private int countRemainingTime(final List<Sprint> theSprints) {
+		// Get sprint ending date
+		LocalDate end = theSprints.stream().map(Sprint::getSprintEnd).findFirst().orElseThrow();
+
+		// Extend list with day count till end of sprint without weekend days
+		Long days = LocalDate.now().datesUntil(end.plusDays(1))
+				.filter(d -> d.getDayOfWeek() != DayOfWeek.SATURDAY && d.getDayOfWeek() != DayOfWeek.SUNDAY).count();
+		int count = days.intValue();
+
+		// If current date exceeds end of the sprint return 0
+		if (count < 0)
+			count = 0;
+		return count;
+	}
+
+	private int countSpentTime(final List<Sprint> sprints) {
+		// Get sprint starting date
+		LocalDate start = sprints.stream().map(Sprint::getSprintStart).findFirst().orElseThrow();
+
+		// Extend list with day count from start of sprint without weekend days
+		Long days = start.datesUntil(LocalDate.now())
+				.filter(d -> d.getDayOfWeek() != DayOfWeek.SATURDAY && d.getDayOfWeek() != DayOfWeek.SUNDAY).count();
+		int count = days.intValue();
+
+		// Get sprint ending date
+		LocalDate end = sprints.stream().map(Sprint::getSprintEnd).findFirst().orElseThrow();
+		// Get sprint length without weekend days
+		days = start.datesUntil(end)
+				.filter(d -> d.getDayOfWeek() != DayOfWeek.SATURDAY && d.getDayOfWeek() != DayOfWeek.SUNDAY).count();
+		int length = days.intValue();
+
+		// If current date exceeds sprint length return sprint length
+		if (count > length)
+			count = length;
+
+		// If sprint start exceeds current date return sprint 0
+		if (count < 0)
+			count = 0;
+		return count;
+	}
+
 	/**
 	 * Collect team names.
 	 *
@@ -109,7 +155,7 @@ public class SprintController {
 			list = sprints.stream().map(Sprint::getTeamName).collect(Collectors.toList());
 		}
 
-		list.addAll(List.of("Total", "Time elapsed"));
+		list.addAll(List.of(TOTAL_COLUMN, TIME_ELAPSED_COLUMN));
 
 		return list;
 	}
@@ -117,29 +163,22 @@ public class SprintController {
 	/**
 	 * Collect to do story points list.
 	 *
-	 * @param sprints the sprints
+	 * @param theSprints the sprints
 	 * @return the list
 	 */
-	private List<Integer> collectTodoSPList(final List<Sprint> sprints) {
+	private List<Integer> collectTodoSPList(final List<Sprint> theSprints) {
 		// Initialize list of team related sprint data
 		List<Integer> list = new ArrayList<>();
 
-		if (sprints != null) {
+		if (theSprints != null) {
 			// Get list of to do story points pro scrum team
-			list = sprints.stream().map(Sprint::getToDoStoryPointsSum).collect(Collectors.toList());
+			list = theSprints.stream().map(Sprint::getToDoStoryPointsSum).collect(Collectors.toList());
 
 			// Extend list of to do story points with summary of all story points
 			list.add(list.stream().collect(Collectors.summingInt(Integer::intValue)));
 
-			// Get sprint ending date
-			LocalDate end = sprints.stream().map(Sprint::getSprintEnd).findFirst().orElseThrow();
-			// Extend list with day count till end of sprint
-			int count = LocalDate.now().until(end).getDays();
-			// If current date exceeds end of the sprint return 0
-			if (count < 0)
-				count = 0;
 			// Add remaining time
-			list.add(count);
+			list.add(countRemainingTime(theSprints));
 		}
 
 		return list;
@@ -148,16 +187,16 @@ public class SprintController {
 	/**
 	 * Collect in progress story points list.
 	 *
-	 * @param sprints the sprints
+	 * @param theSprints the sprints
 	 * @return the list
 	 */
-	private List<Integer> collectInProgressSPList(final List<Sprint> sprints) {
+	private List<Integer> collectInProgressSPList(final List<Sprint> theSprints) {
 		// Initialize list of team related sprint data
 		List<Integer> list = new ArrayList<>();
 
-		if (sprints != null) {
+		if (theSprints != null) {
 			// Get list of in progress story points pro scrum team
-			list = sprints.stream().map(Sprint::getInProgressStoryPointsSum).collect(Collectors.toList());
+			list = theSprints.stream().map(Sprint::getInProgressStoryPointsSum).collect(Collectors.toList());
 
 			// Extend list of in progress story points with summary of all story points
 			list.add(list.stream().collect(Collectors.summingInt(Integer::intValue)));
@@ -172,40 +211,22 @@ public class SprintController {
 	/**
 	 * Collect done story points list.
 	 *
-	 * @param sprints the sprints
+	 * @param theSprints the sprints
 	 * @return the list
 	 */
-	private List<Integer> collectDoneSPList(final List<Sprint> sprints) {
+	private List<Integer> collectDoneSPList(final List<Sprint> theSprints) {
 		// Initialize list of team related sprint data
 		List<Integer> list = new ArrayList<>();
 
-		if (sprints != null) {
+		if (theSprints != null) {
 			// Get list of done story points pro scrum team
-			list = sprints.stream().map(Sprint::getFinishedStoryPointsSum).collect(Collectors.toList());
+			list = theSprints.stream().map(Sprint::getFinishedStoryPointsSum).collect(Collectors.toList());
 
 			// Extend list of done story points with summary of all story points
 			list.add(list.stream().collect(Collectors.summingInt(Integer::intValue)));
 
-			// Get sprint starting date
-			LocalDate start = sprints.stream().map(Sprint::getSprintStart).findFirst().orElseThrow();
-			// Extend list with day count from start of sprint
-			int count = start.until(LocalDate.now()).getDays();
-
-			// Get sprint ending date
-			LocalDate end = sprints.stream().map(Sprint::getSprintEnd).findFirst().orElseThrow();
-			// Get sprint length
-			int length = start.until(end).getDays();
-
-			// If current date exceeds sprint length return sprint length
-			if (count > length)
-				count = length;
-
-			// If sprint start exceeds current date return sprint 0
-			if (count < 0)
-				count = 0;
-
 			// Add spent time
-			list.add(count);
+			list.add(countSpentTime(theSprints));
 		}
 
 		return list;
@@ -287,11 +308,12 @@ public class SprintController {
 		// Initialize empty set of sprints
 		Set<String> sprintSet = new TreeSet<>();
 
-		List<String> teams = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX)).collect(Collectors.toList());
+		List<String> teams = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
+				.collect(Collectors.toList());
 
 		String name = teams.get(0);
 		ResultSet set = sprints.getSprints(name);
-		
+
 		return sprintSet;
 	}
 
@@ -306,7 +328,7 @@ public class SprintController {
 		// Get list of sprint related team data
 		List<Sprint> teamList = findSprintByLabel(sprintLabel);
 
-		//Set<String> sprints = collectSprints();
+		// Set<String> sprints = collectSprints();
 
 		// Refresh sprint label in case, that desired sprint wasn't found in database
 		if (teamList != null)
