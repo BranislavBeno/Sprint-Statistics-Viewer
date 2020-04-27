@@ -9,12 +9,9 @@ import java.util.Date;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.sprint.model.Sprint;
+import com.sprint.model.SprintProgress;
 
-/**
- * The Class SprintRowMapper.
- */
-public class SprintRowMapper implements RowMapper<Sprint> {
+public class SprintProgressRowMapper implements RowMapper<SprintProgress> {
 
 	/**
 	 * Map row.
@@ -25,7 +22,7 @@ public class SprintRowMapper implements RowMapper<Sprint> {
 	 * @throws SQLException the SQL exception
 	 */
 	@Override
-	public Sprint mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+	public SprintProgress mapRow(final ResultSet rs, final int rowNum) throws SQLException {
 		// Get starting date of sprint
 		Date theStart = rs.getDate("sprint_start");
 		LocalDate start = Instant.ofEpochMilli(theStart.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
@@ -35,7 +32,7 @@ public class SprintRowMapper implements RowMapper<Sprint> {
 		LocalDate end = Instant.ofEpochMilli(theEnd.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
 
 		// Create new Sprint entity
-		final Sprint sprint = new Sprint();
+		final SprintProgress sprint = new SprintProgress();
 
 		// Fill fields
 		sprint.setSprintLabel(rs.getString("sprint"));

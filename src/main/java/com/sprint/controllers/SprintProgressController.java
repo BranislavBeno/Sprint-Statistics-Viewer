@@ -3,7 +3,6 @@
  */
 package com.sprint.controllers;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -23,19 +22,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sprint.enums.ProgressState;
-import com.sprint.model.Sprint;
-import com.sprint.repository.SprintDAO;
+import com.sprint.model.SprintProgress;
+import com.sprint.repository.SprintProgressDAO;
 
-/**
- * The Class SprintController.
- *
- * @author benito
- */
 @Controller
-public class SprintController {
+public class SprintProgressController {
 
 	/** The log. */
-	private static Log log = LogFactory.getLog(SprintController.class);
+	private static Log log = LogFactory.getLog(SprintProgressController.class);
 
 	private static final String TEAM_TABLE_PREFIX = "team_";
 
@@ -44,14 +38,14 @@ public class SprintController {
 	private static final String TOTAL_COLUMN = "Total";
 
 	/** The sprints. */
-	private SprintDAO sprints;
+	private SprintProgressDAO sprints;
 
 	/**
 	 * Instantiates a new sprint controller.
 	 *
 	 * @param dao the dao
 	 */
-	public SprintController(SprintDAO dao) {
+	public SprintProgressController(SprintProgressDAO dao) {
 		this.sprints = dao;
 	}
 
@@ -81,9 +75,9 @@ public class SprintController {
 	 * @param label the label
 	 * @return the list
 	 */
-	private List<Sprint> findSprintByLabel(final String label) {
+	private List<SprintProgress> findSprintByLabel(final String label) {
 		// Initialize list of trams
-		List<Sprint> teams = null;
+		List<SprintProgress> teams = null;
 		try {
 			teams = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
 					.map(tn -> sprints.getSprintByLabel(tn, label)).collect(Collectors.toList());
@@ -99,9 +93,9 @@ public class SprintController {
 		return teams;
 	}
 
-	private int countRemainingTime(final List<Sprint> theSprints) {
+	private int countRemainingTime(final List<SprintProgress> theSprints) {
 		// Get sprint ending date
-		LocalDate end = theSprints.stream().map(Sprint::getSprintEnd).findFirst().orElseThrow();
+		LocalDate end = theSprints.stream().map(SprintProgress::getSprintEnd).findFirst().orElseThrow();
 
 		// Extend list with day count till end of sprint without weekend days
 		Long days = LocalDate.now().datesUntil(end.plusDays(1))
@@ -114,9 +108,9 @@ public class SprintController {
 		return count;
 	}
 
-	private int countSpentTime(final List<Sprint> sprints) {
+	private int countSpentTime(final List<SprintProgress> sprints) {
 		// Get sprint starting date
-		LocalDate start = sprints.stream().map(Sprint::getSprintStart).findFirst().orElseThrow();
+		LocalDate start = sprints.stream().map(SprintProgress::getSprintStart).findFirst().orElseThrow();
 
 		// Extend list with day count from start of sprint without weekend days
 		Long days = start.datesUntil(LocalDate.now())
@@ -124,7 +118,7 @@ public class SprintController {
 		int count = days.intValue();
 
 		// Get sprint ending date
-		LocalDate end = sprints.stream().map(Sprint::getSprintEnd).findFirst().orElseThrow();
+		LocalDate end = sprints.stream().map(SprintProgress::getSprintEnd).findFirst().orElseThrow();
 		// Get sprint length without weekend days
 		days = start.datesUntil(end)
 				.filter(d -> d.getDayOfWeek() != DayOfWeek.SATURDAY && d.getDayOfWeek() != DayOfWeek.SUNDAY).count();
@@ -146,13 +140,13 @@ public class SprintController {
 	 * @param sprints the sprints
 	 * @return the list
 	 */
-	private List<String> collectTeamNames(final List<Sprint> sprints) {
+	private List<String> collectTeamNames(final List<SprintProgress> sprints) {
 		// Initialize list of team names
 		List<String> list = new ArrayList<>();
 
 		if (sprints != null) {
 			// Get list of scrum team names
-			list = sprints.stream().map(Sprint::getTeamName).collect(Collectors.toList());
+			list = sprints.stream().map(SprintProgress::getTeamName).collect(Collectors.toList());
 		}
 
 		list.addAll(List.of(TOTAL_COLUMN, TIME_ELAPSED_COLUMN));
@@ -166,13 +160,13 @@ public class SprintController {
 	 * @param theSprints the sprints
 	 * @return the list
 	 */
-	private List<Integer> collectTodoSPList(final List<Sprint> theSprints) {
+	private List<Integer> collectTodoSPList(final List<SprintProgress> theSprints) {
 		// Initialize list of team related sprint data
 		List<Integer> list = new ArrayList<>();
 
 		if (theSprints != null) {
 			// Get list of to do story points pro scrum team
-			list = theSprints.stream().map(Sprint::getToDoStoryPointsSum).collect(Collectors.toList());
+			list = theSprints.stream().map(SprintProgress::getToDoStoryPointsSum).collect(Collectors.toList());
 
 			// Extend list of to do story points with summary of all story points
 			list.add(list.stream().collect(Collectors.summingInt(Integer::intValue)));
@@ -190,13 +184,13 @@ public class SprintController {
 	 * @param theSprints the sprints
 	 * @return the list
 	 */
-	private List<Integer> collectInProgressSPList(final List<Sprint> theSprints) {
+	private List<Integer> collectInProgressSPList(final List<SprintProgress> theSprints) {
 		// Initialize list of team related sprint data
 		List<Integer> list = new ArrayList<>();
 
 		if (theSprints != null) {
 			// Get list of in progress story points pro scrum team
-			list = theSprints.stream().map(Sprint::getInProgressStoryPointsSum).collect(Collectors.toList());
+			list = theSprints.stream().map(SprintProgress::getInProgressStoryPointsSum).collect(Collectors.toList());
 
 			// Extend list of in progress story points with summary of all story points
 			list.add(list.stream().collect(Collectors.summingInt(Integer::intValue)));
@@ -214,13 +208,13 @@ public class SprintController {
 	 * @param theSprints the sprints
 	 * @return the list
 	 */
-	private List<Integer> collectDoneSPList(final List<Sprint> theSprints) {
+	private List<Integer> collectDoneSPList(final List<SprintProgress> theSprints) {
 		// Initialize list of team related sprint data
 		List<Integer> list = new ArrayList<>();
 
 		if (theSprints != null) {
 			// Get list of done story points pro scrum team
-			list = theSprints.stream().map(Sprint::getFinishedStoryPointsSum).collect(Collectors.toList());
+			list = theSprints.stream().map(SprintProgress::getFinishedStoryPointsSum).collect(Collectors.toList());
 
 			// Extend list of done story points with summary of all story points
 			list.add(list.stream().collect(Collectors.summingInt(Integer::intValue)));
@@ -238,7 +232,7 @@ public class SprintController {
 	 * @param sprintList the sprint list
 	 * @return the map
 	 */
-	private Map<ProgressState, List<Integer>> collectSPLists(final List<Sprint> sprintList) {
+	private Map<ProgressState, List<Integer>> collectSPLists(final List<SprintProgress> sprintList) {
 		// Initialize collection of story points lists
 		Map<ProgressState, List<Integer>> collectedSP = new EnumMap<>(ProgressState.class);
 
@@ -312,7 +306,7 @@ public class SprintController {
 				.collect(Collectors.toList());
 
 		String name = teams.get(0);
-		ResultSet set = sprints.getSprints(name);
+		List<Map<String,Object>> set = sprints.getSprints(name);
 
 		return sprintSet;
 	}
@@ -326,9 +320,9 @@ public class SprintController {
 	 */
 	private void computeDataForSprintProgress(Model model, String sprintLabel) throws SQLException {
 		// Get list of sprint related team data
-		List<Sprint> teamList = findSprintByLabel(sprintLabel);
+		List<SprintProgress> teamList = findSprintByLabel(sprintLabel);
 
-		// Set<String> sprints = collectSprints();
+		collectSprints();
 
 		// Refresh sprint label in case, that desired sprint wasn't found in database
 		if (teamList != null)
