@@ -343,30 +343,13 @@ public class SprintController {
 	/**
 	 * Sprints progress.
 	 *
-	 * @param model the model
-	 * @return the string
-	 * @throws SQLException the SQL exception
-	 */
-	@GetMapping("/sprintprogress")
-	public String sprintsProgress(Model model) throws SQLException {
-		// Get string label
-		String sprintLabel = currentSprintLabel();
-
-		computeDataForSprintProgress(model, sprintLabel);
-
-		return "sprintprogress";
-	}
-
-	/**
-	 * Sprints progress for.
-	 *
 	 * @param label the label
 	 * @param model the model
 	 * @return the string
 	 * @throws SQLException the SQL exception
 	 */
-	@GetMapping("/sprintprogressfor")
-	public String sprintsProgressFor(@RequestParam("sprint") String label, Model model) throws SQLException {
+	@GetMapping("/sprintprogress")
+	public String sprintsProgress(@RequestParam("sprint") String label, Model model) throws SQLException {
 		// Get string label
 		String sprintLabel = label;
 
