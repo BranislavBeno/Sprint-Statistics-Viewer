@@ -60,7 +60,7 @@
 
 			<div class="container-fluid">
 				<button type="button" id="sidebarCollapse"
-					class="btn btn-ghost-dark btn-block">
+					class="btn btn-block">
 					<i class="fas fa-align-justify"></i>
 				</button>
 			</div>
@@ -70,13 +70,13 @@
 		<div id="content" class="container-fluid">
 			<!-- Nav bar  -->
 			<nav id="navbar" class="navbar border-secondary navbar-dark bg-dark">
-				<div class="dropdown">
+				<div id="dropdown" class="dropdown">
 					<button class="btn btn-secondary dropdown-toggle" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false"
 						th:text="${mSprintLabel}"></button>
-					<div id="sprint-dropdown" class="dropdown-menu"
-						aria-labelledby="dropdownMenuButton"></div>
+					<div id="sprint-dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					</div>
 				</div>
 			</nav>
 			<blockquote class="blockquote text-center m-4">
