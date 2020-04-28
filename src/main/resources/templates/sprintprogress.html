@@ -48,18 +48,22 @@
 			<ul class="list-unstyled components">
 				<!-- Home page -->
 				<li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+				<!-- Sprint progress page -->
+				<li><a href="#"><i class="fas fa-list-ul"></i> Progress</a></li>
+				<!-- KPI's page -->
+				<li><a href="#"><i class="fas fa-list-ul"></i> KPI's</a></li>
 				<!-- Goals page -->
-				<li><a th:href="@{/goals?sprint=}"><i class="fas fa-list-ul"></i>
-						Goals</a></li>
+				<li><a th:href="@{/goals?sprint=}"><i
+						class="fas fa-list-ul"></i> Goals</a></li>
 				<!-- Team Red pages -->
 				<li><a href="#pageSubmenu" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle dropdown-toggle-menu">
 						<i class="fas fa-copy"></i> Team Red
 				</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu">
-						<li><a href="#">Page 1</a></li>
-						<li><a href="#">Page 2</a></li>
-						<li><a href="#">Page 3</a></li>
+						<li><a href="#">Scope focus</a></li>
+						<li><a href="#">Velocity</a></li>
+						<li><a href="#">Work Proportion</a></li>
 					</ul></li>
 				<li><a href="#"> <i class="fas fa-briefcase"></i> About
 				</a></li>
@@ -68,8 +72,7 @@
 			</ul>
 
 			<div class="container-fluid">
-				<button type="button" id="sidebarCollapse"
-					class="btn btn-block">
+				<button type="button" id="sidebarCollapse" class="btn btn-block">
 					<i class="fas fa-align-justify"></i>
 				</button>
 			</div>
@@ -84,8 +87,8 @@
 						id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false"
 						th:text="${mSprintLabel}"></button>
-					<div id="sprint-dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					</div>
+					<div id="sprint-dropdown" class="dropdown-menu"
+						aria-labelledby="dropdownMenuButton"></div>
 				</div>
 			</nav>
 			<blockquote class="blockquote text-center m-4">
