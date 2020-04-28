@@ -62,7 +62,7 @@ public class SprintProgressController {
 	 * @return the list
 	 */
 	private List<SprintProgress> findSprintByLabel(final String label) {
-		// Initialize list of trams
+		// Initialize list of teams
 		List<SprintProgress> teams = null;
 		try {
 			teams = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))

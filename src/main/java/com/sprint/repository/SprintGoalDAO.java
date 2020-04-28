@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.SingleColumnRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.sprint.jdbc.SprintGoalRowMapper;
@@ -63,10 +64,21 @@ public class SprintGoalDAO {
 	}
 
 	/**
+	 * Gets the sprint list.
+	 *
+	 * @param tableName the table name
+	 * @return the sprint list
+	 * @throws SQLException the SQL exception
+	 */
+	public List<String> getSprintList(final String tableName) throws SQLException {
+		return jdbcTemplate.query("select sprint from " + tableName, new SingleColumnRowMapper<>(String.class));
+	}
+
+	/**
 	 * Gets the sprint by id.
 	 *
 	 * @param tableName the table name
-	 * @param id the id
+	 * @param id        the id
 	 * @return the sprint by id
 	 */
 	public SprintGoal getSprintById(final String tableName, final int id) {
@@ -78,7 +90,7 @@ public class SprintGoalDAO {
 	 * Gets the sprint by label.
 	 *
 	 * @param tableName the table name
-	 * @param label the label
+	 * @param label     the label
 	 * @return the sprint by label
 	 */
 	public SprintGoal getSprintByLabel(final String tableName, final String label) {
