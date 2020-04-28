@@ -37,6 +37,14 @@ i, span {
 	padding: 0px 0px;
 }
 
+.card-body {
+	line-height: 2;
+	margin-bottom: 0px;
+}
+
+#myChart {
+	margin-top: 30px;	
+}
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */

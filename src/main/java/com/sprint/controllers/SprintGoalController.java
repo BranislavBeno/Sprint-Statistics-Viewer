@@ -4,9 +4,9 @@
 package com.sprint.controllers;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sprint.model.SprintGoal;
+import com.sprint.model.TeamGoal;
 import com.sprint.repository.SprintGoalDAO;
 
 /**
@@ -80,30 +81,31 @@ public class SprintGoalController {
 	 * @param teams the teams
 	 */
 	private void prepareTeamData(Model model, List<SprintGoal> teams) {
-		for (int i = 0; i < teams.size(); i++) {
+		// Initialize list with output parameters
+		List<TeamGoal> teamGoals = new ArrayList<>();
+
+		for (SprintGoal team : teams) {
 			// Extract team
-			SprintGoal team = Optional.ofNullable(teams.get(i)).orElse(new SprintGoal());
+			// SprintGoal team = Optional.ofNullable(teams.get(i)).orElse(new SprintGoal());
 
 			// Initialize array for goals
 			String[] goals = new String[] {};
 
 			// Initialize jackson mapper for json string
 			ObjectMapper mapper = new ObjectMapper();
-			// Fill array goals
+			// Fill goals array
 			try {
 				goals = mapper.readValue(team.getSprintGoals(), String[].class);
 			} catch (JsonProcessingException e) {
 				log.warn("Conversion from json to list of goals for team " + team.getTeamName() + " failed.");
 			}
 
-			// Prepare attribute names
-			String teamName = "teamName" + i;
-			String teamGoals = "teamGoals" + i;
-
-			// Add model attributes for thymeleaf template
-			model.addAttribute(teamName, team.getTeamName());
-			model.addAttribute(teamGoals, goals);
+			// Add new entry with team name and team goals into list
+			teamGoals.add(new TeamGoal(team.getTeamName(), goals));
 		}
+
+		// Add model attributes for thymeleaf template
+		model.addAttribute("mTeamGoals", teamGoals);
 	}
 
 	/**

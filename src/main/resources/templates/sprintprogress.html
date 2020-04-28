@@ -6,7 +6,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>Sprint progress</title>
+<title th:text="'Sprint progress ' + ${mSprintLabel}"></title>
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
@@ -88,11 +88,8 @@
 					</div>
 				</div>
 			</nav>
-			<blockquote class="blockquote text-center m-5">
-				<h3 class="mb-0">Sprint progress</h3>
-				<footer class="blockquote-footer">
-					<p class="h5" th:text="${mSprintLabel}" />
-				</footer>
+			<blockquote class="blockquote text-center m-4">
+				<h3>Sprint progress</h3>
 			</blockquote>
 			<div class="container">
 				<canvas id="myChart" style="max-width: 1700px;"></canvas>
