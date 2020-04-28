@@ -364,6 +364,9 @@ public class SprintProgressController {
 		// Add sprint label
 		model.addAttribute("mSprintLabel", sprintLabel);
 
+		// Add list of sprints
+		model.addAttribute("mSprintList", sprintSet);
+
 		// Add graph labels
 		model.addAttribute("mLabels", collectTeamNames(teamList));
 

@@ -23,6 +23,8 @@
 	src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"></script>
 <!-- Own -->
 <script th:inline="javascript">
+	var sprintList = [[${mSprintList}]];
+
 	var labels = [[${mLabels}]];
 
 	var toDoSP = [[${mToDoSP}]];
@@ -50,8 +52,8 @@
 						Goals</a></li>
 				<!-- Team Red pages -->
 				<li><a href="#pageSubmenu" data-toggle="collapse"
-					aria-expanded="false" class="dropdown-toggle"> <i
-						class="fas fa-copy"></i> Team Red
+					aria-expanded="false" class="dropdown-toggle dropdown-toggle-menu">
+						<i class="fas fa-copy"></i> Team Red
 				</a>
 					<ul class="collapse list-unstyled" id="pageSubmenu">
 						<li><a href="#">Page 1</a></li>
@@ -79,15 +81,12 @@
 				<div class="dropdown">
 					<button class="btn btn-secondary dropdown-toggle" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false">Sprint</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						<a class="dropdown-item" href="#">Action</a> <a
-							class="dropdown-item" href="#">Another action</a> <a
-							class="dropdown-item" href="#">Something else here</a>
+						aria-haspopup="true" aria-expanded="false"
+						th:text="${mSprintLabel}"></button>
+					<div id="sprint-dropdown" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 					</div>
 				</div>
 			</nav>
-
 			<blockquote class="blockquote text-center m-5">
 				<h3 class="mb-0">Sprint progress</h3>
 				<footer class="blockquote-footer">
@@ -114,5 +113,7 @@
 	<script type="text/javascript" src="/js/HorizontalStackedBarChart.js"></script>
 	<!-- Side bar handling -->
 	<script type="text/javascript" src="/js/Sidebar.js"></script>
+	<!-- Drop down menu handling -->
+	<script type="text/javascript" src="/js/DropDownMenu.js"></script>
 </body>
 </html>
