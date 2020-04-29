@@ -3,17 +3,10 @@
  */
 package com.sprint.repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.SingleColumnRowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.sprint.jdbc.SprintProgressRowMapper;
@@ -23,7 +16,7 @@ import com.sprint.model.SprintProgress;
  * The Class SprintProgressDAO.
  */
 @Repository
-public class SprintProgressDAO {
+public class SprintProgressDAO implements SprintDAO {
 
 	/** The jdbc template. */
 	private JdbcTemplate jdbcTemplate;
@@ -39,42 +32,13 @@ public class SprintProgressDAO {
 	}
 
 	/**
-	 * Gets the list of tables.
+	 * Gets the jdbc template.
 	 *
-	 * @return the list of tables
-	 * @throws SQLException the SQL exception
+	 * @return the jdbc template
 	 */
-	public List<String> getListOfTables() throws SQLException {
-		List<String> list = new ArrayList<>();
-
-		try (Statement stmt = jdbcTemplate.getDataSource().getConnection().createStatement();
-				ResultSet rs = stmt.executeQuery("show tables");) {
-			while (rs.next()) {
-				list.add(rs.getString(1));
-			}
-		}
-		return list;
-	}
-
-	/**
-	 * Gets the row count.
-	 *
-	 * @param tableName the table name
-	 * @return the row count
-	 */
-	public int getRowCount(final String tableName) {
-		return jdbcTemplate.queryForObject("select count(*) from " + tableName, Integer.class);
-	}
-
-	/**
-	 * Gets the sprint list.
-	 *
-	 * @param tableName the table name
-	 * @return the sprint list
-	 * @throws SQLException the SQL exception
-	 */
-	public List<String> getSprintList(final String tableName) throws SQLException {
-		return jdbcTemplate.query("select sprint from " + tableName, new SingleColumnRowMapper<>(String.class));
+	@Override
+	public JdbcTemplate getJdbcTemplate() {
+		return jdbcTemplate;
 	}
 
 	/**

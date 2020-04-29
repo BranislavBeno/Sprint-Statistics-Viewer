@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.sprint.jdbc.SprintGoalRowMapper;
-import com.sprint.model.SprintGoal;
+import com.sprint.jdbc.SprintKpiRowMapper;
+import com.sprint.model.SprintKpi;
 
 /**
- * The Class SprintGoalDAO.
+ * The Class SprintKpiDAO.
  */
 @Repository
-public class SprintGoalDAO implements SprintDAO {
+public class SprintKpiDAO implements SprintDAO {
 
 	/** The jdbc template. */
 	private JdbcTemplate jdbcTemplate;
@@ -42,23 +42,23 @@ public class SprintGoalDAO implements SprintDAO {
 	 * Gets the sprint by id.
 	 *
 	 * @param tableName the table name
-	 * @param id        the id
+	 * @param id the id
 	 * @return the sprint by id
 	 */
-	public SprintGoal getSprintById(final String tableName, final int id) {
+	public SprintKpi getSprintById(final String tableName, final int id) {
 		final String query = "select * from " + tableName + " where id = ?";
-		return jdbcTemplate.queryForObject(query, new Object[] { id }, new SprintGoalRowMapper());
+		return jdbcTemplate.queryForObject(query, new Object[] { id }, new SprintKpiRowMapper());
 	}
 
 	/**
 	 * Gets the sprint by label.
 	 *
 	 * @param tableName the table name
-	 * @param label     the label
+	 * @param label the label
 	 * @return the sprint by label
 	 */
-	public SprintGoal getSprintByLabel(final String tableName, final String label) {
+	public SprintKpi getSprintByLabel(final String tableName, final String label) {
 		final String query = "select * from " + tableName + " where sprint = ?";
-		return jdbcTemplate.queryForObject(query, new Object[] { label }, new SprintGoalRowMapper());
+		return jdbcTemplate.queryForObject(query, new Object[] { label }, new SprintKpiRowMapper());
 	}
 }

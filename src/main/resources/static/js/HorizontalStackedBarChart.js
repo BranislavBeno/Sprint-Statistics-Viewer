@@ -58,7 +58,7 @@ var barOptions_stacked = {
 };
 
 // Get element representing chart
-var ctx = document.getElementById("myChart").getContext('2d');
+var ctx = document.getElementById("progressChart").getContext('2d');
 // Equip chart with data
 var myChart = new Chart(ctx, {
 	type : 'horizontalBar',

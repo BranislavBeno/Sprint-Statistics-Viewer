@@ -6,7 +6,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title th:text="'Sprint goals ' + ${mSprintLabel}"></title>
+<title th:text="'Sprint KPI\'s ' + ${mSprintLabel}"></title>
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
@@ -20,9 +20,9 @@
 <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"></script>
 <!-- Own -->
 <script th:inline="javascript">
-	var itemHref = "/goals?sprint=";
+	var itemHref = "/kpi?sprint=";
 	var itemList = [[${mSprintList}]];
-	var teamGoals = [[${mTeamGoals}]];
+	var teamKpis = [[${mTeamKpis}]];
 </script>
 </head>
 <body>
@@ -41,9 +41,10 @@
 				<li><a th:href="@{/sprintprogress?sprint=}"><i
 						class="far fa-chart-bar"></i> Progress</a></li>
 				<!-- KPI's page -->
-				<li><a th:href="@{/kpi?sprint=}"><i class="fas fa-th"></i> KPI's</a></li>
+				<li><a href="#"><i class="fas fa-th"></i> KPI's</a></li>
 				<!-- Goals page -->
-				<li><a href="#"><i class="fas fa-list-ul"></i> Goals</a></li>
+				<li><a th:href="@{/goals?sprint=}"><i
+						class="fas fa-list-ul"></i> Goals</a></li>
 				<!-- Team black pages -->
 				<li><a href="#pageSubmenu1" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle dropdown-toggle-menu">
@@ -111,11 +112,12 @@
 				</div>
 			</nav>
 			<blockquote class="blockquote text-center m-4">
-				<h3>Sprint goals</h3>
+				<h3>Sprint KPI's</h3>
 			</blockquote>
 
-			<div class="container-fluid">
-				<div id="goalCards" class="row row-cols-1 row-cols-md-2"></div>
+			<div class="container">
+				<table id="kpiTable" class="table table-bordered table-striped">
+				</table>
 			</div>
 		</div>
 	</div>
@@ -131,7 +133,7 @@
 	<script type="text/javascript" src="/js/Sidebar.js"></script>
 	<!-- Drop down menu handling -->
 	<script type="text/javascript" src="/js/DropDownMenu.js"></script>
-	<!-- Goal cards handling -->
-	<script type="text/javascript" src="/js/GoalCards.js"></script>
+	<!-- KPI table handling -->
+	<script type="text/javascript" src="/js/KpiTable.js"></script>
 </body>
 </html>

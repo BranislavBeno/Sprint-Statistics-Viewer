@@ -48,8 +48,12 @@ i, span {
 	margin-bottom: 0px;
 }
 
-#myChart, #goalCards {
+#progressChart, #goalCards {
 	margin-top: 30px;
+}
+
+#kpiTable {
+	margin-top: 70px;
 }
 
 #dropdownMenuButton {

@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +47,7 @@ public class SprintGoalController {
 	 *
 	 * @param dao the dao
 	 */
+	@Autowired
 	public SprintGoalController(SprintGoalDAO dao) {
 		this.sprints = dao;
 	}
@@ -67,7 +69,7 @@ public class SprintGoalController {
 				teams = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
 						.map(tn -> sprints.getSprintById(tn, sprints.getRowCount(tn))).collect(Collectors.toList());
 			} catch (SQLException e1) {
-				log.warn("No sprint data found.");
+				log.warn("No sprint goal data found.");
 			}
 		}
 
@@ -77,10 +79,10 @@ public class SprintGoalController {
 	/**
 	 * Prepare team data.
 	 *
-	 * @param model the model
 	 * @param teams the teams
+	 * @return the list
 	 */
-	private void prepareTeamData(Model model, List<SprintGoal> teams) {
+	private List<TeamGoal> collectTeamGoals(List<SprintGoal> teams) {
 		// Initialize list with output parameters
 		List<TeamGoal> teamGoals = new ArrayList<>();
 
@@ -104,8 +106,7 @@ public class SprintGoalController {
 			teamGoals.add(new TeamGoal(team.getTeamName(), goals));
 		}
 
-		// Add model attributes for thymeleaf template
-		model.addAttribute("mTeamGoals", teamGoals);
+		return teamGoals;
 	}
 
 	/**
@@ -162,10 +163,10 @@ public class SprintGoalController {
 		// Sort list of database tables
 		Collections.sort(teams, (a, b) -> a.getTeamName().compareTo(b.getTeamName()));
 
-		// Prepare data for all teams
-		prepareTeamData(model, teams);
+		// Collect list of team related sprint goals
+		List<TeamGoal> teamGoals = collectTeamGoals(teams);
 
-		// Find sprint labels for all available team related sprint data
+		// Collect sprint labels for all available team related sprint data
 		Set<String> sprintSet = collectSprints();
 
 		// Add sprint label
@@ -173,6 +174,9 @@ public class SprintGoalController {
 
 		// Add list of sprints
 		model.addAttribute("mSprintList", sprintSet);
+
+		// Add list of team related sprint goals
+		model.addAttribute("mTeamGoals", teamGoals);
 
 		return "goals";
 	}

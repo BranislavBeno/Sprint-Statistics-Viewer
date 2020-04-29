@@ -1,7 +1,7 @@
-// Get drop down menu element
+// Get goal cards element
 let goalCards = document.getElementById("goalCards");
 
-// Add new drop down menu items
+// Add new goal card items
 for (let i = 0; i < teamGoals.length; i++) {
 	let teamName = teamGoals[i].teamName;
 

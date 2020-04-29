@@ -48,7 +48,7 @@
 				<!-- Sprint progress page -->
 				<li><a href="#"><i class="far fa-chart-bar"></i> Progress</a></li>
 				<!-- KPI's page -->
-				<li><a href="#"><i class="fas fa-th"></i> KPI's</a></li>
+				<li><a th:href="@{/kpi?sprint=}"><i class="fas fa-th"></i> KPI's</a></li>
 				<!-- Goals page -->
 				<li><a th:href="@{/goals?sprint=}"><i
 						class="fas fa-list-ul"></i> Goals</a></li>
@@ -122,7 +122,7 @@
 				<h3>Sprint progress</h3>
 			</blockquote>
 			<div class="container">
-				<canvas id="myChart" style="max-width: 1700px;"></canvas>
+				<canvas id="progressChart" style="max-width: 1700px;"></canvas>
 			</div>
 		</div>
 	</div>
