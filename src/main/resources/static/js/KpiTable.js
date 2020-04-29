@@ -9,11 +9,12 @@ let tHeadRow = document.createElement('tr');
 
 // Create first header row column
 let tHeadRowCol = document.createElement('th');
+tHeadRowCol.innerHTML = "#";
 
 // Add first header row column element to parent element
 tHeadRow.appendChild(tHeadRowCol);
 
-//Create body rows
+// Create body rows
 let bodyRows = [ "Delta number of Story Points start vs. close <10%",
 		"At least 80% of planned story points closed",
 		"All critical and high priority stories closed out" ];
@@ -24,21 +25,21 @@ let tBody = document.createElement('tbody');
 // Create first body row
 let tBodyRow1 = document.createElement('tr');
 
-//Create column for first body row
+// Create column for first body row
 let tBodyRowCol1 = document.createElement('td');
 tBodyRowCol1.innerHTML = bodyRows[0];
 
-//Add first body row column element to parent element
+// Add first body row column element to parent element
 tBodyRow1.appendChild(tBodyRowCol1);
 
 // Create second body row
 let tBodyRow2 = document.createElement('tr');
 
-//Create column for second body row
+// Create column for second body row
 let tBodyRowCol2 = document.createElement('td');
 tBodyRowCol2.innerHTML = bodyRows[1];
 
-//Add second body row column element to parent element
+// Add second body row column element to parent element
 tBodyRow2.appendChild(tBodyRowCol2);
 
 // Create third body row
@@ -57,29 +58,42 @@ for (let i = 0; i < teamKpis.length; i++) {
 	let teamName = teamKpis[i].teamName;
 
 	// Create header row column
-	let tHeadRowCol = document.createElement('th');
+	tHeadRowCol = document.createElement('th');
 	tHeadRowCol.innerHTML = "Team " + teamName;
 
 	// Add first header row column element to parent element
 	tHeadRow.appendChild(tHeadRowCol);
 
 	// Create column for first body row
-	let tBodyRowCol1 = document.createElement('td');
-	tBodyRowCol1.innerHTML = teamKpis[i].deltaStoryPoints;
+	let deltaStoryPoints = Math.floor(teamKpis[i].deltaStoryPoints * 100);
+	tBodyRowCol1 = document.createElement('td');
+	tBodyRowCol1.innerHTML = deltaStoryPoints.toFixed(2) + "%";
+	tBodyRowCol1.className = "bg-danger";
+	if (deltaStoryPoints < 10)
+		tBodyRowCol1.className = "bg-success";
 
 	// Add body row column element to parent element
 	tBodyRow1.appendChild(tBodyRowCol1);
 
 	// Create column for second body row
-	let tBodyRowCol2 = document.createElement('td');
-	tBodyRowCol2.innerHTML = teamKpis[i].plannedStoryPointsClosed;
+	let plannedStoryPointsClosed = Math
+			.floor(teamKpis[i].plannedStoryPointsClosed * 100);
+	tBodyRowCol2 = document.createElement('td');
+	tBodyRowCol2.innerHTML = plannedStoryPointsClosed.toFixed(2) + "%";
+	tBodyRowCol2.className = "bg-danger";
+	if (plannedStoryPointsClosed >= 80)
+		tBodyRowCol2.className = "bg-success";
 
 	// Add body row column element to parent element
 	tBodyRow2.appendChild(tBodyRowCol2);
 
 	// Create column for third body row
-	let tBodyRowCol3 = document.createElement('td');
-	tBodyRowCol3.innerHTML = teamKpis[i].notClosedHighPriorStoriesCount;
+	let notClosedHighPriorStoriesCount = teamKpis[i].notClosedHighPriorStoriesCount;
+	tBodyRowCol3 = document.createElement('td');
+	tBodyRowCol3.innerHTML = notClosedHighPriorStoriesCount;
+	tBodyRowCol3.className = "bg-danger";
+	if (notClosedHighPriorStoriesCount == 0)
+		tBodyRowCol3.className = "bg-success";
 
 	// Add body row column element to parent element
 	tBodyRow3.appendChild(tBodyRowCol3);
