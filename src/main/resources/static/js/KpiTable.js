@@ -65,7 +65,7 @@ for (let i = 0; i < teamKpis.length; i++) {
 	tHeadRow.appendChild(tHeadRowCol);
 
 	// Create column for first body row
-	let deltaStoryPoints = Math.floor(teamKpis[i].deltaStoryPoints * 100);
+	let deltaStoryPoints = teamKpis[i].deltaStoryPoints * 100;
 	tBodyRowCol1 = document.createElement('td');
 	tBodyRowCol1.innerHTML = deltaStoryPoints.toFixed(2) + "%";
 	tBodyRowCol1.className = "bg-danger";
@@ -76,8 +76,7 @@ for (let i = 0; i < teamKpis.length; i++) {
 	tBodyRow1.appendChild(tBodyRowCol1);
 
 	// Create column for second body row
-	let plannedStoryPointsClosed = Math
-			.floor(teamKpis[i].plannedStoryPointsClosed * 100);
+	let plannedStoryPointsClosed = teamKpis[i].plannedStoryPointsClosed * 100;
 	tBodyRowCol2 = document.createElement('td');
 	tBodyRowCol2.innerHTML = plannedStoryPointsClosed.toFixed(2) + "%";
 	tBodyRowCol2.className = "bg-danger";
