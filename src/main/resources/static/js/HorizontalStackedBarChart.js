@@ -69,20 +69,20 @@ var myChart = new Chart(ctx, {
 			data : toDoPercentage,
 			data_c : toDoSP,
 			label : "To do",
-			backgroundColor : "rgba(235,0,0,1)",
-			hoverBackgroundColor : "rgba(255,0,0,1)"
+			backgroundColor : "rgba(231, 76, 60, 1)",
+			hoverBackgroundColor : "rgba(235, 0, 0, 1)"
 		}, {
 			data : inProgressPercentage,
 			data_c : inProgressSP,
 			label : "In progress",
-			backgroundColor : "rgba(80,145,205,1)",
-			hoverBackgroundColor : "rgba(100,185,255,1)"
+			backgroundColor : "rgba(52, 152, 219, 1)",
+			hoverBackgroundColor : "rgba(0, 0, 255, 1)"
 		}, {
 			data : donePercentage,
 			data_c : doneSP,
 			label : "Done",
-			backgroundColor : "rgba(50,205,50,1)",
-			hoverBackgroundColor : "rgba(0,255,0,1)"
+			backgroundColor : "rgba(92, 184, 92 , 1)",
+			hoverBackgroundColor : "rgba(50, 205, 50, 1)"
 		} ]
 	},
 	options : barOptions_stacked,
