@@ -121,9 +121,16 @@
 			<blockquote class="blockquote text-center m-4">
 				<h3>Sprint progress</h3>
 			</blockquote>
-			<div class="container">
+			<!-- Chart container  -->
+			<div id="chartContainer" class="container">
 				<canvas id="progressChart" style="max-width: 1700px;"></canvas>
 			</div>
+			<!-- Footer  -->
+			<footer class="footer">
+				<div class="container text-muted">
+					<span th:text="'Last update: ' + ${mUpdated}"></span>
+				</div>
+			</footer>
 		</div>
 	</div>
 	<!-- SCRIPTS -->

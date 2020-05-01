@@ -1,6 +1,7 @@
 package com.sprint.controllers;
 
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -25,12 +26,12 @@ import com.sprint.repository.SprintKpiDAO;
 public class SprintKpiController {
 
 	/** The log. */
-	private static Log log = LogFactory.getLog(SprintGoalController.class);
+	private static Log log = LogFactory.getLog(SprintKpiController.class);
 
 	/** The Constant TEAM_TABLE_PREFIX. */
 	private static final String TEAM_TABLE_PREFIX = "team_";
 
-	/** The kpis. */
+	/** The KPI's. */
 	private SprintKpiDAO kpis;
 
 	/**
@@ -112,11 +113,17 @@ public class SprintKpiController {
 		List<SprintKpi> teams = findSprintByLabel(label);
 
 		// In case that method parameter 'sprintLabel' is not compliant with data in
-		// database,
-		// last sprint related data record in database is chosen
+		// database, last sprint related data record in database is chosen
 		// In that case is sprint label updated
-		if (teams != null)
+		// Subsequently time stamp about last data update is set
+		String updated = "unknown";
+		if (teams != null) {
+			// Set sprint label
 			label = teams.stream().findFirst().orElseThrow().getSprintLabel();
+			// Set time stamp about last data update
+			updated = teams.stream().findFirst().orElseThrow().getUpdated()
+					.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		}
 
 		// Sort list of database tables
 		Collections.sort(teams, (a, b) -> a.getTeamName().compareTo(b.getTeamName()));
@@ -126,6 +133,9 @@ public class SprintKpiController {
 
 		// Add sprint label
 		model.addAttribute("mSprintLabel", label);
+
+		// Add updated time stamp
+		model.addAttribute("mUpdated", updated);
 
 		// Add list of sprints
 		model.addAttribute("mSprintList", sprintSet);

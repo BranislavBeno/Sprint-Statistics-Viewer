@@ -114,11 +114,17 @@
 			<blockquote class="blockquote text-center m-4">
 				<h3>Sprint KPI's</h3>
 			</blockquote>
-
-			<div class="container">
-				<table id="kpiTable" class="table table-bordered table-striped table-hover">
+			<!-- Container for table with KPI's -->
+			<div id="kpiContainer" class="container">
+				<table id="kpiTable" class="table table-bordered table-striped">
 				</table>
 			</div>
+			<!-- Footer  -->
+			<footer class="footer">
+				<div class="container text-muted">
+					<span th:text="'Last update: ' + ${mUpdated}"></span>
+				</div>
+			</footer>
 		</div>
 	</div>
 	<!-- SCRIPTS -->

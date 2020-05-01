@@ -4,6 +4,7 @@
 package com.sprint.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * The Class SprintProgress.
@@ -30,6 +31,9 @@ public class SprintProgress {
 
 	/** The sprint end. */
 	private LocalDate sprintEnd = LocalDate.of(1970, 1, 1);
+
+	/** The updated. */
+	private LocalDateTime updated;
 
 	/**
 	 * Gets the sprint label.
@@ -155,5 +159,23 @@ public class SprintProgress {
 	 */
 	public void setSprintEnd(LocalDate sprintEnd) {
 		this.sprintEnd = sprintEnd;
+	}
+
+	/**
+	 * Gets the updated.
+	 *
+	 * @return the updated
+	 */
+	public LocalDateTime getUpdated() {
+		return updated;
+	}
+
+	/**
+	 * Sets the updated.
+	 *
+	 * @param updated the new updated
+	 */
+	public void setUpdated(LocalDateTime updated) {
+		this.updated = updated;
 	}
 }

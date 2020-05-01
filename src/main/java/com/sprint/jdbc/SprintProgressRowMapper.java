@@ -45,6 +45,7 @@ public class SprintProgressRowMapper implements RowMapper<SprintProgress> {
 		sprint.setFinishedStoryPointsSum(rs.getInt("finished_sp_sum"));
 		sprint.setSprintStart(start);
 		sprint.setSprintEnd(end);
+		sprint.setUpdated(rs.getTimestamp("updated").toLocalDateTime());
 
 		return sprint;
 	}

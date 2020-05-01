@@ -1,5 +1,7 @@
 package com.sprint.model;
 
+import java.time.LocalDateTime;
+
 /**
  * The Class SprintKpi.
  */
@@ -19,6 +21,9 @@ public class SprintKpi {
 
 	/** The not closed high prior stories count. */
 	private int notClosedHighPriorStoriesCount = 0;
+
+	/** The updated. */
+	private LocalDateTime updated;
 
 	/**
 	 * Gets the sprint label.
@@ -109,5 +114,23 @@ public class SprintKpi {
 	 */
 	public void setNotClosedHighPriorStoriesCount(int notClosedHighPriorStoriesCount) {
 		this.notClosedHighPriorStoriesCount = notClosedHighPriorStoriesCount;
+	}
+
+	/**
+	 * Gets the updated.
+	 *
+	 * @return the updated
+	 */
+	public LocalDateTime getUpdated() {
+		return updated;
+	}
+
+	/**
+	 * Sets the updated.
+	 *
+	 * @param updated the new updated
+	 */
+	public void setUpdated(LocalDateTime updated) {
+		this.updated = updated;
 	}
 }

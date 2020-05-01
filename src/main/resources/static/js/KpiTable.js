@@ -15,7 +15,7 @@ tHeadRowCol.innerHTML = "#";
 tHeadRow.appendChild(tHeadRowCol);
 
 // Create body rows
-let bodyRows = [ "Delta number of Story Points start vs. close <10%",
+const bodyRows = [ "Delta number of Story Points start vs. close <10%",
 		"At least 80% of planned story points closed",
 		"All critical and high priority stories closed out" ];
 
@@ -55,7 +55,7 @@ tBodyRow3.appendChild(tBodyRowCol3);
 // Add kpi's table items
 for (let i = 0; i < teamKpis.length; i++) {
 	// Get team name
-	let teamName = teamKpis[i].teamName;
+	const teamName = teamKpis[i].teamName;
 
 	// Create header row column
 	tHeadRowCol = document.createElement('th');

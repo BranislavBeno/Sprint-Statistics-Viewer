@@ -6,6 +6,7 @@ package com.sprint.controllers;
 import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -347,11 +348,18 @@ public class SprintProgressController {
 		// Get list of sprint related team data
 		List<SprintProgress> teamList = findSprintByLabel(sprintLabel);
 
-		// In case that method parameter 'sprintLabel' is not compliant with data in database,
+		// In case that method parameter 'sprintLabel' is not compliant with data in
+		// database,
 		// last sprint related data record in database is chosen
 		// In that case is sprint label updated
-		if (teamList != null)
+		// Subsequently time stamp about last data update is set
+		String updated = "unknown";
+		if (teamList != null) {
 			sprintLabel = teamList.stream().findFirst().orElseThrow().getSprintLabel();
+			// Set time stamp about last data update
+			updated = teamList.stream().findFirst().orElseThrow().getUpdated()
+					.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+		}
 
 		// Collect story points lists
 		Map<ProgressState, List<Integer>> spLists = collectSPLists(teamList);
@@ -365,6 +373,9 @@ public class SprintProgressController {
 		// Create model attributes for Thymeleaf template
 		// Add sprint label
 		model.addAttribute("mSprintLabel", sprintLabel);
+
+		// Add updated time stamp
+		model.addAttribute("mUpdated", updated);
 
 		// Add list of sprints
 		model.addAttribute("mSprintList", sprintSet);

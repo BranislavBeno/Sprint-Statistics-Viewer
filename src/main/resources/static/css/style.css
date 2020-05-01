@@ -64,8 +64,12 @@ i, span {
 	margin-left: 15px;
 }
 
-#kpiTable {
+.footer, #kpiTable {
 	text-align: center;
+}
+
+#chartContainer, #kpiContainer {
+	height: calc(70vh);
 }
 
 /* ---------------------------------------------------

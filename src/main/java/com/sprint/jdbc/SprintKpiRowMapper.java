@@ -15,7 +15,7 @@ public class SprintKpiRowMapper implements RowMapper<SprintKpi> {
 	/**
 	 * Map row.
 	 *
-	 * @param rs the rs
+	 * @param rs     the rs
 	 * @param rowNum the row num
 	 * @return the sprint kpi
 	 * @throws SQLException the SQL exception
@@ -29,6 +29,7 @@ public class SprintKpiRowMapper implements RowMapper<SprintKpi> {
 		sprintKpi.setDeltaStoryPoints(rs.getDouble("delta_sp"));
 		sprintKpi.setPlannedStoryPointsClosed(rs.getDouble("planned_sp_closed"));
 		sprintKpi.setNotClosedHighPriorStoriesCount(rs.getInt("not_closed_high_prior_stories"));
+		sprintKpi.setUpdated(rs.getTimestamp("updated").toLocalDateTime());
 
 		return sprintKpi;
 	}
