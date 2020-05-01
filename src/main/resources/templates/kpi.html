@@ -101,7 +101,7 @@
 		<!-- Page Content  -->
 		<div id="content" class="container-fluid">
 			<!-- Nav bar  -->
-			<nav id="navbar" class="navbar border-secondary navbar-dark bg-dark">
+			<nav class="navbar border-secondary navbar-dark bg-dark">
 				<div id="dropdown" class="dropdown">
 					<button class="btn btn-secondary dropdown-toggle" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
@@ -115,14 +115,14 @@
 				<h3>Sprint KPI's</h3>
 			</blockquote>
 			<!-- Container for table with KPI's -->
-			<div id="kpiContainer" class="container">
+			<div class="container">
 				<table id="kpiTable" class="table table-bordered table-striped">
 				</table>
 			</div>
 			<!-- Footer  -->
-			<footer class="footer">
+			<footer class="footer bg-transparent fixed-bottom">
 				<div class="container text-muted">
-					<span th:text="'Last update: ' + ${mUpdated}"></span>
+					<span id="footerText" th:text="'Last update: ' + ${mUpdated}"></span>
 				</div>
 			</footer>
 		</div>

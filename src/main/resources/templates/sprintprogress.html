@@ -48,7 +48,8 @@
 				<!-- Sprint progress page -->
 				<li><a href="#"><i class="far fa-chart-bar"></i> Progress</a></li>
 				<!-- KPI's page -->
-				<li><a th:href="@{/kpi?sprint=}"><i class="fas fa-th"></i> KPI's</a></li>
+				<li><a th:href="@{/kpi?sprint=}"><i class="fas fa-th"></i>
+						KPI's</a></li>
 				<!-- Goals page -->
 				<li><a th:href="@{/goals?sprint=}"><i
 						class="fas fa-list-ul"></i> Goals</a></li>
@@ -108,7 +109,7 @@
 		<!-- Page Content  -->
 		<div id="content" class="container-fluid">
 			<!-- Nav bar  -->
-			<nav id="navbar" class="navbar border-secondary navbar-dark bg-dark">
+			<nav class="navbar border-secondary navbar-dark bg-dark">
 				<div id="dropdown" class="dropdown">
 					<button class="btn btn-secondary dropdown-toggle" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
@@ -122,13 +123,13 @@
 				<h3>Sprint progress</h3>
 			</blockquote>
 			<!-- Chart container  -->
-			<div id="chartContainer" class="container">
+			<div class="container">
 				<canvas id="progressChart" style="max-width: 1700px;"></canvas>
 			</div>
 			<!-- Footer  -->
-			<footer class="footer">
+			<footer class="footer bg-transparent fixed-bottom">
 				<div class="container text-muted">
-					<span th:text="'Last update: ' + ${mUpdated}"></span>
+					<span id="footerText" th:text="'Last update: ' + ${mUpdated}"></span>
 				</div>
 			</footer>
 		</div>

@@ -66,10 +66,12 @@ i, span {
 
 .footer, #kpiTable {
 	text-align: center;
+	margin-bottom: 20px;
 }
 
-#chartContainer, #kpiContainer {
-	height: calc(70vh);
+#footerText {
+	margin-bottom: 20px;
+	margin-left: 200px;
 }
 
 /* ---------------------------------------------------
