@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.sprint.model.SprintKpi;
+import com.sprint.utils.Utils;
 
 /**
  * The Class SprintKpiRowMapper.
@@ -29,7 +30,7 @@ public class SprintKpiRowMapper implements RowMapper<SprintKpi> {
 		sprintKpi.setDeltaStoryPoints(rs.getDouble("delta_sp"));
 		sprintKpi.setPlannedStoryPointsClosed(rs.getDouble("planned_sp_closed"));
 		sprintKpi.setNotClosedHighPriorStoriesCount(rs.getInt("not_closed_high_prior_stories"));
-		sprintKpi.setUpdated(rs.getTimestamp("updated").toLocalDateTime());
+		sprintKpi.setUpdated(Utils.convertTimeStampToLocalDateTime(rs.getTimestamp("updated")));
 
 		return sprintKpi;
 	}

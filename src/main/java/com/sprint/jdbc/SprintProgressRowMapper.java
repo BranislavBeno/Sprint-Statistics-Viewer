@@ -10,6 +10,7 @@ import java.util.Date;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.sprint.model.SprintProgress;
+import com.sprint.utils.Utils;
 
 /**
  * The Class SprintProgressRowMapper.
@@ -45,7 +46,7 @@ public class SprintProgressRowMapper implements RowMapper<SprintProgress> {
 		sprint.setFinishedStoryPointsSum(rs.getInt("finished_sp_sum"));
 		sprint.setSprintStart(start);
 		sprint.setSprintEnd(end);
-		sprint.setUpdated(rs.getTimestamp("updated").toLocalDateTime());
+		sprint.setUpdated(Utils.convertTimeStampToLocalDateTime(rs.getTimestamp("updated")));
 
 		return sprint;
 	}
