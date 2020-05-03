@@ -33,17 +33,23 @@
 				<h3>Sprint statistics</h3>
 			</div>
 
+			<div class="container sidebar-button">
+				<a id="sidebarCollapse" href="#"><i class="fas fa-align-justify"></i></a>
+			</div>
+
 			<ul class="list-unstyled components">
 				<!-- Home page -->
-				<li><a th:href="@{/sprintprogress?sprint=}"><i
+				<li><a id="homeMenuItem" th:href="@{/sprintprogress?sprint=}"><i
 						class="fas fa-home"></i> Home</a></li>
 				<!-- Sprint progress page -->
-				<li><a th:href="@{/sprintprogress?sprint=}"><i
+				<li><a id="progressMenuItem"
+					th:href="@{/sprintprogress?sprint=}"><i
 						class="far fa-chart-bar"></i> Progress</a></li>
 				<!-- KPI's page -->
-				<li><a href="#"><i class="fas fa-th"></i> KPI's</a></li>
+				<li><a id="kpiMenuItem" href="#"><i class="fas fa-th"></i>
+						KPI's</a></li>
 				<!-- Goals page -->
-				<li><a th:href="@{/goals?sprint=}"><i
+				<li><a id="goalsMenuItem" th:href="@{/goals?sprint=}"><i
 						class="fas fa-list-ul"></i> Goals</a></li>
 				<!-- Team black pages -->
 				<li><a href="#pageSubmenu1" data-toggle="collapse"
@@ -85,17 +91,13 @@
 						<li><a href="#">Velocity</a></li>
 						<li><a href="#">Work Proportion</a></li>
 					</ul></li>
-				<li><a href="#"> <i class="fas fa-briefcase"></i> About
+				<li><a href="#" class="sidebar-less-important"> <i
+						class="fas fa-briefcase"></i> About
 				</a></li>
-				<li><a href="#"> <i class="fas fa-paper-plane"></i> Contact
+				<li><a href="#" class="sidebar-less-important"> <i
+						class="fas fa-paper-plane"></i> Contact
 				</a></li>
 			</ul>
-
-			<div class="container-fluid">
-				<button type="button" id="sidebarCollapse" class="btn btn-block">
-					<i class="fas fa-align-justify"></i>
-				</button>
-			</div>
 		</nav>
 
 		<!-- Page Content  -->

@@ -11,6 +11,7 @@ a, a:hover, a:focus {
 	color: inherit;
 	text-decoration: none;
 	transition: all 0.3s;
+	text-align: center;
 }
 
 .navbar {
@@ -97,42 +98,26 @@ i, span {
 	text-align: center;
 }
 
-#sidebar.active .sidebar-header h3, #sidebar.active .CTAs {
+#sidebar.active .sidebar-header h3, #sidebar.active .CTAs, #sidebar.active .dropdown-toggle-menu,
+	#sidebar.active .sidebar-less-important {
 	display: none;
-}
-
-#sidebar ul li a {
-	text-align: left;
-}
-
-#sidebar.active ul li a {
-	/*padding: 20px 10px;
-	text-align: center;
-	font-size: 0.85em;*/
-	color: transparent;
-}
-
-#sidebar.active ul li a svg {
-	/*font-size: 1.1em;*/
-	color: #fff;
-	margin: 5px;
 }
 
 #sidebar.active ul ul a {
 	padding: 10px !important;
 }
 
-#sidebar.active .dropdown-toggle-menu::after {
-	top: auto;
-	bottom: 10px;
-	right: 50%;
-	-webkit-transform: translateX(50%);
-	-ms-transform: translateX(50%);
-	transform: translateX(50%);
+.sidebar-header {
+	height: 130px;
 }
 
 #sidebar .sidebar-header {
 	padding: 20px;
+	border-bottom: 1px solid #7c7c7c;
+}
+
+#sidebar .sidebar-button {
+	padding: 10px 5px;
 	border-bottom: 1px solid #7c7c7c;
 }
 
@@ -146,27 +131,18 @@ i, span {
 	border-bottom: 1px solid #7c7c7c;
 }
 
-#sidebar ul li a {
+#sidebar ul li a, #sidebar div a {
 	padding: 10px;
 	font-size: 1.1em;
 	display: block;
-}
-
-#sidebar button:hover {
-	color: #7c7c7c;
-	background: #fff;
-}
-
-#sidebar ul li a:hover {
-	color: #7c7c7c;
-	background: #fff;
 }
 
 #sidebar ul li a i {
 	margin-right: 10px;
 }
 
-#sidebar ul li.active>a, a[aria-expanded="true"] {
+#sprint-dropdown a:hover, #sidebar div a:hover, #sidebar ul li a:hover,
+	#sidebar ul li.active>a, a[aria-expanded="true"] {
 	color: #7c7c7c;
 	background: #fff;
 }
@@ -175,17 +151,11 @@ a[data-toggle="collapse"] {
 	position: relative;
 }
 
-#sprint-dropdown a:hover {
-	color: #7c7c7c;
-	background: #fff;
-}
-
 .dropdown-toggle-menu::after {
 	display: block;
 	position: absolute;
 	top: 50%;
 	right: 20px;
-	transform: translateY(-50%);
 }
 
 ul ul a {
@@ -215,14 +185,6 @@ ul.CTAs a {
 		max-width: 80px;
 		text-align: center;
 		margin-left: -80px !important;
-	}
-	.dropdown-toggle-menu::after {
-		top: auto;
-		bottom: 10px;
-		right: 50%;
-		-webkit-transform: translateX(50%);
-		-ms-transform: translateX(50%);
-		transform: translateX(50%);
 	}
 	#sidebar.active {
 		margin-left: 0 !important;
