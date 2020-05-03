@@ -118,7 +118,20 @@
 			</blockquote>
 
 			<div class="container-fluid">
-				<div id="goalCards" class="row row-cols-1 row-cols-md-2"></div>
+				<div id="goalCards" class="row row-cols-1 row-cols-md-2">
+					<div class="col mb-4" th:each="team : ${mTeamGoals}">
+						<div class="card border-secondary h-100 w-100 d-inline-block">
+							<div class="card-header text-white bg-secondary">
+								<p class="h3" th:text="'Team ' + ${team.teamName}"></p>
+							</div>
+							<div class="h5 card-body">
+								<ul th:each="goal : ${team.goals}">
+									<li th:text="${goal}"></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
