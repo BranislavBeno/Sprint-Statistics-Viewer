@@ -28,7 +28,7 @@
 <body>
 	<div class="wrapper">
 		<!-- Side bar  -->
-		<nav id="sidebar" class="card border-secondary">
+		<nav id="sidebar" class="card border-secondary active">
 			<div class="sidebar-header">
 				<h3>Sprint statistics</h3>
 			</div>
@@ -40,17 +40,17 @@
 			<ul class="list-unstyled components">
 				<!-- Home page -->
 				<li><a id="homeMenuItem" th:href="@{/sprintprogress?sprint=}"><i
-						class="fas fa-home"></i> Home</a></li>
+						class="fas fa-home"></i></a></li>
 				<!-- Sprint progress page -->
 				<li><a id="progressMenuItem"
 					th:href="@{/sprintprogress?sprint=}"><i
-						class="far fa-chart-bar"></i> Progress</a></li>
+						class="far fa-chart-bar"></i></a></li>
 				<!-- KPI's page -->
 				<li><a id="kpiMenuItem" th:href="@{/kpi?sprint=}"><i
-						class="fas fa-th"></i> KPI's</a></li>
+						class="fas fa-th"></i></a></li>
 				<!-- Goals page -->
 				<li><a id="goalsMenuItem" href="#"><i
-						class="fas fa-list-ul"></i> Goals</a></li>
+						class="fas fa-list-ul"></i></a></li>
 				<!-- Team black pages -->
 				<li><a href="#pageSubmenu1" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle dropdown-toggle-menu">
