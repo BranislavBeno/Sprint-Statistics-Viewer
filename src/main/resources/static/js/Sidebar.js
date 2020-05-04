@@ -4,6 +4,8 @@ $(document).ready(function() {
 		$('#sidebar').toggleClass('active');
 		// If side bar in active state, change element inner html
 		if ($("#sidebar").hasClass("active")) {
+			// Side bar collapse button
+			$("#sidebarCollapse").html("<i class=\"fas fa-angle-right\"></i>");
 			// Menu item - Home
 			$("#homeMenuItem").html("<i class=\"fas fa-home\"></i>");
 			// Menu item - Progress
@@ -13,6 +15,8 @@ $(document).ready(function() {
 			// Menu item - Goals
 			$("#goalsMenuItem").html("<i class=\"fas fa-list-ul\"></i>");
 		} else {
+			// Side bar collapse button
+			$("#sidebarCollapse").html("<i class=\"fas fa-angle-left\"></i>");
 			// Menu item - Home
 			$("#homeMenuItem").html("<i class=\"fas fa-home\"></i> Home");
 			// Menu item - Progress
