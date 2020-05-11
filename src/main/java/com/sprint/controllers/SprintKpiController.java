@@ -61,7 +61,7 @@ public class SprintKpiController {
 				teams = kpis.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
 						.map(tn -> kpis.getSprintById(tn, kpis.getRowCount(tn))).collect(Collectors.toList());
 			} catch (SQLException e1) {
-				log.warn("No sprint goal data found.");
+				log.warn("No sprint kpi data found.");
 			}
 		}
 

@@ -75,7 +75,7 @@ public class SprintProgressController {
 				teams = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
 						.map(tn -> sprints.getSprintById(tn, sprints.getRowCount(tn))).collect(Collectors.toList());
 			} catch (SQLException e1) {
-				log.warn("No sprint data found.");
+				log.warn("No sprint progress data found.");
 			}
 		}
 
