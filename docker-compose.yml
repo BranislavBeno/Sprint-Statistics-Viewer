@@ -2,6 +2,16 @@ version: '3.5'
 
 ## Services
 services:
+  viewer:
+    build: .
+    image: sprint-stats-viewer
+    ports:
+      - "8087:5000"
+    depends_on:
+      - db
+    networks:
+      - sprintnet
+
   #MySQL Service
   db:
     image: mysql:5.7.29
@@ -21,11 +31,11 @@ services:
       - dbdata:/var/lib/mysql/
       - ./mysql/my.cnf:/etc/mysql/my.cnf
     networks:
-      - app-network
+      - sprintnet
 
 #Networks
 networks:
-  app-network:
+  sprintnet:
     driver: bridge
 
 #Volumes
