@@ -9,6 +9,10 @@ services:
       - "8087:5000"
     depends_on:
       - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/sprints?useSSL=false
+      - SPRING_DATASOURCE_USERNAME=sprints
+      - SPRING_DATASOURCE_PASSWORD=sprints
     networks:
       - sprintnet
 
