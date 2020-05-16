@@ -1,19 +1,14 @@
 plugins {
-	id 'org.springframework.boot' version '2.2.6.RELEASE'
-	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
 	id 'java'
+	id 'org.springframework.boot' version '2.2.7.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'com.google.cloud.tools.jib' version '2.2.0'
 }
 
 group = 'com.sprint'
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
-
-ext {
-  sonarProjectName = 'SprintStatsViewer'
-  sonarProjectKey = 'com.issue.statsviewer'
-  jacocoDestinationFile = file("$buildDir/jacoco/test.exec")
-}
 
 repositories {
 	mavenCentral()
@@ -47,3 +42,14 @@ def versionMinor = 5
 def versionPatch = 0
 def versionBuild = 1
 version = "R${versionMajor}.${versionMinor}.${versionPatch}"
+
+// Docker image building
+jib {
+  to {
+    image = 'sprint-stats-viewer'
+    tags = ['0.5.0', 'latest']
+  }
+  container {
+    ports = ['5000']
+  }
+}

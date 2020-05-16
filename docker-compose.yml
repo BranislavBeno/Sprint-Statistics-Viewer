@@ -3,8 +3,7 @@ version: '3.5'
 ## Services
 services:
   viewer:
-    build: .
-    image: sprint-stats-viewer
+    image: sprint-stats-viewer:latest
     ports:
       - "8087:5000"
     depends_on:
