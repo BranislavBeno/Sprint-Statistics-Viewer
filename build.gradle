@@ -46,7 +46,7 @@ version = "R${versionMajor}.${versionMinor}.${versionPatch}"
 // Docker image building
 jib {
   to {
-    image = 'sprint-stats-viewer'
+    image = 'beo1975/sprint-stats-viewer'
     tags = ['0.5.0', 'latest']
   }
   container {
