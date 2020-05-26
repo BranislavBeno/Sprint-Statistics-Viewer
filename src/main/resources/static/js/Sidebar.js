@@ -9,9 +9,11 @@ $(document).ready(function() {
 			// Menu item - Home
 			$("#homeMenuItem").html("<i class=\"fas fa-home\"></i>");
 			// Menu item - Progress
-			$("#progressMenuItem").html("<i class=\"far fa-chart-bar\"></i>");
+			$("#progressMenuItem").html("<i class=\"fas fa-chart-line\"></i>");
 			// Menu item - KPI's
 			$("#kpiMenuItem").html("<i class=\"fas fa-th\"></i>");
+			// Menu item - Refinement
+			$("#refinementMenuItem").html("<i class=\"far fa-chart-bar\"></i>");
 			// Menu item - Goals
 			$("#goalsMenuItem").html("<i class=\"fas fa-list-ul\"></i>");
 		} else {
@@ -20,9 +22,11 @@ $(document).ready(function() {
 			// Menu item - Home
 			$("#homeMenuItem").html("<i class=\"fas fa-home\"></i> Home");
 			// Menu item - Progress
-			$("#progressMenuItem").html("<i class=\"far fa-chart-bar\"></i> Progress");
+			$("#progressMenuItem").html("<i class=\"fas fa-chart-line\"></i> Progress");
 			// Menu item - KPI's
 			$("#kpiMenuItem").html("<i class=\"fas fa-th\"></i> KPI's");
+			// Menu item - Refinement
+			$("#refinementMenuItem").html("<i class=\"far fa-chart-bar\"></i> Refinement");
 			// Menu item - Goals
 			$("#goalsMenuItem").html("<i class=\"fas fa-list-ul\"></i> Goals");
 		}

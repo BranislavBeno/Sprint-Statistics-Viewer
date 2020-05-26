@@ -415,19 +415,4 @@ public class SprintProgressController {
 
 		return "sprintprogress";
 	}
-
-	/**
-	 * Tables.
-	 *
-	 * @param model the model
-	 * @return the string
-	 * @throws SQLException the SQL exception
-	 */
-	@GetMapping("/tables")
-	public String tables(Model model) throws SQLException {
-		// Get list of database tables
-		model.addAttribute("tableList", sprints.getListOfTables());
-
-		return "tables";
-	}
 }

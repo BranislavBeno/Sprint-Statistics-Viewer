@@ -2,23 +2,10 @@ version: '3.5'
 
 ## Services
 services:
-  viewer:
-    image: beo1975/sprint-stats-viewer:latest
-    ports:
-      - "8087:5000"
-    depends_on:
-      - db
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/sprints?useSSL=false
-      - SPRING_DATASOURCE_USERNAME=sprints
-      - SPRING_DATASOURCE_PASSWORD=sprints
-    networks:
-      - sprintnet
-
   #MySQL Service
-  db:
+  sprint_stats_db:
     image: mysql:5.7.29
-    container_name: db
+    container_name: sprint_stats_db
     restart: unless-stopped
     tty: true
     ports:

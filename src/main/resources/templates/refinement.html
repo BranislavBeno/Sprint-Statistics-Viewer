@@ -6,7 +6,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title th:text="'Sprint progress ' + ${mSprintLabel}"></title>
+<title>Summarized refinement</title>
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
@@ -20,19 +20,7 @@
 <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"></script>
 <!-- Own -->
 <script th:inline="javascript">
-	var itemHref = "/sprintprogress?sprint=";
-	var itemList = [[${mSprintList}]];
-
-	var labels = [[${mLabels}]];
-
-	var toDoSP = [[${mToDoSP}]];
-	var toDoPercentage = [[${mToDoPercentage}]];
-
-	var inProgressSP = [[${mInProgressSP}]];
-	var inProgressPercentage = [[${mInProgressPercentage}]];
-
-	var doneSP = [[${mDoneSP}]];
-	var donePercentage = [[${mDonePercentage}]]
+	
 </script>
 </head>
 <body>
@@ -49,15 +37,17 @@
 
 			<ul class="list-unstyled components">
 				<!-- Home page -->
-				<li><a id="homeMenuItem" href="#"><i class="fas fa-home"></i></a></li>
+				<li><a id="homeMenuItem" th:href="@{/sprintprogress?sprint=}"><i
+						class="fas fa-home"></i></a></li>
 				<!-- Sprint progress page -->
-				<li><a id="progressMenuItem" href="#"><i
+				<li><a id="progressMenuItem"
+					th:href="@{/sprintprogress?sprint=}"><i
 						class="fas fa-chart-line"></i></a></li>
 				<!-- KPI's page -->
 				<li><a id="kpiMenuItem" th:href="@{/kpi?sprint=}"><i
 						class="fas fa-th"></i></a></li>
 				<!-- Refinement page -->
-				<li><a id="refinementMenuItem" th:href="@{/refinement}"><i
+				<li><a id="refinementMenuItem" href="#"><i
 						class="far fa-chart-bar"></i></a></li>
 				<!-- Goals page -->
 				<li><a id="goalsMenuItem" th:href="@{/goals?sprint=}"><i
@@ -122,23 +112,22 @@
 				<div id="dropdown" class="dropdown">
 					<button class="btn btn-secondary dropdown-toggle" type="button"
 						id="dropdownMenuButton" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"
-						th:text="${mSprintLabel}"></button>
+						aria-haspopup="true" aria-expanded="false"></button>
 					<div id="sprint-dropdown" class="dropdown-menu"
 						aria-labelledby="dropdownMenuButton"></div>
 				</div>
 			</nav>
 			<blockquote class="blockquote text-center m-4">
-				<h3>Sprint progress</h3>
+				<h3>Summarized refinement</h3>
 			</blockquote>
 			<!-- Chart container  -->
 			<div class="container">
-				<canvas id="progressChart" style="max-width: 1700px;"></canvas>
+				<canvas id="refinementChart" style="max-width: 1700px;"></canvas>
 			</div>
 			<!-- Footer  -->
 			<footer class="footer bg-transparent fixed-bottom">
 				<div class="container text-muted">
-					<span id="footerText" th:text="'Last update: ' + ${mUpdated}"></span>
+					<!-- span id="footerText" th:text="'Last update: ' + ${mUpdated}"></span -->
 				</div>
 			</footer>
 		</div>
@@ -155,10 +144,8 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 	<!-- Own -->
 	<!-- Chart drawing -->
-	<script type="text/javascript" src="/js/SprintProgressChart.js"></script>
+	<script type="text/javascript" src="/js/RefinementChart.js"></script>
 	<!-- Side bar handling -->
 	<script type="text/javascript" src="/js/Sidebar.js"></script>
-	<!-- Drop down menu handling -->
-	<script type="text/javascript" src="/js/DropDownMenu.js"></script>
 </body>
 </html>
