@@ -30,6 +30,7 @@ public class SprintKpiRowMapper implements RowMapper<SprintKpi> {
 		sprintKpi.setDeltaStoryPoints(rs.getDouble("delta_sp"));
 		sprintKpi.setPlannedStoryPointsClosed(rs.getDouble("planned_sp_closed"));
 		sprintKpi.setNotClosedHighPriorStoriesCount(rs.getInt("not_closed_high_prior_stories"));
+		sprintKpi.setClosedHighPriorStoriesSuccessRate(rs.getDouble("closed_high_prior_stories_success_rate"));
 		sprintKpi.setUpdated(Utils.convertTimeStampToLocalDateTime(rs.getTimestamp("updated")));
 
 		return sprintKpi;

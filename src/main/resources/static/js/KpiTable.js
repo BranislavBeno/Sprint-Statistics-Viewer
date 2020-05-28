@@ -54,7 +54,8 @@ let tHead = createTableHeader();
 // Create body rows
 const bodyRows = [ "Delta number of Story Points start vs. close <10%",
 		"At least 80% of planned story points closed",
-		"All critical and high priority stories closed out" ];
+		"All critical and high priority stories closed out",
+		"Critical and high priority stories closed out success rate" ];
 
 // Create table body
 let tBody = document.createElement('tbody');
@@ -65,6 +66,8 @@ const tBodyRow1 = createTableBodyRow(bodyRows[0]);
 const tBodyRow2 = createTableBodyRow(bodyRows[1]);
 // Create third body row
 const tBodyRow3 = createTableBodyRow(bodyRows[2]);
+// Create third body row
+const tBodyRow4 = createTableBodyRow(bodyRows[3]);
 
 // Add kpi's table items
 for (let i = 0; i < teamKpis.length; i++) {
@@ -100,6 +103,27 @@ for (let i = 0; i < teamKpis.length; i++) {
 	}
 	// Add body row column element to parent element
 	tBodyRow3.appendChild(tBodyRowCol3);
+
+	// Create column for fourth body row
+	let closedHighPriorStoriesSuccessRate = teamKpis[i].closedHighPriorStoriesSuccessRate * 100;
+	let tBodyRowCol4 = document.createElement('td');
+	tBodyRowCol4.innerHTML = closedHighPriorStoriesSuccessRate.toFixed(2) + "%";
+	tBodyRowCol4.className = "bg-danger";
+	// Case when no high priority stories were put into the sprint
+	if (closedHighPriorStoriesSuccessRate < 0) {
+		tBodyRowCol4.innerHTML = "N/A";
+		tBodyRowCol4.className = "bg-active";
+	}
+	// Case when success rate reaches at least 70%
+	if (closedHighPriorStoriesSuccessRate >= 70) {
+		tBodyRowCol4.className = "bg-warning";
+	}
+	// Case when success rate reaches at least 90%
+	if (closedHighPriorStoriesSuccessRate >= 90) {
+		tBodyRowCol4.className = "bg-success";
+	}
+	// Add body row column element to parent element
+	tBodyRow4.appendChild(tBodyRowCol4);
 }
 
 // Add first body row element to parent element
@@ -108,6 +132,8 @@ tBody.appendChild(tBodyRow1);
 tBody.appendChild(tBodyRow2);
 // Add third body row element to parent element
 tBody.appendChild(tBodyRow3);
+//Add fourth body row element to parent element
+tBody.appendChild(tBodyRow4);
 
 // Add table head element to parent element
 kpiTable.appendChild(tHead);

@@ -22,6 +22,9 @@ public class SprintKpi {
 	/** The not closed high prior stories count. */
 	private int notClosedHighPriorStoriesCount = 0;
 
+	/** The closed high prior stories success rate. */
+	private double closedHighPriorStoriesSuccessRate = 0;
+
 	/** The updated. */
 	private LocalDateTime updated;
 
@@ -114,6 +117,24 @@ public class SprintKpi {
 	 */
 	public void setNotClosedHighPriorStoriesCount(int notClosedHighPriorStoriesCount) {
 		this.notClosedHighPriorStoriesCount = notClosedHighPriorStoriesCount;
+	}
+
+	/**
+	 * Gets the closed high prior stories success rate.
+	 *
+	 * @return the closed high prior stories success rate
+	 */
+	public double getClosedHighPriorStoriesSuccessRate() {
+		return closedHighPriorStoriesSuccessRate;
+	}
+
+	/**
+	 * Sets the closed high prior stories success rate.
+	 *
+	 * @param closedHighPriorStoriesSuccessRate the new closed high prior stories success rate
+	 */
+	public void setClosedHighPriorStoriesSuccessRate(double closedHighPriorStoriesSuccessRate) {
+		this.closedHighPriorStoriesSuccessRate = closedHighPriorStoriesSuccessRate;
 	}
 
 	/**
