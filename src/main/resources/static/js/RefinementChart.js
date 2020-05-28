@@ -1,79 +1,87 @@
 // Default font color
 Chart.defaults.global.defaultFontColor = '#bebebe';
 
-// Configure look and feel of chart
-var barOptions_stacked = {
-	tooltips : {
-		enabled : false,
-	},
-	scales : {
-		xAxes : [ {
-			ticks : {
-				beginAtZero : true,
-				fontSize : 15
-			},
-			scaleLabel : {
-				display : false,
-			},
-			gridLines : {},
-			ticks : {
-				fontSize : 15,
-			},
-			stacked : true
-		} ],
-		yAxes : [ {
-			gridLines : {},
-			ticks : {
-				fontSize : 15,
-			},
-			stacked : true,
-		} ]
-	},
-	legend : {
-		display : true,
-	},
+let labels = [ 'Sprint 59', 'Sprint 60', 'Sprint 61', 'Sprint 62' ];
+let expected = [ 220, 220, 220, 220 ];
+let basic = [ 257, 161, 8, 3 ];
+let advanced = [ 35, 18, 61, 8 ];
+let commercial = [ 0, 0, 0, 0 ];
+let future = [ 0, 0, 0, 0 ];
 
-	animation : {
-		onComplete : function() {
-			var chartInstance = this.chart;
-			var ctx = chartInstance.ctx;
-			ctx.fillStyle = "#fff";
-
-			Chart.helpers.each(this.data.datasets.forEach(function(dataset, i) {
-				var meta = chartInstance.controller.getDatasetMeta(i);
-				Chart.helpers.each(meta.data.forEach(function(bar, index) {
-					data = dataset.data_c[index];
-					if (data != 0) {
-						shift = 24;
-						if (data < 100)
-							shift = 18;
-						if (data < 10)
-							shift = 12;
-						ctx.fillText(data, bar._model.x - shift, bar._model.y);
-					}
-				}), this)
-			}), this);
-		}
-	},
+let barChartData = {
+	labels : labels,
+	datasets : [ {
+		label : 'Expected',
+		data : expected,
+		borderColor : 'rgba(235, 0, 0, 1)',
+		type : 'line',
+		fill : false
+	}, {
+		label : 'Basic',
+		data : basic,
+		backgroundColor : 'rgba(52, 152, 219, 1)',
+		hoverBackgroundColor : 'rgba(0, 0, 255, 1)'
+	}, {
+		label : 'Advanced',
+		data : advanced,
+		backgroundColor : 'rgba(255, 159, 64, 1)',
+		hoverBackgroundColor : 'rgba(251 ,219, 72, 1)'
+	}, {
+		label : 'Commercial',
+		data : commercial,
+		backgroundColor : 'rgba(92, 184, 92 , 1)',
+		hoverBackgroundColor : 'rgba(50, 205, 50, 1)'
+	}, {
+		label : 'Future',
+		data : future,
+		backgroundColor : 'rgba(128,0,128,1)',
+		hoverBackgroundColor : 'rgba(50, 205, 50, 1)'
+	} ]
 };
 
-// Get element representing chart
-var ctx = document.getElementById("refinementChart").getContext('2d');
-// Equip chart with data
-var mixedChart = new Chart(ctx, {
-    type: 'bar',
-    data: {
-        datasets: [{
-            label: 'Bar Dataset',
-            data: [10, 20, 30, 40]
-        }, {
-            label: 'Line Dataset',
-            data: [50, 50, 50, 50],
-
-            // Changes this dataset to become a line
-            type: 'line'
-        }],
-        labels: ['January', 'February', 'March', 'April']
-    },
-	options : barOptions_stacked,
-});
+window.onload = function() {
+	var ctx = document.getElementById("refinementChart").getContext("2d");
+	window.myBar = new Chart(ctx, {
+		type : 'bar',
+		data : barChartData,
+		options : {
+			responsive : true,
+			tooltips : {
+				mode : 'index',
+				intersect : true
+			},
+			scales : {
+				xAxes : [ {
+					stacked : true
+				} ],
+				yAxes : [ {
+					type : "linear", // only linear but allow scale type
+					// registration. This allows extensions
+					// to exist solely for log scale for
+					// instance
+					stacked : true,
+					display : true,
+					position : "left",
+					ticks : {
+						beginAtZero : true,
+						suggestedMin : 0,
+						suggestedMax : 10,
+						min : 0
+					}
+				}, {
+					type : "linear", // only linear but allow scale type
+					// registration. This allows extensions
+					// to exist solely for log scale for
+					// instance
+					display : false,
+					ticks : {
+						beginAtZero : true,
+						suggestedMin : 0,
+						suggestedMax : 10,
+						min : 0
+					}
+				} ],
+			}
+		}
+	});
+};
