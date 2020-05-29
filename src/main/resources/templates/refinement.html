@@ -6,7 +6,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title>Summarized refinement</title>
+<title th:text="${pageTitle}"></title>
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
@@ -20,7 +20,12 @@
 <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"></script>
 <!-- Own -->
 <script th:inline="javascript">
-	
+	let labels       = [[${mLabels}]];	
+
+	let basicSP      = [[${mBasicSP}]];	
+	let advancedSP   = [[${mAdvancedSP}]];	
+	let commercialSP = [[${mCommercialSP}]];	
+	let futureSP     = [[${mFutureSP}]];	
 </script>
 </head>
 <body>
@@ -110,15 +115,15 @@
 			<!-- Nav bar  -->
 			<nav class="navbar border-secondary navbar-dark bg-dark">
 				<div id="dropdown" class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button"
-						id="dropdownMenuButton" data-toggle="dropdown"
+					<button class="btn btn-secondary dropdown-toggle invisible"
+						type="button" id="dropdownMenuButton" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false"></button>
 					<div id="sprint-dropdown" class="dropdown-menu"
 						aria-labelledby="dropdownMenuButton"></div>
 				</div>
 			</nav>
 			<blockquote class="blockquote text-center m-4">
-				<h3>Summarized refinement</h3>
+				<h3 th:text="${pageTitle}"></h3>
 			</blockquote>
 			<!-- Chart container  -->
 			<div class="container">
@@ -127,7 +132,7 @@
 			<!-- Footer  -->
 			<footer class="footer bg-transparent fixed-bottom">
 				<div class="container text-muted">
-					<!-- span id="footerText" th:text="'Last update: ' + ${mUpdated}"></span -->
+					<span id="footerText" th:text="'Last update: ' + ${mUpdated}"></span>
 				</div>
 			</footer>
 		</div>

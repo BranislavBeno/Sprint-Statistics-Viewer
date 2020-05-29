@@ -35,7 +35,7 @@ public class SprintProgressRowMapper implements RowMapper<SprintProgress> {
 		Date theEnd = rs.getDate("sprint_end");
 		LocalDate end = Instant.ofEpochMilli(theEnd.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
 
-		// Create new Sprint entity
+		// Create new sprint progress entity
 		final SprintProgress sprint = new SprintProgress();
 
 		// Fill fields

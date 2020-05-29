@@ -51,7 +51,7 @@ public class SprintProgressController {
 	/**
 	 * Instantiates a new sprint controller.
 	 *
-	 * @param dao the dao
+	 * @param dao the DAO
 	 */
 	@Autowired
 	public SprintProgressController(SprintProgressDAO dao) {

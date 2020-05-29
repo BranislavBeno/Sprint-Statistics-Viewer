@@ -49,10 +49,13 @@ i, span {
 	margin-bottom: 0px;
 }
 
-#progressChart, #goalCards {
-	margin-top: 30px;
+#progressChart, #refinementChart {
+	margin-top: 50px;
 }
 
+#goalCards {
+	margin-top: 30px;
+}
 #kpiTable {
 	margin-top: 70px;
 }

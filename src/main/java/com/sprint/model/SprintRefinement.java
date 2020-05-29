@@ -1,0 +1,96 @@
+package com.sprint.model;
+
+import java.time.LocalDateTime;
+import java.util.Map;
+
+import com.sprint.enums.FeatureScope;
+
+/**
+ * The Class SprintGoal.
+ */
+public class SprintRefinement {
+
+	/** The sprint label. */
+	private String sprintLabel = "";
+
+	/** The refined story points. */
+	private Map<FeatureScope, Integer> refinedStoryPoints;
+
+	/** The updated. */
+	private LocalDateTime updated;
+
+	/** The expected velocity. */
+	private int expectedVelocity = 0;
+
+	/**
+	 * Gets the sprint label.
+	 *
+	 * @return the sprint label
+	 */
+	public String getSprintLabel() {
+		return sprintLabel;
+	}
+
+	/**
+	 * Sets the sprint label.
+	 *
+	 * @param sprintLabel the new sprint label
+	 */
+	public void setSprintLabel(String sprintLabel) {
+		this.sprintLabel = sprintLabel;
+	}
+
+	/**
+	 * Gets the refined story points.
+	 *
+	 * @return the refined story points
+	 */
+	public Map<FeatureScope, Integer> getRefinedStoryPoints() {
+		return refinedStoryPoints;
+	}
+
+	/**
+	 * Sets the refined story points.
+	 *
+	 * @param refinedStoryPoints the refined story points
+	 */
+	public void setRefinedStoryPoints(Map<FeatureScope, Integer> refinedStoryPoints) {
+		this.refinedStoryPoints = refinedStoryPoints;
+	}
+
+	/**
+	 * Gets the updated.
+	 *
+	 * @return the updated
+	 */
+	public LocalDateTime getUpdated() {
+		return updated;
+	}
+
+	/**
+	 * Sets the updated.
+	 *
+	 * @param updated the new updated
+	 */
+	public void setUpdated(LocalDateTime updated) {
+		this.updated = updated;
+	}
+
+	/**
+	 * Gets the expected velocity.
+	 *
+	 * @return the expected velocity
+	 */
+	public int getExpectedVelocity() {
+		return expectedVelocity;
+	}
+
+	/**
+	 * Sets the expected velocity.
+	 *
+	 * @param expectedVelocity the new expected velocity
+	 */
+	public void setExpectedVelocity(int expectedVelocity) {
+		this.expectedVelocity = expectedVelocity;
+	}
+}
