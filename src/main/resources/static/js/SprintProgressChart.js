@@ -1,6 +1,9 @@
 // Default font color
 Chart.defaults.global.defaultFontColor = '#bebebe';
 
+// Tool tips disabled
+Chart.defaults.global.tooltips = false;
+
 // Configure chart data
 let chartData = {
 	labels : labels,
@@ -28,10 +31,6 @@ let chartData = {
 // Configure chart design
 let chartOptions = {
 	responsive : true,
-	tooltips : {
-		mode : 'index',
-		intersect : true
-	},
 	scales : {
 		xAxes : [ {
 			stacked : true,

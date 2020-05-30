@@ -7,7 +7,9 @@ let chartData = {
 	datasets : [ {
 		label : 'Expected',
 		data : expectedSP,
-		borderColor : 'rgba(235, 0, 0, 1)',
+		borderColor : 'rgba(255, 0, 0, 1)',
+		backgroundColor : 'rgba(255, 0, 0, 1)',
+		pointStyle : 'rect',
 		type : 'line',
 		fill : false
 	}, {
