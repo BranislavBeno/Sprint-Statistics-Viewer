@@ -1,7 +1,9 @@
 package com.sprint.controllers;
 
+import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.sprint.enums.FeatureScope;
+import com.sprint.jdbc.SprintVelocityRowMapper;
 import com.sprint.model.SprintRefinement;
-import com.sprint.repository.SprintRefinementDAO;
+import com.sprint.model.SprintVelocity;
+import com.sprint.repository.impl.SprintRefinementDAO;
+import com.sprint.repository.impl.SprintVelocityDAO;
 
 /**
  * The Class SprintRefinementController.
@@ -22,17 +27,25 @@ import com.sprint.repository.SprintRefinementDAO;
 @Controller
 public class SprintRefinementController {
 
-	/** The sprints. */
-	private SprintRefinementDAO sprints;
+	/** The Constant TEAM_TABLE_PREFIX. */
+	private static final String TEAM_TABLE_PREFIX = "team_";
+
+	/** The refinements. */
+	private SprintRefinementDAO refinements;
+
+	/** The velocities. */
+	private SprintVelocityDAO velocities;
 
 	/**
 	 * Instantiates a new sprint refinement controller.
 	 *
-	 * @param dao the dao
+	 * @param dao        the dao
+	 * @param velocities the velocities
 	 */
 	@Autowired
-	public SprintRefinementController(SprintRefinementDAO dao) {
-		this.sprints = dao;
+	public SprintRefinementController(SprintRefinementDAO dao, SprintVelocityDAO velocities) {
+		this.refinements = dao;
+		this.velocities = velocities;
 	}
 
 	/**
@@ -114,19 +127,65 @@ public class SprintRefinementController {
 	}
 
 	/**
+	 * Count one teams velocity.
+	 *
+	 * @param tableName the table name
+	 * @return the int
+	 */
+	private int countOneTeamsVelocity(String tableName) {
+		// Get list of sprints for particular team
+		List<SprintVelocity> sprints = velocities.getSprintList(tableName, new SprintVelocityRowMapper());
+
+		// Remove last sprint - it is current not finished sprint - its count of
+		// finished story points is not final
+		sprints.remove(sprints.size() - 1);
+
+		// Compute velocity
+		Double velocity = sprints.stream().mapToInt(SprintVelocity::getFinishedStoryPointsSum).average().orElse(0);
+
+		return velocity.intValue();
+	}
+
+	/**
+	 * Count expected velocity.
+	 *
+	 * @return the int
+	 * @throws SQLException the SQL exception
+	 */
+	private int countExpectedVelocity() throws SQLException {
+		// Get list of team tables
+		List<String> tables = velocities.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
+				.collect(Collectors.toList());
+
+		// Count list of velocities
+		return tables.stream().map(this::countOneTeamsVelocity).collect(Collectors.summingInt(v -> v));
+	}
+
+	/**
+	 * Collect expected velocity list.
+	 *
+	 * @return the list
+	 * @throws SQLException the SQL exception
+	 */
+	private List<Integer> collectExpectedVelocityList() throws SQLException {
+		return Collections.nCopies(FeatureScope.values().length, countExpectedVelocity());
+	}
+
+	/**
 	 * Refinement.
 	 *
 	 * @param model the model
 	 * @return the string
+	 * @throws SQLException the SQL exception
 	 */
 	@GetMapping("/refinement")
-	public String refinement(Model model) {
-		List<SprintRefinement> refinements = sprints.getRefinements();
+	public String refinement(Model model) throws SQLException {
+		List<SprintRefinement> sprints = refinements.getRefinements();
 
-		Map<FeatureScope, List<Integer>> refinedSP = collectSPLists(refinements);
+		Map<FeatureScope, List<Integer>> refinedSP = collectSPLists(sprints);
 
 		// Set time stamp of database item last update
-		String updated = gatherLastUpdateTimeStamp(refinements);
+		String updated = gatherLastUpdateTimeStamp(sprints);
 
 		// Add updated time stamp
 		model.addAttribute("pageTitle", "Summarized refinement");
@@ -135,7 +194,7 @@ public class SprintRefinementController {
 		model.addAttribute("mUpdated", updated);
 
 		// Add labels list
-		model.addAttribute("mLabels", collectLabelList(refinements));
+		model.addAttribute("mLabels", collectLabelList(sprints));
 
 		// Add basic story points list
 		model.addAttribute("mBasicSP", refinedSP.get(FeatureScope.BASIC));
@@ -148,6 +207,9 @@ public class SprintRefinementController {
 
 		// Add future story points list
 		model.addAttribute("mFutureSP", refinedSP.get(FeatureScope.FUTURE));
+
+		// Add expected velocity list
+		model.addAttribute("mExpectedSP", collectExpectedVelocityList());
 
 		return "refinement";
 	}

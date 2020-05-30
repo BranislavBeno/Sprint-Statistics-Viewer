@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sprint.repository;
+package com.sprint.repository.impl;
 
 import java.util.List;
 

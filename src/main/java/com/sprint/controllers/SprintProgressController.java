@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.sprint.enums.ProgressState;
 import com.sprint.model.SprintProgress;
-import com.sprint.repository.SprintProgressDAO;
+import com.sprint.repository.impl.SprintProgressDAO;
 
 /**
  * The Class SprintProgressController.

@@ -23,7 +23,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sprint.model.SprintGoal;
 import com.sprint.model.TeamGoal;
-import com.sprint.repository.SprintGoalDAO;
+import com.sprint.repository.impl.SprintGoalDAO;
 
 /**
  * The Class SprintGoalController.

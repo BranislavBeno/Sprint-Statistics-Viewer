@@ -1,4 +1,7 @@
-package com.sprint.repository;
+/**
+ * 
+ */
+package com.sprint.repository.impl;
 
 import javax.sql.DataSource;
 
@@ -6,16 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.sprint.jdbc.SprintKpiRowMapper;
-import com.sprint.model.SprintKpi;
+import com.sprint.jdbc.SprintProgressRowMapper;
+import com.sprint.model.SprintProgress;
+import com.sprint.repository.SprintDAO;
 
 /**
- * The Class SprintKpiDAO.
+ * The Class SprintProgressDAO.
  */
 @Repository
-public class SprintKpiDAO implements SprintDAO {
+public class SprintProgressDAO implements SprintDAO {
 
-	/** The jdbc template. */
+	/** The JDBC template. */
 	private JdbcTemplate jdbcTemplate;
 
 	/**
@@ -29,9 +33,9 @@ public class SprintKpiDAO implements SprintDAO {
 	}
 
 	/**
-	 * Gets the jdbc template.
+	 * Gets the JDBC template.
 	 *
-	 * @return the jdbc template
+	 * @return the JDBC template
 	 */
 	@Override
 	public JdbcTemplate getJdbcTemplate() {
@@ -42,23 +46,23 @@ public class SprintKpiDAO implements SprintDAO {
 	 * Gets the sprint by id.
 	 *
 	 * @param tableName the table name
-	 * @param id the id
+	 * @param id        the id
 	 * @return the sprint by id
 	 */
-	public SprintKpi getSprintById(final String tableName, final int id) {
+	public SprintProgress getSprintById(final String tableName, final int id) {
 		final String query = "select * from " + tableName + " where id = ?";
-		return jdbcTemplate.queryForObject(query, new Object[] { id }, new SprintKpiRowMapper());
+		return jdbcTemplate.queryForObject(query, new Object[] { id }, new SprintProgressRowMapper());
 	}
 
 	/**
 	 * Gets the sprint by label.
 	 *
 	 * @param tableName the table name
-	 * @param label the label
+	 * @param label     the label
 	 * @return the sprint by label
 	 */
-	public SprintKpi getSprintByLabel(final String tableName, final String label) {
+	public SprintProgress getSprintByLabel(final String tableName, final String label) {
 		final String query = "select * from " + tableName + " where sprint = ?";
-		return jdbcTemplate.queryForObject(query, new Object[] { label }, new SprintKpiRowMapper());
+		return jdbcTemplate.queryForObject(query, new Object[] { label }, new SprintProgressRowMapper());
 	}
 }

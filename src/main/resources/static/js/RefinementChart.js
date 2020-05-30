@@ -1,8 +1,6 @@
 // Default font color
 Chart.defaults.global.defaultFontColor = '#bebebe';
 
-let expectedSP = [ 220, 220, 220, 220 ];
-
 // Configure chart data
 let chartData = {
 	labels : labels,
@@ -15,23 +13,23 @@ let chartData = {
 	}, {
 		label : 'Basic',
 		data : basicSP,
-		backgroundColor : 'rgba(0, 0, 255, 1)',
-		hoverBackgroundColor : 'rgba(2, 117, 216, 1)'
+		backgroundColor : 'rgba(2, 117, 216, 1)',
+		hoverBackgroundColor : 'rgba(0, 0, 255, 1)'
 	}, {
 		label : 'Advanced',
 		data : advancedSP,
-		backgroundColor : 'rgba(255, 165, 0, 1)',
-		hoverBackgroundColor : 'rgba(240,173,78,1)'
+		backgroundColor : 'rgba(240,173,78,1)',
+		hoverBackgroundColor : 'rgba(255, 165, 0, 1)'
 	}, {
 		label : 'Commercial',
 		data : commercialSP,
-		backgroundColor : 'rgba(0 ,128, 0, 1)',
-		hoverBackgroundColor : 'rgba(92, 184, 92, 1)'
+		backgroundColor : 'rgba(92, 184, 92, 1)',
+		hoverBackgroundColor : 'rgba(0 ,128, 0, 1)'
 	}, {
 		label : 'Future',
 		data : futureSP,
-		backgroundColor : 'rgba(110, 42, 110, 1)',
-		hoverBackgroundColor : 'rgba(164, 63, 164 , 1)'
+		backgroundColor : 'rgba(164, 63, 164 , 1)',
+		hoverBackgroundColor : 'rgba(110, 42, 110, 1)'
 	} ]
 };
 

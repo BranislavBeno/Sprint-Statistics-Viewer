@@ -8,20 +8,20 @@ let chartData = {
 		data : toDoPercentage,
 		data_c : toDoSP,
 		label : 'To do',
-		backgroundColor : 'rgba(235, 0, 0, 1)',
-		hoverBackgroundColor : 'rgba(231, 76, 60, 1)'
+		backgroundColor : 'rgba(231, 76, 60, 1)',
+		hoverbackgroundColor : 'rgba(235, 0, 0, 1)'
 	}, {
 		data : inProgressPercentage,
 		data_c : inProgressSP,
 		label : 'In progress',
-		backgroundColor : 'rgba(0, 0, 255, 1)',
-		hoverBackgroundColor : 'rgba(52, 152, 219, 1)'
+		backgroundColor : 'rgba(52, 152, 219, 1)',
+		hoverBackgroundColor : 'rgba(0, 0, 255, 1)'
 	}, {
 		data : donePercentage,
 		data_c : doneSP,
 		label : 'Done',
-		backgroundColor : 'rgba(50, 205, 50, 1)',
-		hoverBackgroundColor : 'rgba(92, 184, 92 , 1)'
+		backgroundColor : 'rgba(92, 184, 92 , 1)',
+		hoverBackgroundColor : 'rgba(50, 205, 50, 1)'
 	} ]
 }
 
@@ -34,25 +34,20 @@ let chartOptions = {
 	},
 	scales : {
 		xAxes : [ {
+			stacked : true,
 			ticks : {
 				beginAtZero : true,
 				fontSize : 15
 			},
 			scaleLabel : {
 				display : false,
-			},
-			gridLines : {},
-			ticks : {
-				fontSize : 15,
-			},
-			stacked : true
+			}
 		} ],
 		yAxes : [ {
-			gridLines : {},
+			stacked : true,
 			ticks : {
 				fontSize : 15,
-			},
-			stacked : true,
+			}
 		} ]
 	},
 	legend : {
@@ -61,15 +56,14 @@ let chartOptions = {
 	animation : {
 		onComplete : function() {
 			let chartInstance = this.chart;
-			let ctx = chartInstance.ctx;
 			ctx.fillStyle = "#fff";
 
 			Chart.helpers.each(this.data.datasets.forEach(function(dataset, i) {
 				let meta = chartInstance.controller.getDatasetMeta(i);
 				Chart.helpers.each(meta.data.forEach(function(bar, index) {
-					data = dataset.data_c[index];
+					let data = dataset.data_c[index];
 					if (data != 0) {
-						shift = 24;
+						let shift = 24;
 						if (data < 100)
 							shift = 18;
 						if (data < 10)

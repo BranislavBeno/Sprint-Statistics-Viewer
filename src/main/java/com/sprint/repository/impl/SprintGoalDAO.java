@@ -1,4 +1,4 @@
-package com.sprint.repository;
+package com.sprint.repository.impl;
 
 import javax.sql.DataSource;
 
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.sprint.jdbc.SprintGoalRowMapper;
 import com.sprint.model.SprintGoal;
+import com.sprint.repository.SprintDAO;
 
 /**
  * The Class SprintGoalDAO.
