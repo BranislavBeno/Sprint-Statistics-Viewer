@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
 /**
@@ -33,5 +34,15 @@ public class Utils {
 		int hourOffset = zoneOffSet.getTotalSeconds() / 3600;
 
 		return ts.toLocalDateTime().minusHours(hourOffset);
+	}
+
+	/**
+	 * Gather last update time stamp.
+	 *
+	 * @param timeStamp the time stamp
+	 * @return the string
+	 */
+	public static String convertTimeStampToString(LocalDateTime timeStamp) {
+		return timeStamp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 	}
 }

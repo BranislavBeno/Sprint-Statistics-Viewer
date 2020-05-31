@@ -15,11 +15,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.sprint.enums.FeatureScope;
-import com.sprint.jdbc.SprintVelocityRowMapper;
+import com.sprint.jdbc.TeamVelocityRowMapper;
 import com.sprint.model.SprintRefinement;
-import com.sprint.model.SprintVelocity;
+import com.sprint.model.TeamVelocity;
 import com.sprint.repository.impl.SprintRefinementDAO;
-import com.sprint.repository.impl.SprintVelocityDAO;
+import com.sprint.repository.impl.TeamVelocityDAO;
 
 /**
  * The Class SprintRefinementController.
@@ -34,7 +34,7 @@ public class SprintRefinementController {
 	private SprintRefinementDAO refinements;
 
 	/** The velocities. */
-	private SprintVelocityDAO velocities;
+	private TeamVelocityDAO velocities;
 
 	/**
 	 * Instantiates a new sprint refinement controller.
@@ -43,7 +43,7 @@ public class SprintRefinementController {
 	 * @param velocities the velocities
 	 */
 	@Autowired
-	public SprintRefinementController(SprintRefinementDAO dao, SprintVelocityDAO velocities) {
+	public SprintRefinementController(SprintRefinementDAO dao, TeamVelocityDAO velocities) {
 		this.refinements = dao;
 		this.velocities = velocities;
 	}
@@ -134,14 +134,14 @@ public class SprintRefinementController {
 	 */
 	private int countOneTeamsVelocity(String tableName) {
 		// Get list of sprints for particular team
-		List<SprintVelocity> sprints = velocities.getSprintList(tableName, new SprintVelocityRowMapper());
+		List<TeamVelocity> sprints = velocities.getSprintList(tableName, new TeamVelocityRowMapper());
 
 		// Remove last sprint - it is current not finished sprint - its count of
 		// finished story points is not final
 		sprints.remove(sprints.size() - 1);
 
 		// Compute velocity
-		Double velocity = sprints.stream().mapToInt(SprintVelocity::getFinishedStoryPointsSum).average().orElse(0);
+		Double velocity = sprints.stream().mapToInt(TeamVelocity::getFinishedStoryPointsSum).average().orElse(0);
 
 		return velocity.intValue();
 	}
@@ -180,8 +180,10 @@ public class SprintRefinementController {
 	 */
 	@GetMapping("/refinement")
 	public String refinement(Model model) throws SQLException {
+		// Get list of sprint related summarized refinements
 		List<SprintRefinement> sprints = refinements.getRefinements();
 
+		// Convert refinements to map
 		Map<FeatureScope, List<Integer>> refinedSP = collectSPLists(sprints);
 
 		// Set time stamp of database item last update

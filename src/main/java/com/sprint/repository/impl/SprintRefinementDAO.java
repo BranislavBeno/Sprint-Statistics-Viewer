@@ -20,8 +20,8 @@ import com.sprint.model.SprintRefinement;
 @Repository
 public class SprintRefinementDAO {
 
-	/** The Constant REFINEMENT_TABLE_PREFIX. */
-	private static final String REFINEMENT_TABLE_PREFIX = "sprint";
+	/** The Constant REFINEMENT_TABLE_NAME. */
+	private static final String REFINEMENT_TABLE_NAME = "sprint";
 
 	/** The JDBC template. */
 	private JdbcTemplate jdbcTemplate;
@@ -42,7 +42,7 @@ public class SprintRefinementDAO {
 	 * @return the refinements
 	 */
 	public List<SprintRefinement> getRefinements() {
-		return jdbcTemplate.query("SELECT * FROM (SELECT * FROM " + REFINEMENT_TABLE_PREFIX
+		return jdbcTemplate.query("SELECT * FROM (SELECT * FROM " + REFINEMENT_TABLE_NAME
 				+ " ORDER BY id DESC LIMIT 4) var1 ORDER BY id ASC;", new SprintRefinementRowMapper());
 	}
 }

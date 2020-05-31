@@ -6,16 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.sprint.model.SprintVelocity;
-import com.sprint.repository.SprintListDAO;
+import com.sprint.model.TeamVelocity;
+import com.sprint.repository.TeamListDAO;
 
 /**
- * The Class SprintVelocityDAO.
+ * The Class TeamVelocityDAO.
  */
 @Repository
-public class SprintVelocityDAO implements SprintListDAO<SprintVelocity> {
+public class TeamVelocityDAO implements TeamListDAO<TeamVelocity> {
 
-	/** The jdbc template. */
+	/** The JDBC template. */
 	private JdbcTemplate jdbcTemplate;
 
 	/**
@@ -29,9 +29,9 @@ public class SprintVelocityDAO implements SprintListDAO<SprintVelocity> {
 	}
 
 	/**
-	 * Gets the jdbc template.
+	 * Gets the JDBC template.
 	 *
-	 * @return the jdbc template
+	 * @return the JDBC template
 	 */
 	@Override
 	public JdbcTemplate getJdbcTemplate() {

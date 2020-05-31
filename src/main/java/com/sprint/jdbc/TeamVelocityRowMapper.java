@@ -5,13 +5,13 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.sprint.model.SprintVelocity;
+import com.sprint.model.TeamVelocity;
 import com.sprint.utils.Utils;
 
 /**
- * The Class SprintVelocityRowMapper.
+ * The Class TeamVelocityRowMapper.
  */
-public class SprintVelocityRowMapper implements RowMapper<SprintVelocity> {
+public class TeamVelocityRowMapper implements RowMapper<TeamVelocity> {
 
 	/**
 	 * Map row.
@@ -22,9 +22,9 @@ public class SprintVelocityRowMapper implements RowMapper<SprintVelocity> {
 	 * @throws SQLException the SQL exception
 	 */
 	@Override
-	public SprintVelocity mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+	public TeamVelocity mapRow(final ResultSet rs, final int rowNum) throws SQLException {
 		// Create new sprint progress entity
-		final SprintVelocity sprint = new SprintVelocity();
+		final TeamVelocity sprint = new TeamVelocity();
 
 		// Fill fields
 		sprint.setTeamName(rs.getString("team_name"));

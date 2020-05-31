@@ -8,16 +8,16 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
 
 /**
- * The Interface SprintListDAO.
+ * The Interface TeamListDAO.
  *
  * @param <T> the generic type
  */
-public interface SprintListDAO<T> {
+public interface TeamListDAO<T> {
 
 	/**
-	 * Gets the jdbc template.
-	 *
-	 * @return the jdbc template
+	 * Gets the JDBC template.
+	 *F
+	 * @return the JDBC template
 	 */
 	abstract JdbcTemplate getJdbcTemplate();
 

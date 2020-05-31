@@ -3,9 +3,9 @@ package com.sprint.model;
 import java.time.LocalDateTime;
 
 /**
- * The Class SprintVelocity.
+ * The Class TeamVelocity.
  */
-public class SprintVelocity {
+public class TeamVelocity {
 
 	/** The team name. */
 	private String teamName;
