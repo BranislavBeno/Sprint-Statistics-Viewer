@@ -132,6 +132,12 @@ public class SprintProgressController {
 				.filter(d -> d.getDayOfWeek() != DayOfWeek.SATURDAY && d.getDayOfWeek() != DayOfWeek.SUNDAY).count();
 		int length = days.intValue();
 
+		// To correctly display elapsed time is day count on last day of the sprint
+		// set equal to sprint days length
+		if (end.isEqual(LocalDate.now())) {
+			count = days.intValue();
+		}
+
 		// If current date exceeds sprint length return sprint length
 		if (count > length)
 			count = length;
