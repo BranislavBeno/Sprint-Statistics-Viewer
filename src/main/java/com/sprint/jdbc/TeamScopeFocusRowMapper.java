@@ -13,16 +13,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sprint.enums.FeatureScope;
-import com.sprint.model.SprintRefinement;
+import com.sprint.model.TeamScopeFocus;
 import com.sprint.utils.Utils;
 
 /**
- * The Class SprintRefinementRowMapper.
+ * The Class TeamScopeFocusRowMapper.
  */
-public class SprintRefinementRowMapper implements RowMapper<SprintRefinement> {
+public class TeamScopeFocusRowMapper implements RowMapper<TeamScopeFocus> {
 
 	/** The log. */
-	private static Log log = LogFactory.getLog(SprintRefinementRowMapper.class);
+	private static Log log = LogFactory.getLog(TeamScopeFocusRowMapper.class);
 
 	/**
 	 * Gather refined story points.
@@ -46,24 +46,24 @@ public class SprintRefinementRowMapper implements RowMapper<SprintRefinement> {
 	/**
 	 * Map row.
 	 *
-	 * @param rs     the rs
+	 * @param rs the rs
 	 * @param rowNum the row num
-	 * @return the sprint refinement
+	 * @return the team scope focus
 	 * @throws SQLException the SQL exception
 	 */
 	@Override
-	public SprintRefinement mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+	public TeamScopeFocus mapRow(final ResultSet rs, final int rowNum) throws SQLException {
 		// Get refinement values in JSON
-		Map<FeatureScope, Integer> refinedStoryPoints = gatherRefinedStoryPoints(rs.getString("refined_SP"));
+		Map<FeatureScope, Integer> finishedStoryPoints = gatherRefinedStoryPoints(rs.getString("finished_sp"));
 
-		// Create new sprint refinement entity
-		final SprintRefinement sprint = new SprintRefinement();
+		// Create new team scope focus entity
+		final TeamScopeFocus team = new TeamScopeFocus();
 
 		// Fill fields
-		sprint.setSprintLabel(rs.getString("sprint"));
-		sprint.setRefinedStoryPoints(refinedStoryPoints);
-		sprint.setUpdated(Utils.convertTimeStampToLocalDateTime(rs.getTimestamp("updated")));
+		team.setTeamName(rs.getString("team_name"));
+		team.setFinishedStoryPoints(finishedStoryPoints);
+		team.setUpdated(Utils.convertTimeStampToLocalDateTime(rs.getTimestamp("updated")));
 
-		return sprint;
+		return team;
 	}
 }
