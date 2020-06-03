@@ -44,9 +44,6 @@ let chartOptions = {
 				display : true,
 				labelString : 'Sprint'
 			},
-		/*
-		 * gridLines : { zeroLineColor : "#bebebe" }
-		 */
 		} ],
 		yAxes : [ {
 			display : true,
@@ -54,11 +51,8 @@ let chartOptions = {
 			position : "left",
 			scaleLabel : {
 				display : true,
-				labelString : 'Story points'
+				labelString : 'Story points percentage'
 			},
-		/*
-		 * gridLines : { zeroLineColor : "#bebebe" }
-		 */
 		} ],
 	}
 }

@@ -46,7 +46,7 @@ public class TeamScopeFocusRowMapper implements RowMapper<TeamScopeFocus> {
 	/**
 	 * Map row.
 	 *
-	 * @param rs the rs
+	 * @param rs     the rs
 	 * @param rowNum the row num
 	 * @return the team scope focus
 	 * @throws SQLException the SQL exception
@@ -61,6 +61,7 @@ public class TeamScopeFocusRowMapper implements RowMapper<TeamScopeFocus> {
 
 		// Fill fields
 		team.setTeamName(rs.getString("team_name"));
+		team.setSprintLabel(rs.getString("sprint"));
 		team.setFinishedStoryPoints(finishedStoryPoints);
 		team.setUpdated(Utils.convertTimeStampToLocalDateTime(rs.getTimestamp("updated")));
 

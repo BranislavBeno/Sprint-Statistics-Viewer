@@ -15,8 +15,8 @@ import org.springframework.jdbc.core.SingleColumnRowMapper;
 public interface TeamListDAO<T> {
 
 	/**
-	 * Gets the JDBC template.
-	 *F
+	 * Gets the JDBC template. F
+	 * 
 	 * @return the JDBC template
 	 */
 	abstract JdbcTemplate getJdbcTemplate();
@@ -39,8 +39,15 @@ public interface TeamListDAO<T> {
 	 * @return the sprint list
 	 */
 	default List<T> getSprintList(final String tableName, final RowMapper<T> rowMapper) {
-		return getJdbcTemplate().query(
+		// Get data from last 13 sprints
+		List<T> list = getJdbcTemplate().query(
 				"SELECT * FROM (SELECT * FROM " + tableName + " ORDER BY id DESC LIMIT 13) var1 ORDER BY id ASC;",
 				rowMapper);
+
+		// Remove last sprint - it is current, hence not finished sprint - its
+		// statistics are not final
+		list.remove(list.size() - 1);
+
+		return list;
 	}
 }
