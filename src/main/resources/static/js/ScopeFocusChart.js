@@ -53,6 +53,9 @@ let chartOptions = {
 				display : true,
 				labelString : 'Story points percentage'
 			},
+			ticks : {
+				beginAtZero : true
+			}
 		} ],
 	}
 }

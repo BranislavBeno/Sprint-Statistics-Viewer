@@ -7,13 +7,13 @@ let chartData = {
 	datasets : [ {
 		label : 'On sprint begin planned',
 		data : onBeginSP,
-		backgroundColor : 'rgba(2, 117, 216, 1)',
-		hoverBackgroundColor : 'rgba(0, 0, 255, 1)'
+		backgroundColor : 'rgba(240,173,78,1)',
+		hoverBackgroundColor : 'rgba(255, 165, 0, 1)'
 	}, {
 		label : 'On sprint end planned',
 		data : onEndSP,
-		backgroundColor : 'rgba(240,173,78,1)',
-		hoverBackgroundColor : 'rgba(255, 165, 0, 1)'
+		backgroundColor : 'rgba(2, 117, 216, 1)',
+		hoverBackgroundColor : 'rgba(0, 0, 255, 1)'
 	}, {
 		label : 'Finished',
 		data : finishedSP,
@@ -46,6 +46,9 @@ let chartOptions = {
 				display : true,
 				labelString : 'Story points'
 			},
+			ticks : {
+				beginAtZero : true
+			}
 		} ],
 	}
 }

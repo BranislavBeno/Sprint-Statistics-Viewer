@@ -1,6 +1,7 @@
 package com.sprint.controllers;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.sprint.enums.FeatureScope;
 import com.sprint.jdbc.TeamVelocityRowMapper;
 import com.sprint.model.TeamVelocity;
 import com.sprint.repository.impl.TeamVelocityDAO;
@@ -105,11 +107,29 @@ public class TeamVelocityController {
 		return list;
 	}
 
+	private int countOneTeamsVelocity(String tableName) {
+		// Get list of sprints for particular team
+		List<TeamVelocity> sprints = team.getSprintList(tableName, new TeamVelocityRowMapper());
+
+		// Remove last sprint - it is current not finished sprint - its count of
+		// finished story points is not final
+		sprints.remove(sprints.size() - 1);
+
+		// Compute velocity
+		Double velocity = sprints.stream().mapToInt(TeamVelocity::getFinishedStoryPointsSum).average().orElse(0);
+
+		return velocity.intValue();
+	}
+
+	private List<Integer> collectVelocityList(String tableName) {
+		return Collections.nCopies(FeatureScope.values().length, countOneTeamsVelocity(tableName));
+	}
+
 	/**
 	 * Velocity.
 	 *
 	 * @param teamId the team id
-	 * @param model the model
+	 * @param model  the model
 	 * @return the string
 	 */
 	@GetMapping("/{team}/velocity")
@@ -146,6 +166,9 @@ public class TeamVelocityController {
 
 		// Add finished story points list
 		model.addAttribute("mFinishedSP", collectFinishedSPList(sprints));
+
+		// Add team's velocity list
+		model.addAttribute("mVelocitySP", collectVelocityList(tableName));
 
 		return "velocity";
 	}

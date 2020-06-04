@@ -64,6 +64,9 @@ let chartOptions = {
 				display : true,
 				labelString : 'Story points'
 			},
+			ticks : {
+				beginAtZero : true
+			},
 		/*
 		 * gridLines : { zeroLineColor : "#bebebe" }
 		 */
