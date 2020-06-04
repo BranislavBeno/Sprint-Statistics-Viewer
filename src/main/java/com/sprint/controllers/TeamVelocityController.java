@@ -1,7 +1,8 @@
 package com.sprint.controllers;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.sprint.enums.FeatureScope;
 import com.sprint.jdbc.TeamVelocityRowMapper;
 import com.sprint.model.TeamVelocity;
 import com.sprint.repository.impl.TeamVelocityDAO;
@@ -68,7 +68,7 @@ public class TeamVelocityController {
 
 		// Get list of velocity related values
 		if (sprints != null)
-			list = sprints.stream().map(s -> s.getOnBeginPlannedStoryPointsSum()).collect(Collectors.toList());
+			list = sprints.stream().map(TeamVelocity::getOnBeginPlannedStoryPointsSum).collect(Collectors.toList());
 
 		return list;
 	}
@@ -85,7 +85,7 @@ public class TeamVelocityController {
 
 		// Get list of velocity related values
 		if (sprints != null)
-			list = sprints.stream().map(s -> s.getOnEndPlannedStoryPointsSum()).collect(Collectors.toList());
+			list = sprints.stream().map(TeamVelocity::getOnEndPlannedStoryPointsSum).collect(Collectors.toList());
 
 		return list;
 	}
@@ -102,27 +102,38 @@ public class TeamVelocityController {
 
 		// Get list of velocity related values
 		if (sprints != null)
-			list = sprints.stream().map(s -> s.getFinishedStoryPointsSum()).collect(Collectors.toList());
+			list = sprints.stream().map(TeamVelocity::getFinishedStoryPointsSum).collect(Collectors.toList());
 
 		return list;
 	}
 
-	private int countOneTeamsVelocity(String tableName) {
-		// Get list of sprints for particular team
-		List<TeamVelocity> sprints = team.getSprintList(tableName, new TeamVelocityRowMapper());
+	/**
+	 * Collect velocity list.
+	 *
+	 * @param tableName the table name
+	 * @return the list
+	 */
+	private List<Integer> collectVelocityList(String tableName) {
+		// Get list of team related records
+		int sprintListSize = team.getSprintList(tableName, new TeamVelocityRowMapper()).size();
 
-		// Remove last sprint - it is current not finished sprint - its count of
-		// finished story points is not final
-		sprints.remove(sprints.size() - 1);
+		// Get full list of sprints for particular team
+		List<TeamVelocity> allSprints = team.getFullSprintList(tableName);
 
 		// Compute velocity
-		Double velocity = sprints.stream().mapToInt(TeamVelocity::getFinishedStoryPointsSum).average().orElse(0);
+		// Initialize list of velocity related sprint data
+		Deque<Integer> deque = new LinkedList<>();
+		int counter = sprintListSize;
+		while (counter > 0) {
+			Double velocity = allSprints.stream().collect(Utils.lastN(sprintListSize)).stream()
+					.mapToInt(TeamVelocity::getFinishedStoryPointsSum).average().orElse(0);
+			deque.addFirst(velocity.intValue());
 
-		return velocity.intValue();
-	}
+			allSprints.remove(allSprints.size() - 1);
+			counter--;
+		}
 
-	private List<Integer> collectVelocityList(String tableName) {
-		return Collections.nCopies(FeatureScope.values().length, countOneTeamsVelocity(tableName));
+		return new ArrayList<>(deque);
 	}
 
 	/**

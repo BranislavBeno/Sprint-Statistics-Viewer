@@ -5,20 +5,28 @@ Chart.defaults.global.defaultFontColor = '#bebebe';
 let chartData = {
 	labels : labels,
 	datasets : [ {
+		label : 'Velocity',
+		data : velocitySP,
+		borderColor : 'rgba(255, 0, 0, 1)',
+		backgroundColor : 'rgba(255, 0, 0, 1)',
+		pointStyle : 'rect',
+		type : 'line',
+		fill : false
+	}, {
 		label : 'On sprint begin planned',
 		data : onBeginSP,
-		backgroundColor : 'rgba(240,173,78,1)',
-		hoverBackgroundColor : 'rgba(255, 165, 0, 1)'
+		backgroundColor : 'rgba(92, 184, 92, 1)',
+		hoverBackgroundColor : 'rgba(0 ,128, 0, 1)'
 	}, {
 		label : 'On sprint end planned',
 		data : onEndSP,
-		backgroundColor : 'rgba(2, 117, 216, 1)',
-		hoverBackgroundColor : 'rgba(0, 0, 255, 1)'
+		backgroundColor : 'rgba(240,173,78,1)',
+		hoverBackgroundColor : 'rgba(255, 165, 0, 1)'
 	}, {
 		label : 'Finished',
 		data : finishedSP,
-		backgroundColor : 'rgba(92, 184, 92, 1)',
-		hoverBackgroundColor : 'rgba(0 ,128, 0, 1)'
+		backgroundColor : 'rgba(2, 117, 216, 1)',
+		hoverBackgroundColor : 'rgba(0, 0, 255, 1)'
 	} ]
 };
 
