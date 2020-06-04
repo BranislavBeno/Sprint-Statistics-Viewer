@@ -47,7 +47,7 @@ public class TeamScopeFocusController {
 	 * @return the list
 	 */
 	private List<String> collectSprintLabels(List<TeamScopeFocus> sprints) {
-		// Initialize list refinement related sprint data
+		// Initialize list of scope focus related sprint data
 		List<String> list = new ArrayList<>();
 
 		// Get list of scope related values
@@ -65,7 +65,7 @@ public class TeamScopeFocusController {
 	 * @return the list
 	 */
 	private List<Integer> collectOneSPList(final FeatureScope scope, List<TeamScopeFocus> sprints) {
-		// Initialize list refinement related sprint data
+		// Initialize list of scope focus related sprint data
 		List<Integer> list = new ArrayList<>();
 
 		// Get list of scope related values
@@ -193,7 +193,7 @@ public class TeamScopeFocusController {
 		// Get team name
 		String teamName = scopeFocus.getTeamName();
 
-		// Convert refinements to map
+		// Convert scope focuses to map
 		Map<FeatureScope, List<Integer>> collectedSP = collectPercentageLists(collectSPLists(sprints));
 
 		// Add updated time stamp

@@ -10,6 +10,9 @@ public class TeamVelocity {
 	/** The team name. */
 	private String teamName;
 
+	/** The sprint label. */
+	private String sprintLabel;
+
 	/** The team member count. */
 	private int teamMemberCount = 0;
 
@@ -41,6 +44,24 @@ public class TeamVelocity {
 	 */
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
+	}
+
+	/**
+	 * Gets the sprint label.
+	 *
+	 * @return the sprint label
+	 */
+	public String getSprintLabel() {
+		return sprintLabel;
+	}
+
+	/**
+	 * Sets the sprint label.
+	 *
+	 * @param sprintLabel the new sprint label
+	 */
+	public void setSprintLabel(String sprintLabel) {
+		this.sprintLabel = sprintLabel;
 	}
 
 	/**

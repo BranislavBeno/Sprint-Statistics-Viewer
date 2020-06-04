@@ -28,6 +28,7 @@ public class TeamVelocityRowMapper implements RowMapper<TeamVelocity> {
 
 		// Fill fields
 		sprint.setTeamName(rs.getString("team_name"));
+		sprint.setSprintLabel(rs.getString("sprint"));
 		sprint.setTeamMemberCount(rs.getInt("team_member_count"));
 		sprint.setOnBeginPlannedStoryPointsSum(rs.getInt("on_begin_planned_sp_sum"));
 		sprint.setOnEndPlannedStoryPointsSum(rs.getInt("on_end_planned_sp_sum"));

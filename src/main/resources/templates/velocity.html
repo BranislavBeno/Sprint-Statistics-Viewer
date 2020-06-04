@@ -6,7 +6,7 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<title th:text="'Sprint progress ' + ${mSprintLabel}"></title>
+<title th:text="${pageTitle}"></title>
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet"
@@ -20,19 +20,10 @@
 <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"></script>
 <!-- Own -->
 <script th:inline="javascript">
-	let itemHref = "/sprintprogress?sprint=";
-	let itemList = [[${mSprintList}]];
-
-	let labels = [[${mLabels}]];
-
-	let toDoSP = [[${mToDoSP}]];
-	let toDoPercentage = [[${mToDoPercentage}]];
-
-	let inProgressSP = [[${mInProgressSP}]];
-	let inProgressPercentage = [[${mInProgressPercentage}]];
-
-	let doneSP = [[${mDoneSP}]];
-	let donePercentage = [[${mDonePercentage}]]
+	let labels     = [[${mLabels}]];	
+	let onBeginSP  = [[${mOnBeginSP}]];	
+	let onEndSP    = [[${mOnEndSP}]];	
+	let finishedSP = [[${mFinishedSP}]];	
 </script>
 </head>
 <body>
@@ -49,9 +40,11 @@
 
 			<ul class="list-unstyled components">
 				<!-- Home page -->
-				<li><a id="homeMenuItem" href="#"><i class="fas fa-home"></i></a></li>
+				<li><a id="homeMenuItem" th:href="@{/sprintprogress?sprint=}"><i
+						class="fas fa-home"></i></a></li>
 				<!-- Sprint progress page -->
-				<li><a id="progressMenuItem" href="#"><i
+				<li><a id="progressMenuItem"
+					th:href="@{/sprintprogress?sprint=}"><i
 						class="fas fa-chart-line"></i></a></li>
 				<!-- KPI's page -->
 				<li><a id="kpiMenuItem" th:href="@{/kpi?sprint=}"><i
@@ -95,7 +88,7 @@
 						<li><a href="#">Work Proportion</a></li>
 						<li><a th:href="@{/green/refinement}">Refinement</a></li>
 					</ul></li>
-				<!-- Team orange pages -->
+				<!-- Team Red pages -->
 				<li><a href="#pageSubmenu4" data-toggle="collapse"
 					aria-expanded="false" class="dropdown-toggle dropdown-toggle-menu">
 						<i class="fas fa-copy"></i> Team Orange
@@ -131,20 +124,19 @@
 			<!-- Nav bar  -->
 			<nav class="navbar border-secondary navbar-dark bg-dark">
 				<div id="dropdown" class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button"
-						id="dropdownMenuButton" data-toggle="dropdown"
-						aria-haspopup="true" aria-expanded="false"
-						th:text="${mSprintLabel}"></button>
+					<button class="btn btn-secondary dropdown-toggle invisible"
+						type="button" id="dropdownMenuButton" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false"></button>
 					<div id="sprint-dropdown" class="dropdown-menu"
 						aria-labelledby="dropdownMenuButton"></div>
 				</div>
 			</nav>
 			<blockquote class="blockquote text-center m-4">
-				<h3>Sprint progress</h3>
+				<h3 th:text="${pageTitle}"></h3>
 			</blockquote>
 			<!-- Chart container  -->
 			<div class="container">
-				<canvas id="progressChart" style="max-width: 1700px;"></canvas>
+				<canvas id="velocityChart" style="max-width: 1700px;"></canvas>
 			</div>
 			<!-- Footer  -->
 			<footer class="footer bg-transparent fixed-bottom">
@@ -166,10 +158,8 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 	<!-- Own -->
 	<!-- Chart drawing -->
-	<script type="text/javascript" src="/js/SprintProgressChart.js"></script>
+	<script type="text/javascript" src="/js/VelocityChart.js"></script>
 	<!-- Side bar handling -->
 	<script type="text/javascript" src="/js/Sidebar.js"></script>
-	<!-- Drop down menu handling -->
-	<script type="text/javascript" src="/js/DropDownMenu.js"></script>
 </body>
 </html>
