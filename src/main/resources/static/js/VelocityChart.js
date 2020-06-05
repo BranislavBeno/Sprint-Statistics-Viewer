@@ -7,11 +7,21 @@ let chartData = {
 	datasets : [ {
 		label : 'Velocity',
 		data : velocitySP,
-		borderColor : 'rgba(255, 0, 0, 1)',
-		backgroundColor : 'rgba(255, 0, 0, 1)',
+		borderColor : 'rgb(255, 0, 0)',
+		backgroundColor : 'rgba(255, 0, 0)',
 		pointStyle : 'rect',
 		type : 'line',
-		fill : false
+		fill : false,
+		lineTension : 0
+	}, {
+		label : 'Velocity/#Dev',
+		data : devVelocitySP,
+		borderColor : 'rgb(244, 236, 44)',
+		backgroundColor : 'rgb(244, 236, 44)',
+		pointStyle : 'rect',
+		type : 'line',
+		fill : false,
+		lineTension : 0
 	}, {
 		label : 'On sprint begin planned',
 		data : onBeginSP,

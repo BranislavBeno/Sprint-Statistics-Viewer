@@ -51,6 +51,13 @@ public class Utils {
 		return timeStamp.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 	}
 
+	/**
+	 * Last N.
+	 *
+	 * @param <T> the generic type
+	 * @param n the n
+	 * @return the collector
+	 */
 	public static <T> Collector<T, ?, List<T>> lastN(int n) {
 		return Collector.<T, Deque<T>, List<T>>of(ArrayDeque::new, (acc, t) -> {
 			if (acc.size() == n)

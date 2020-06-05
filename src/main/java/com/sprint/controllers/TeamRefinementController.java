@@ -41,7 +41,7 @@ public class TeamRefinementController {
 	/**
 	 * Instantiates a new team refinement controller.
 	 *
-	 * @param team the team
+	 * @param team       the team
 	 * @param velocities the velocities
 	 */
 	@Autowired
@@ -53,7 +53,7 @@ public class TeamRefinementController {
 	/**
 	 * Collect one SP list.
 	 *
-	 * @param scope the scope
+	 * @param scope      the scope
 	 * @param theSprints the the sprints
 	 * @return the list
 	 */
@@ -105,14 +105,12 @@ public class TeamRefinementController {
 		// Get list of sprints for particular team
 		List<TeamVelocity> sprints = velocities.getSprintList(tableName, new TeamVelocityRowMapper());
 
-		// Remove last sprint - it is current not finished sprint - its count of
-		// finished story points is not final
-		sprints.remove(sprints.size() - 1);
-
 		// Compute velocity
 		Double velocity = sprints.stream().mapToInt(TeamVelocity::getFinishedStoryPointsSum).average().orElse(0);
+		// Round the double value
+		Long lNum = Math.round(velocity);
 
-		return velocity.intValue();
+		return lNum.intValue();
 	}
 
 	/**
@@ -129,7 +127,7 @@ public class TeamRefinementController {
 	 * Refinement.
 	 *
 	 * @param teamId the team id
-	 * @param model the model
+	 * @param model  the model
 	 * @return the string
 	 */
 	@GetMapping("/{team}/refinement")

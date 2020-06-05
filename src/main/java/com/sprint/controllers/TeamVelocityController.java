@@ -113,27 +113,50 @@ public class TeamVelocityController {
 	 * @param tableName the table name
 	 * @return the list
 	 */
-	private List<Integer> collectVelocityList(String tableName) {
+	private List<List<Integer>> collectVelocityList(String tableName) {
 		// Get list of team related records
 		int sprintListSize = team.getSprintList(tableName, new TeamVelocityRowMapper()).size();
 
 		// Get full list of sprints for particular team
 		List<TeamVelocity> allSprints = team.getFullSprintList(tableName);
 
-		// Compute velocity
 		// Initialize list of velocity related sprint data
-		Deque<Integer> deque = new LinkedList<>();
+		Deque<Integer> velocityList = new LinkedList<>();
+
+		// Initialize list of velocity pro developer related sprint data
+		Deque<Integer> devVelocityList = new LinkedList<>();
+
+		// Initialize counter
 		int counter = sprintListSize;
+
+		// Compute velocity
 		while (counter > 0) {
+			// Compute velocity as double
 			Double velocity = allSprints.stream().collect(Utils.lastN(sprintListSize)).stream()
 					.mapToInt(TeamVelocity::getFinishedStoryPointsSum).average().orElse(0);
-			deque.addFirst(velocity.intValue());
 
-			allSprints.remove(allSprints.size() - 1);
+			// Round the double value
+			Long lNum = StrictMath.round(velocity);
+
+			// Put team's velocity to the head of list
+			velocityList.addFirst(lNum.intValue());
+
+			// Reduce input list
+			TeamVelocity last = allSprints.remove(allSprints.size() - 1);
+
+			// Get team member count for related sprint
+			int memCount = last.getTeamMemberCount();
+
+			// Put velocity per developer to the head of list
+			int lDev = StrictMath.round(lNum / memCount);
+
+			devVelocityList.addFirst(lDev);
+
+			// Decrement counter
 			counter--;
 		}
 
-		return new ArrayList<>(deque);
+		return List.of(new ArrayList<>(velocityList), new ArrayList<>(devVelocityList));
 	}
 
 	/**
@@ -160,6 +183,9 @@ public class TeamVelocityController {
 		// Get team name
 		String teamName = velocity.getTeamName();
 
+		// Get velocities
+		List<List<Integer>> velocityList = collectVelocityList(tableName);
+
 		// Add updated time stamp
 		model.addAttribute("pageTitle", "Team " + teamName + " velocity");
 
@@ -179,7 +205,10 @@ public class TeamVelocityController {
 		model.addAttribute("mFinishedSP", collectFinishedSPList(sprints));
 
 		// Add team's velocity list
-		model.addAttribute("mVelocitySP", collectVelocityList(tableName));
+		model.addAttribute("mVelocitySP", velocityList.get(0));
+
+		// Add team's velocity per developer list
+		model.addAttribute("mDevVelocitySP", velocityList.get(1));
 
 		return "velocity";
 	}
