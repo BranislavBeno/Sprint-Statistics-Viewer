@@ -49,13 +49,11 @@ i, span {
 	margin-bottom: 0px;
 }
 
-#progressChart, #refinementChart, #scopeFocusChart {
-	margin-top: 50px;
-}
-
-#goalCards {
+#progressChart, #refinementChart, #scopeFocusChart, #velocityChart,
+	#workProportionChart {
 	margin-top: 30px;
 }
+
 #kpiTable {
 	margin-top: 70px;
 }
