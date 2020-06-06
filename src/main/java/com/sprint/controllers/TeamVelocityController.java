@@ -148,7 +148,7 @@ public class TeamVelocityController {
 			int memCount = last.getTeamMemberCount();
 
 			// Put velocity per developer to the head of list
-			int lDev = StrictMath.round(lNum / memCount);
+			int lDev = StrictMath.round(lNum / (float) memCount);
 
 			devVelocityList.addFirst(lDev);
 

@@ -22,6 +22,7 @@ public class SprintGoalRowMapper implements RowMapper<SprintGoal> {
 	 */
 	@Override
 	public SprintGoal mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+		// Create new sprint goal entity
 		final SprintGoal sprintGoal = new SprintGoal();
 
 		sprintGoal.setSprintLabel(rs.getString("sprint"));

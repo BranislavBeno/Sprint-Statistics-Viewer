@@ -23,6 +23,7 @@ public class SprintKpiRowMapper implements RowMapper<SprintKpi> {
 	 */
 	@Override
 	public SprintKpi mapRow(final ResultSet rs, final int rowNum) throws SQLException {
+		// Create new sprint KPI entity		
 		final SprintKpi sprintKpi = new SprintKpi();
 
 		sprintKpi.setSprintLabel(rs.getString("sprint"));

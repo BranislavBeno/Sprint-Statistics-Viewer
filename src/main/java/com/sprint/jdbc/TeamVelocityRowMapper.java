@@ -23,7 +23,7 @@ public class TeamVelocityRowMapper implements RowMapper<TeamVelocity> {
 	 */
 	@Override
 	public TeamVelocity mapRow(final ResultSet rs, final int rowNum) throws SQLException {
-		// Create new sprint progress entity
+		// Create new sprint velocity entity
 		final TeamVelocity sprint = new TeamVelocity();
 
 		// Fill fields
