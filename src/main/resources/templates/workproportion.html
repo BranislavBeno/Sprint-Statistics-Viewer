@@ -20,10 +20,11 @@
 <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"></script>
 <!-- Own -->
 <script th:inline="javascript">
-	let labels     = [[${mLabels}]];	
-	let storiesSP  = [[${mStoriesSP}]];	
-	let bugfixesSP = [[${mBugfixesSP}]];
-	let trendSP    = [[${mTrendSP}]];
+	let labels       = [[${mLabels}]];	
+	let storiesSP    = [[${mStoriesSP}]];	
+	let bugfixesSP   = [[${mBugfixesSP}]];
+	let trendSP      = [[${mTrendSP}]];
+	let percentageSP = [[${mPercentageSP}]];
 </script>
 </head>
 <body>
@@ -136,17 +137,13 @@
 				<h3 th:text="${pageTitle}"></h3>
 			</blockquote>
 			<!-- Chart container  -->
-			<div class="container-fluid">
-				<div class="row row-cols-2">
-					<div class="card">
-						<div class="card-body">
-							<canvas id="workProportionChart" style="max-width: 1700px;"></canvas>
-						</div>
+			<div id="chartContainer" class="container-fluid">
+				<div class="card-deck flex-nowrap">
+					<div class="card cw-70">
+						<canvas id="workProportionChart"></canvas>
 					</div>
-					<div id="pieChartCard" class="card">
-						<div class="card-body">
-							<canvas id="workProportionPieChart"></canvas>
-						</div>
+					<div class="card cw-30">
+						<canvas id="workProportionPieChart"></canvas>
 					</div>
 				</div>
 			</div>

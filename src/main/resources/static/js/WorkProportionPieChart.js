@@ -2,13 +2,18 @@
 let pieChartData = {
 	labels : [ "Stories", "Bugfixes" ],
 	datasets : [ {
+		borderColor : [ "#3e95cd", "#c45850" ],
 		backgroundColor : [ "#3e95cd", "#c45850" ],
-		data : [ 2478, 5267 ]
+		hoverBorderColor : [ '#0000ff', '#eb0000' ],
+		hoverBackgroundColor : [ '#0000ff', '#eb0000' ],
+		data : percentageSP
 	} ]
 };
 
 // Configure chart design
 let pieChartOptions = {
+	responsive : true,
+	maintainAspectRatio : false,
 	title : {
 		display : true,
 	}
