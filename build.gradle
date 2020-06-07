@@ -51,16 +51,16 @@ dependencies {
 }
 
 def versionMajor = 0
-def versionMinor = 7
+def versionMinor = 8
 def versionPatch = 0
-def versionBuild = 3
+def versionBuild = 4
 version = "R${versionMajor}.${versionMinor}.${versionPatch}"
 
 // Docker image building
 jib {
   to {
     image = 'beo1975/sprint-stats-viewer'
-    tags = ['0.7.0', 'latest']
+    tags = ['0.8.0', 'latest']
   }
   container {
     ports = ['5000']
