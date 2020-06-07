@@ -60,7 +60,7 @@ public class TeamWorkProportionController {
 		return list;
 	}
 
-	private List<Integer> collectTrendSPList(List<TeamWorkProportion> sprints) {
+	private List<String> collectTrendSPList(List<TeamWorkProportion> sprints) {
 		// Initialize list of work proportion related sprint data
 		List<Integer> list = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class TeamWorkProportionController {
 		if (sprints != null)
 			list = sprints.stream().map(TeamWorkProportion::getFinishedBugsSP).collect(Collectors.toList());
 
-		return list;
+		return Utils.computeLinearTrend(list);
 	}
 
 	@GetMapping("/{team}/workproportion")

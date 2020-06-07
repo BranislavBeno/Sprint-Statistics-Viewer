@@ -74,7 +74,7 @@
 					<ul class="collapse list-unstyled" id="pageSubmenu2">
 						<li><a th:href="@{/blue/scopefocus}">Scope focus</a></li>
 						<li><a th:href="@{/blue/velocity}">Velocity</a></li>
-						<li><a th:href="@{/black/workproportion}">Work Proportion</a></li>
+						<li><a th:href="@{/blue/workproportion}">Work Proportion</a></li>
 						<li><a th:href="@{/blue/refinement}">Refinement</a></li>
 					</ul></li>
 				<!-- Team green pages -->
@@ -85,7 +85,7 @@
 					<ul class="collapse list-unstyled" id="pageSubmenu3">
 						<li><a th:href="@{/green/scopefocus}">Scope focus</a></li>
 						<li><a th:href="@{/green/velocity}">Velocity</a></li>
-						<li><a th:href="@{/black/workproportion}">Work Proportion</a></li>
+						<li><a th:href="@{/green/workproportion}">Work Proportion</a></li>
 						<li><a th:href="@{/green/refinement}">Refinement</a></li>
 					</ul></li>
 				<!-- Team Red pages -->
@@ -96,7 +96,8 @@
 					<ul class="collapse list-unstyled" id="pageSubmenu4">
 						<li><a th:href="@{/orange/scopefocus}">Scope focus</a></li>
 						<li><a th:href="@{/orange/velocity}">Velocity</a></li>
-						<li><a th:href="@{/black/workproportion}">Work Proportion</a></li>
+						<li><a th:href="@{/orange/workproportion}">Work
+								Proportion</a></li>
 						<li><a th:href="@{/orange/refinement}">Refinement</a></li>
 					</ul></li>
 				<!-- Team Red pages -->
@@ -107,7 +108,7 @@
 					<ul class="collapse list-unstyled" id="pageSubmenu5">
 						<li><a th:href="@{/red/scopefocus}">Scope focus</a></li>
 						<li><a th:href="@{/red/velocity}">Velocity</a></li>
-						<li><a th:href="@{/black/workproportion}">Work Proportion</a></li>
+						<li><a th:href="@{/red/workproportion}">Work Proportion</a></li>
 						<li><a th:href="@{/red/refinement}">Refinement</a></li>
 					</ul></li>
 				<li><a href="#" class="sidebar-less-important"> <i
@@ -135,8 +136,19 @@
 				<h3 th:text="${pageTitle}"></h3>
 			</blockquote>
 			<!-- Chart container  -->
-			<div class="container">
-				<canvas id="workProportionChart" style="max-width: 1700px;"></canvas>
+			<div class="container-fluid">
+				<div class="row row-cols-2">
+					<div class="card">
+						<div class="card-body">
+							<canvas id="workProportionChart" style="max-width: 1700px;"></canvas>
+						</div>
+					</div>
+					<div id="pieChartCard" class="card">
+						<div class="card-body">
+							<canvas id="workProportionPieChart"></canvas>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- Footer  -->
 			<footer class="footer bg-transparent fixed-bottom">
@@ -159,6 +171,7 @@
 	<!-- Own -->
 	<!-- Chart drawing -->
 	<script type="text/javascript" src="/js/WorkProportionChart.js"></script>
+	<script type="text/javascript" src="/js/WorkProportionPieChart.js"></script>
 	<!-- Side bar handling -->
 	<script type="text/javascript" src="/js/Sidebar.js"></script>
 </body>

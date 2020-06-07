@@ -1,6 +1,7 @@
 package com.sprint.utils;
 
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -11,6 +12,8 @@ import java.util.Calendar;
 import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collector;
+
+import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 /**
  * The Class Utils.
@@ -55,7 +58,7 @@ public class Utils {
 	 * Last N.
 	 *
 	 * @param <T> the generic type
-	 * @param n the n
+	 * @param n   the n
 	 * @return the collector
 	 */
 	public static <T> Collector<T, ?, List<T>> lastN(int n) {
@@ -69,5 +72,31 @@ public class Utils {
 			}
 			return acc2;
 		}, ArrayList::new);
+	}
+
+	public static List<String> computeLinearTrend(List<Integer> list) {
+		// Initialize output list
+		List<String> prediction = new ArrayList<>();
+
+		// Creating regression object, passing true to have intercept term
+		SimpleRegression simpleRegression = new SimpleRegression(true);
+
+		// Passing data to the model
+		double[][] data = new double[list.size()][2];
+		int idx = 0;
+		for (int val : list) {
+			data[idx][0] = idx;
+			data[idx++][1] = val;
+		}
+		simpleRegression.addData(data);
+
+		// Making and saving prediction
+		for (int i = 0; i < list.size(); i++) {
+			DecimalFormat f = new DecimalFormat("###.00");
+			String predict = f.format(simpleRegression.predict(i));
+			prediction.add(predict);
+		}
+
+		return prediction;
 	}
 }
