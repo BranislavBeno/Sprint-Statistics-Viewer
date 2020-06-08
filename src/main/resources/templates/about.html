@@ -18,14 +18,6 @@
 
 <!-- Font Awesome JS -->
 <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js"></script>
-<!-- Own -->
-<script th:inline="javascript">
-	let labels       = [[${mLabels}]];	
-	let storiesSP    = [[${mStoriesSP}]];	
-	let bugfixesSP   = [[${mBugfixesSP}]];
-	let trendSP      = [[${mTrendSP}]];
-	let percentageSP = [[${mPercentageSP}]];
-</script>
 </head>
 <body>
 	<div class="wrapper">
@@ -112,8 +104,8 @@
 						<li><a th:href="@{/red/workproportion}">Work Proportion</a></li>
 						<li><a th:href="@{/red/refinement}">Refinement</a></li>
 					</ul></li>
-				<li><a th:href="@{/about}" class="sidebar-less-important">
-						<i class="fas fa-briefcase"></i> About
+				<li><a href="#" class="sidebar-less-important"> <i
+						class="fas fa-briefcase"></i> About
 				</a></li>
 			</ul>
 		</nav>
@@ -131,23 +123,49 @@
 				</div>
 			</nav>
 			<blockquote class="blockquote text-center m-4">
-				<h3 th:text="${pageTitle}"></h3>
+				<h3>About</h3>
 			</blockquote>
-			<!-- Chart container  -->
-			<div id="chartContainer" class="container-fluid">
-				<div class="card-deck flex-nowrap">
-					<div class="card cw-70">
-						<canvas id="workProportionChart"></canvas>
+			<!-- Text container  -->
+			<div class="container">
+				<header class="masthead">
+					<div class="container h-100">
+						<div class="row h-100 align-items-center">
+							<div class="col-12 text-center">
+								<h3 class="font-weight-light">Vertically Centered Masthead
+									Content</h3>
+								<p class="lead">A great starter layout for a landing page</p>
+							</div>
+						</div>
 					</div>
-					<div class="card cw-30">
-						<canvas id="workProportionPieChart"></canvas>
-					</div>
-				</div>
+				</header>
 			</div>
 			<!-- Footer  -->
-			<footer class="footer bg-transparent fixed-bottom">
-				<div class="container text-muted">
-					<span id="footerText" th:text="'Last update: ' + ${mUpdated}"></span>
+			<footer class="page-footer font-small special-color-dark pt-4">
+				<!-- Footer Elements -->
+				<div class="container">
+					<!-- Social buttons -->
+					<ul class="list-unstyled list-inline text-center">
+						<li class="list-inline-item"><a
+							href="https://github.com/BranislavBeno"
+							class="btn-floating btn-git mx-1"><i class="fab fa-github"></i>
+						</a></li>
+						<li class="list-inline-item"><a
+							href="https://www.facebook.com/benito1975"
+							class="btn-floating btn-fb mx-1"><i class="fab fa-facebook-f"></i>
+						</a></li>
+						<li class="list-inline-item"><a
+							href="mailto:brano.beno@gmail.com"
+							class="btn-floating btn-gplus mx-1"><i class="fab fa-google"></i>
+						</a></li>
+						<li class="list-inline-item"><a
+							href="https://www.linkedin.com/in/branislav-beňo-a952273"
+							class="btn-floating btn-li mx-1"><i
+								class="fab fa-linkedin-in"></i> </a></li>
+					</ul>
+				</div>
+				<!-- Copyright -->
+				<div class="footer-copyright text-center py-3">
+					© 2020 Copyright: Branislav Beňo</a>
 				</div>
 			</footer>
 		</div>
@@ -163,9 +181,6 @@
 	<script type="text/javascript"
 		src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 	<!-- Own -->
-	<!-- Chart drawing -->
-	<script type="text/javascript" src="/js/WorkProportionChart.js"></script>
-	<script type="text/javascript" src="/js/WorkProportionPieChart.js"></script>
 	<!-- Side bar handling -->
 	<script type="text/javascript" src="/js/Sidebar.js"></script>
 </body>
