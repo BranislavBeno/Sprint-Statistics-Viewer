@@ -10,6 +10,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import com.sprint.repository.impl.SprintProgressDAO;
+
 @ExtendWith(MockitoExtension.class)
 class SprintProgressDAOTest {
 
