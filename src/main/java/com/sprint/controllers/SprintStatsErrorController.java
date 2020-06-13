@@ -8,9 +8,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+/**
+ * The Class SprintStatsErrorController.
+ */
 @Controller
 public class SprintStatsErrorController implements ErrorController {
 
+	/**
+	 * Handle error.
+	 *
+	 * @param request the request
+	 * @return the string
+	 */
 	@GetMapping(value = "/error")
 	public String handleError(HttpServletRequest request) {
 
@@ -29,6 +38,11 @@ public class SprintStatsErrorController implements ErrorController {
 		return "error";
 	}
 
+	/**
+	 * Gets the error path.
+	 *
+	 * @return the error path
+	 */
 	@Override
 	public String getErrorPath() {
 		return "/error";
