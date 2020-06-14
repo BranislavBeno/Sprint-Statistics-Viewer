@@ -18,4 +18,4 @@ Currently, the following indicators can be tracked:
 *  Team's work proportion - the ratio between finished stories and bugs.
 *  Team's work refinement - how much story points was already refined and assigned to one of next 4 sprints.
 
-Application is possible to test on this [link](sprint-stats-viewer.eu-central-1.elasticbeanstalk.com)
+Application is possible to test on this [link](http://sprint-stats-viewer.eu-central-1.elasticbeanstalk.com)
