@@ -2,7 +2,8 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.3.0.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-	id 'com.google.cloud.tools.jib' version '2.3.0'
+	id 'com.google.cloud.tools.jib' version '2.4.0'
+  id 'jacoco'
 }
 
 group = 'com.sprint'
@@ -13,6 +14,7 @@ targetCompatibility = JavaVersion.VERSION_11
 ext {
   junitVersion = '5.6.2'
   testcontainersVersion = '1.14.2'
+  jacocoDestinationFile = file("$buildDir/jacoco/test.exec")
 }
 
 repositories {
@@ -21,6 +23,9 @@ repositories {
 
 test {
   useJUnitPlatform()
+  jacoco {
+    destinationFile = file(jacocoDestinationFile)
+  }
   afterSuite { desc, result ->
     if (!desc.parent) {
       println "\nTest result: ${result.resultType}"
@@ -42,25 +47,37 @@ configurations {
 dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-web"
 	implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
-	testImplementation "org.springframework.boot:spring-boot-starter-test"
 	implementation "org.springframework:spring-jdbc"
 	implementation "mysql:mysql-connector-java"
 	implementation "com.fasterxml.jackson.core:jackson-databind:2.10.3"
 	implementation "org.apache.commons:commons-math3:3.6.1"
 	developmentOnly "org.springframework.boot:spring-boot-devtools"
+	testImplementation "org.springframework.boot:spring-boot-starter-test"
+	testImplementation "org.junit.platform:junit-platform-launcher:1.5.2"
+	testImplementation "org.assertj:assertj-core:3.16.1"
 }
 
 def versionMajor = 0
-def versionMinor = 8
+def versionMinor = 9
 def versionPatch = 0
-def versionBuild = 4
+def versionBuild = 5
 version = "R${versionMajor}.${versionMinor}.${versionPatch}"
+
+jacoco {
+  toolVersion = '0.8.2'
+}
+
+jacocoTestReport {
+  reports {
+    xml.enabled true
+  }
+}
 
 // Docker image building
 jib {
   to {
     image = 'beo1975/sprint-stats-viewer'
-    tags = ['0.8.0', 'latest']
+    tags = ['0.9.0', 'latest']
   }
   container {
     ports = ['5000']

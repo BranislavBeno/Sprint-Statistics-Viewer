@@ -4,3 +4,18 @@
 [![Gradle](https://img.shields.io/badge/gradle-v6.4-blue)](https://img.shields.io/badge/gradle-v6.4-blue)
 [![Build Status](https://travis-ci.org/BranislavBeno/Sprint-Statistics-Viewer.svg?branch=master)](https://travis-ci.org/BranislavBeno/Sprint-Statistics-Viewer)
 
+
+This web application offers various statistics related to the course and history of scrum sprints in a multi-team project.
+
+Currently, the following indicators can be tracked:
+
+*  Sprint progress overview in story points pro team plus remaining time till end of sprints in days as well.
+*  Sprint related KPI's.
+*  Summarized refinement for all teams.
+*  Sprint goals pro team.
+*  Team's scope focus - how was set priority to particular scope of features.
+*  Team's velocity - average value of finished story points for the last 12 sprints.
+*  Team's work proportion - the ratio between finished stories and bugs.
+*  Team's work refinement - how much story points was already refined and assigned to one of next 4 sprints.
+
+Application is possible to test on this [link](http://sprint-stats-viewer.eu-central-1.elasticbeanstalk.com)
