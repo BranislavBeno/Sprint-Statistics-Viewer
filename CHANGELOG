@@ -1,0 +1,3 @@
+Changes against version 1.0.0
+-----------------------------
+- Fixed percentage rounding for sprint progress bar chart
