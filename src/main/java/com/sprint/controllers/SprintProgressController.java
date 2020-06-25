@@ -298,6 +298,16 @@ public class SprintProgressController {
 			// Compute done percentage
 			int donePercentage = 100 - toDoPercentage.intValue() - inProgressPercentage.intValue();
 
+			// In case that percentage of done story points is negative
+			// because of not proper rounding of to do and in progress story points
+			// percentage
+			// to do story points percentage will be reduced of done percentage
+			// and done percentage will be set to zero
+			if (donePercentage < 0) {
+				toDoPercentage += donePercentage;
+				donePercentage = 0;
+			}
+
 			// Fill particular percentage lists
 			toDoList.add(toDoPercentage.intValue());
 			inProgressList.add(inProgressPercentage.intValue());
