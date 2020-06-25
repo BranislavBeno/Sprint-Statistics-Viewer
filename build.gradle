@@ -82,6 +82,7 @@ jib {
   container {
     ports = ['5000']
     creationTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'")
+    volumes = ['/app/log']
   }
 }
 
