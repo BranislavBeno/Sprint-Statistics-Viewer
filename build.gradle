@@ -13,7 +13,7 @@ targetCompatibility = JavaVersion.VERSION_11
 
 ext {
   junitVersion = '5.6.2'
-  testcontainersVersion = '1.14.2'
+  testcontainersVersion = '1.14.3'
   jacocoDestinationFile = file("$buildDir/jacoco/test.exec")
 }
 
@@ -48,13 +48,16 @@ dependencies {
 	implementation "org.springframework.boot:spring-boot-starter-web"
 	implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
 	implementation "org.springframework:spring-jdbc"
-	implementation "mysql:mysql-connector-java"
-	implementation "com.fasterxml.jackson.core:jackson-databind:2.10.3"
 	implementation "org.apache.commons:commons-math3:3.6.1"
+	implementation "mysql:mysql-connector-java"
 	developmentOnly "org.springframework.boot:spring-boot-devtools"
-	testImplementation "org.springframework.boot:spring-boot-starter-test"
-	testImplementation "org.junit.platform:junit-platform-launcher:1.5.2"
-	testImplementation "org.assertj:assertj-core:3.16.1"
+	testImplementation "org.junit.platform:junit-platform-launcher"
+	testImplementation "org.assertj:assertj-core"
+	testImplementation "org.testcontainers:junit-jupiter:${testcontainersVersion}"
+	testImplementation "org.testcontainers:mysql:${testcontainersVersion}"
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
 }
 
 def versionMajor = 1
