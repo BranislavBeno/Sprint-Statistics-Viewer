@@ -2,71 +2,97 @@ package com.sprint.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import javax.sql.DataSource;
+import java.sql.SQLException;
+import java.util.List;
 
-import org.jetbrains.annotations.NotNull;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.test.util.ReflectionTestUtils;
-import org.testcontainers.containers.MySQLContainer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.testcontainers.ext.ScriptUtils;
 import org.testcontainers.jdbc.JdbcDatabaseDelegate;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
 import com.sprint.model.SprintProgress;
 import com.sprint.repository.impl.SprintProgressDAO;
 
-@ExtendWith(MockitoExtension.class)
+/**
+ * The Class SprintProgressDAOTest.
+ */
+@SpringBootTest
 @Testcontainers
-class SprintProgressDAOTest {
+class SprintProgressDAOTest extends DatabaseBaseTest {
 
-	@Container
-	private MySQLContainer<?> database = new MySQLContainer<>();
-
+	/** The sprint progress DAO. */
+	@Autowired
 	private SprintProgressDAO sprintProgressDAO;
 
-	String tableName = "team";
+	/** The table name. */
+	String tableName = "team_mango";
 
-	@Mock
-	JdbcTemplate jdbcTemplate;
-
-	@NotNull
-	private DataSource dataSource() {
-		MysqlDataSource dataSource = new MysqlDataSource();
-		dataSource.setUrl(database.getJdbcUrl());
-		dataSource.setUser(database.getUsername());
-		dataSource.setPassword(database.getPassword());
-		return dataSource;
-	}
-
-	private SprintProgressDAO prepareDAO() {
-		SprintProgressDAO sprintProgressDAO = new SprintProgressDAO();
-		ReflectionTestUtils.setField(sprintProgressDAO, "jdbcTemplate", jdbcTemplate);
-		return sprintProgressDAO;
-	}
-
-	@Test
-	void testPositiveDefaultMetodGetRowCountFromSprintDaoInterface() {
-		SprintProgressDAO sprintProgressDAO = prepareDAO();
-		Mockito.when(jdbcTemplate.queryForObject("select count(*) from " + tableName, Integer.class)).thenReturn(4);
-
-		assertThat(sprintProgressDAO.getRowCount(tableName)).isEqualTo(4);
-	}
-
-	@Test
-	void testInteractionWithDatabase() {
-		ScriptUtils.runInitScript(new JdbcDatabaseDelegate(database, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
-		sprintProgressDAO = new SprintProgressDAO();
+	/**
+	 * Sets the data source for DAO.
+	 */
+	@BeforeEach
+	private void setDataSource4Dao() {
+		ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
 		sprintProgressDAO.setDataSource(dataSource());
+	}
 
+	/**
+	 * Test getting sprint record by id.
+	 */
+	@Test
+	@DisplayName("Test whether getting database row record by id is successfull")
+	void testGettingSprintRecordById() {
+		SprintProgress sprintProgress = sprintProgressDAO.getSprintById("team_apple", 2);
+
+		assertThat(sprintProgress.getTeamName()).isEqualTo("Apple");
+	}
+
+	/**
+	 * Test getting sprint record by label.
+	 */
+	@Test
+	@DisplayName("Test whether getting database row record by sprint label is successfull")
+	void testGettingSprintRecordByLabel() {
 		SprintProgress sprintProgress = sprintProgressDAO.getSprintByLabel(tableName, "Sprint 1");
 
-		assertThat(sprintProgress).isNotNull();
+		assertThat(sprintProgress.getFinishedStoryPointsSum()).isEqualTo(67);
+	}
+
+	/**
+	 * Test getting database list of tables.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
+	@Test
+	@DisplayName("Test whether getting database list of tables is successfull")
+	void testGettingDatabaseListOfTables() throws SQLException {
+		List<String> list = sprintProgressDAO.getListOfTables();
+
+		assertThat(list.size()).isEqualTo(2);
+	}
+
+	/**
+	 * Test getting database table row count.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
+	@Test
+	@DisplayName("Test whether getting database table row count is successfull")
+	void testGettingDatabaseTableRowCount() throws SQLException {
+		int count = sprintProgressDAO.getRowCount(tableName);
+
+		assertThat(count).isEqualTo(2);
+	}
+
+	@Test
+	@DisplayName("Test whether getting list of sprints from particular database table is successfull")
+	void testGettingListOfSprints() throws SQLException {
+		List<String> list = sprintProgressDAO.getSprintList(tableName);
+
+		assertThat(list.size()).isEqualTo(2);
 	}
 }

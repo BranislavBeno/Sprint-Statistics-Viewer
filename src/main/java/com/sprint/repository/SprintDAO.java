@@ -12,9 +12,9 @@ import org.springframework.jdbc.core.SingleColumnRowMapper;
 public interface SprintDAO {
 
 	/**
-	 * Gets the jdbc template.
+	 * Gets the  template.
 	 *
-	 * @return the jdbc template
+	 * @return the  template
 	 */
 	abstract JdbcTemplate getJdbcTemplate();
 
