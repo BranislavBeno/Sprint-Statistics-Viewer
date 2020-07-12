@@ -21,7 +21,7 @@ variables:
 
 ## Run to test docker availbility
 before_script:
-  - docker info
+  - sudo docker info
 
 ## Job test_code
 ## - run unit tests
