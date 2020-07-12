@@ -3,6 +3,8 @@ package com.sprint.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -49,6 +51,9 @@ class SprintProgressDAOTest extends DatabaseBaseTest {
 		SprintProgress sprintProgress = sprintProgressDAO.getSprintById("team_apple", 2);
 
 		assertThat(sprintProgress.getTeamName()).isEqualTo("Apple");
+		assertThat(sprintProgress.getUpdated()).isEqualTo(LocalDateTime.of(2020, 6, 2, 8, 5, 25));
+		assertThat(sprintProgress.getSprintStart()).isEqualTo(LocalDate.of(2019, 4, 4));
+		assertThat(sprintProgress.getSprintEnd()).isEqualTo(LocalDate.of(2019, 4, 24));
 	}
 
 	/**
@@ -59,7 +64,10 @@ class SprintProgressDAOTest extends DatabaseBaseTest {
 	void testGettingSprintRecordByLabel() {
 		SprintProgress sprintProgress = sprintProgressDAO.getSprintByLabel(tableName, "Sprint 1");
 
+		assertThat(sprintProgress.getSprintLabel()).isEqualTo("Sprint 1");
 		assertThat(sprintProgress.getFinishedStoryPointsSum()).isEqualTo(67);
+		assertThat(sprintProgress.getInProgressStoryPointsSum()).isEqualTo(0);
+		assertThat(sprintProgress.getToDoStoryPointsSum()).isEqualTo(0);
 	}
 
 	/**
