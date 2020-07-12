@@ -11,7 +11,7 @@ variables:
 ## job test_code
 ## - run unit tests
 test_code:
-  image: gradle:6.5.1
+  image: openjdk:11
   stage: test
   script:
     - sh ./gradlew test
