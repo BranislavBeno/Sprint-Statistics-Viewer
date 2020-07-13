@@ -1,8 +1,11 @@
 # Sprint statistics viewer
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Gradle](https://img.shields.io/badge/gradle-v6.5-blue)](https://img.shields.io/badge/gradle-v6.5-blue)
+[![Gradle](https://img.shields.io/badge/gradle-v6.5.1-blue)](https://img.shields.io/badge/gradle-v6.5.1-blue)
 [![Build Status](https://travis-ci.org/BranislavBeno/Sprint-Statistics-Viewer.svg?branch=master)](https://travis-ci.org/BranislavBeno/Sprint-Statistics-Viewer)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=alert_status)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=coverage)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=ncloc)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)
 
 
 This web application offers various statistics related to the course and history of scrum sprints in a multi-team project.
