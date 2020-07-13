@@ -21,11 +21,12 @@ variables:
 
 ## Job test_code
 ## - run unit tests
+## - evaluate test coverage 
 test_code:
   image: openjdk:11
   stage: test
   script:
-    - sh ./gradlew clean test jacocoTestReport
+    - sh ./gradlew test jacocoTestReport sonarqube
     - cat build/reports/jacoco/test/html/index.html
   tags:
     - DOCKER
