@@ -3,7 +3,7 @@ version: '3.5'
 ## Services
 services:
   viewer:
-    image: beo1975/sprint-stats-viewer:0.9.0
+    image: beo1975/sprint-stats-viewer:1.0.1
     container_name: sprint_stats_viewer
     restart: unless-stopped
     ports:

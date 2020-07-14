@@ -22,13 +22,18 @@ import com.sprint.repository.impl.TeamRefinementDAO;
 import com.sprint.repository.impl.TeamVelocityDAO;
 import com.sprint.utils.Utils;
 
+/**
+ * The Class TeamRefinementDAOTest.
+ */
 @SpringBootTest
 @Testcontainers
 class TeamRefinementDAOTest extends DatabaseBaseTest {
 
+	/** The team refinement DAO. */
 	@Autowired
 	private TeamRefinementDAO teamRefinementDAO;
 
+	/** The team velocity DAO. */
 	@Autowired
 	private TeamVelocityDAO teamVelocityDAO;
 
@@ -45,6 +50,9 @@ class TeamRefinementDAOTest extends DatabaseBaseTest {
 		teamVelocityDAO.setDataSource(dataSource());
 	}
 
+	/**
+	 * Test getting jdbc template from refinement dao.
+	 */
 	@Test
 	@DisplayName("Test whether getting instance of JDBC template from team refinement DAO is successfull")
 	void testGettingJdbcTemplateFromRefinementDao() {
@@ -53,6 +61,9 @@ class TeamRefinementDAOTest extends DatabaseBaseTest {
 		assertThat(jdbcTemplate).isNotNull();
 	}
 
+	/**
+	 * Test getting jdbc template from velocity dao.
+	 */
 	@Test
 	@DisplayName("Test whether getting instance of JDBC template from team velocity DAO is successfull")
 	void testGettingJdbcTemplateFromVelocityDao() {
@@ -61,6 +72,9 @@ class TeamRefinementDAOTest extends DatabaseBaseTest {
 		assertThat(jdbcTemplate).isNotNull();
 	}
 
+	/**
+	 * Test handling list of sprints.
+	 */
 	@Test
 	@DisplayName("Test whether getting and handling list of sprints is successfull")
 	void testHandlingListOfSprints() {

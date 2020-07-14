@@ -19,10 +19,14 @@ import com.sprint.model.TeamWorkProportion;
 import com.sprint.repository.impl.TeamWorkProportionDAO;
 import com.sprint.utils.Utils;
 
+/**
+ * The Class TeamWorkProportionDAOTest.
+ */
 @SpringBootTest
 @Testcontainers
 class TeamWorkProportionDAOTest extends DatabaseBaseTest {
 
+	/** The team work proportion DAO. */
 	@Autowired
 	private TeamWorkProportionDAO teamWorkProportionDAO;
 
@@ -38,6 +42,9 @@ class TeamWorkProportionDAOTest extends DatabaseBaseTest {
 		teamWorkProportionDAO.setDataSource(dataSource());
 	}
 
+	/**
+	 * Test getting jdbc template.
+	 */
 	@Test
 	@DisplayName("Test whether getting instance of JDBC template is successfull")
 	void testGettingJdbcTemplate() {
@@ -46,6 +53,9 @@ class TeamWorkProportionDAOTest extends DatabaseBaseTest {
 		assertThat(jdbcTemplate).isNotNull();
 	}
 
+	/**
+	 * Test handling list of sprints.
+	 */
 	@Test
 	@DisplayName("Test whether getting and handling list of sprints is successfull")
 	void testHandlingListOfSprints() {

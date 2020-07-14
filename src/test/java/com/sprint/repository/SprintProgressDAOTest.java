@@ -96,6 +96,11 @@ class SprintProgressDAOTest extends DatabaseBaseTest {
 		assertThat(count).isEqualTo(2);
 	}
 
+	/**
+	 * Test getting list of sprints.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
 	@Test
 	@DisplayName("Test whether getting list of sprints from particular database table is successfull")
 	void testGettingListOfSprints() throws SQLException {

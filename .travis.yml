@@ -18,3 +18,10 @@ script:
   - ./gradlew test
   # Trigger with Gradle static and dynamic code analysis
   - ./gradlew jacocoTestReport sonarqube
+
+notifications:
+  email:
+    recipients:
+      - hugo.rad@gmail.com
+    on_success: always
+    on_failure: always
