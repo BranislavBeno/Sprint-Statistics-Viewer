@@ -52,7 +52,7 @@ class SprintProgressControllerTest extends DatabaseBaseTest {
 	/** The container. */
 	@Container
 	private BrowserWebDriverContainer<?> container = new BrowserWebDriverContainer<>()
-			.withCapabilities(new ChromeOptions());
+			.withCapabilities(new ChromeOptions()).withReuse(true);
 
 	/**
 	 * Test sprints progress.
@@ -61,10 +61,11 @@ class SprintProgressControllerTest extends DatabaseBaseTest {
 	@DisplayName("Test whether model attributes are shown on web page")
 	void testSprintsProgress() {
 		// Get test container web driver
+		// Get IP address that the docker container can reach
 		container.getWebDriver().get("http://172.17.0.1:" + port + "/sprintprogress?sprint=");
 
 		// Get web element
-		WebElement webElement = this.container.getWebDriver().findElementById("footerText");
+		WebElement webElement = container.getWebDriver().findElementById("footerText");
 
 		// Assert expected and actual content
 		assertEquals("Last update: 2020-06-02 08:05", webElement.getText());
