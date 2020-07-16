@@ -48,24 +48,30 @@ class SprintKpiDAOTest extends DatabaseBaseTest {
 		assertThat(jdbcTemplate).isNotNull();
 	}
 
+	/**
+	 * Test getting sprint record by id.
+	 */
 	@Test
 	@DisplayName("Test whether getting database row record by id is successfull")
 	void testGettingSprintRecordById() {
-		SprintKpi sprintProgress = sprintKpiDAO.getSprintById("team_apple", 2);
+		SprintKpi sprintKpis = sprintKpiDAO.getSprintById("team_apple", 2);
 
-		assertThat(sprintProgress.getSprintLabel()).isEqualTo("Sprint 2");
-		assertThat(sprintProgress.getUpdated()).isEqualTo(LocalDateTime.of(2020, 6, 2, 8, 5, 25));
-		assertThat(sprintProgress.getClosedHighPriorStoriesSuccessRate()).isEqualTo(-1);
-		assertThat(sprintProgress.getDeltaStoryPoints()).isEqualTo(0.3373);
+		assertThat(sprintKpis.getSprintLabel()).isEqualTo("Sprint 2");
+		assertThat(sprintKpis.getUpdated()).isEqualTo(LocalDateTime.of(2020, 6, 2, 8, 5, 25));
+		assertThat(sprintKpis.getClosedHighPriorStoriesSuccessRate()).isEqualTo(-1);
+		assertThat(sprintKpis.getDeltaStoryPoints()).isEqualTo(0.3373);
 	}
 
+	/**
+	 * Test getting sprint record by label.
+	 */
 	@Test
 	@DisplayName("Test whether getting database row record by sprint label is successfull")
 	void testGettingSprintRecordByLabel() {
-		SprintKpi sprintProgress = sprintKpiDAO.getSprintByLabel("team_mango", "Sprint 1");
+		SprintKpi sprintKpis = sprintKpiDAO.getSprintByLabel("team_mango", "Sprint 1");
 
-		assertThat(sprintProgress.getTeamName()).isEqualTo("Mango");
-		assertThat(sprintProgress.getNotClosedHighPriorStoriesCount()).isEqualTo(0);
-		assertThat(sprintProgress.getPlannedStoryPointsClosed()).isEqualTo(1.2182);
+		assertThat(sprintKpis.getTeamName()).isEqualTo("Mango");
+		assertThat(sprintKpis.getNotClosedHighPriorStoriesCount()).isEqualTo(0);
+		assertThat(sprintKpis.getPlannedStoryPointsClosed()).isEqualTo(1.2182);
 	}
 }

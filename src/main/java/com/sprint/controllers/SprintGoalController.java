@@ -87,9 +87,6 @@ public class SprintGoalController {
 		List<TeamGoal> teamGoals = new ArrayList<>();
 
 		for (SprintGoal team : teams) {
-			// Extract team
-			// SprintGoal team = Optional.ofNullable(teams.get(i)).orElse(new SprintGoal());
-
 			// Initialize array for goals
 			String[] goals = new String[] {};
 

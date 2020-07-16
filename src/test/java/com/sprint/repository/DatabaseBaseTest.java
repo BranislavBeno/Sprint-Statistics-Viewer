@@ -15,7 +15,7 @@ public abstract class DatabaseBaseTest {
 
 	/** The Constant DATABASE. */
 	@Container
-	public static final MySQLContainer<?> DATABASE = new MySQLContainer<>();
+	public static final MySQLContainer<?> DATABASE = new MySQLContainer<>("mysql:5.7.29");
 
 	static {
 		DATABASE.withReuse(true).start();
