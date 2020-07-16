@@ -21,10 +21,14 @@ import com.sprint.model.TeamScopeFocus;
 import com.sprint.repository.impl.TeamScopeFocusDAO;
 import com.sprint.utils.Utils;
 
+/**
+ * The Class TeamScopeFocusDAOTest.
+ */
 @SpringBootTest
 @Testcontainers
 class TeamScopeFocusDAOTest extends DatabaseBaseTest {
 
+	/** The team scope focus DAO. */
 	@Autowired
 	private TeamScopeFocusDAO teamScopeFocusDAO;
 
@@ -40,6 +44,9 @@ class TeamScopeFocusDAOTest extends DatabaseBaseTest {
 		teamScopeFocusDAO.setDataSource(dataSource());
 	}
 
+	/**
+	 * Test getting jdbc template.
+	 */
 	@Test
 	@DisplayName("Test whether getting instance of JDBC template is successfull")
 	void testGettingJdbcTemplate() {
@@ -48,6 +55,9 @@ class TeamScopeFocusDAOTest extends DatabaseBaseTest {
 		assertThat(jdbcTemplate).isNotNull();
 	}
 
+	/**
+	 * Test handling list of sprints.
+	 */
 	@Test
 	@DisplayName("Test whether getting and handling list of sprints is successfull")
 	void testHandlingListOfSprints() {

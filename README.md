@@ -4,7 +4,7 @@
 [![Gradle](https://img.shields.io/badge/gradle-v6.5.1-blue)](https://img.shields.io/badge/gradle-v6.5.1-blue)
 [![Build Status](https://travis-ci.org/BranislavBeno/Sprint-Statistics-Viewer.svg?branch=master)](https://travis-ci.org/BranislavBeno/Sprint-Statistics-Viewer)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=alert_status)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=coverage)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)
+[![Coverage](https://img.shields.io/sonar/coverage/BranislavBeno_SprintStatsViewer?server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=ncloc)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)
 
 
