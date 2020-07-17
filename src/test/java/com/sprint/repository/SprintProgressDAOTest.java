@@ -31,7 +31,7 @@ class SprintProgressDAOTest extends DatabaseBaseTest {
 	private SprintProgressDAO sprintProgressDAO;
 
 	/** The table name. */
-	String tableName = "team_mango";
+	private String tableName = "team_mango";
 
 	/**
 	 * Sets the data source for DAO.

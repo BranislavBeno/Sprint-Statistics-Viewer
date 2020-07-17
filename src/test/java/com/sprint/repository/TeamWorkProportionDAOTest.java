@@ -30,9 +30,6 @@ class TeamWorkProportionDAOTest extends DatabaseBaseTest {
 	@Autowired
 	private TeamWorkProportionDAO teamWorkProportionDAO;
 
-	/** The table name. */
-	String tableName = "team_mango";
-
 	/**
 	 * Sets the data source for DAO.
 	 */
@@ -60,7 +57,7 @@ class TeamWorkProportionDAOTest extends DatabaseBaseTest {
 	@DisplayName("Test whether getting and handling list of sprints is successfull")
 	void testHandlingListOfSprints() {
 		// Get list of team related records
-		List<TeamWorkProportion> sprints = teamWorkProportionDAO.getSprintList(tableName,
+		List<TeamWorkProportion> sprints = teamWorkProportionDAO.getSprintList("team_mango",
 				new TeamWorkProportionRowMapper());
 
 		// Get last record from sprint related team data

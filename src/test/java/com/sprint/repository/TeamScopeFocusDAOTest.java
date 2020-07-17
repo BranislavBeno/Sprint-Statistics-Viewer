@@ -33,9 +33,6 @@ class TeamScopeFocusDAOTest extends DatabaseBaseTest {
 	@Autowired
 	private TeamScopeFocusDAO teamScopeFocusDAO;
 
-	/** The table name. */
-	String tableName = "team_apple";
-
 	/**
 	 * Sets the data source for DAO.
 	 */
@@ -76,7 +73,7 @@ class TeamScopeFocusDAOTest extends DatabaseBaseTest {
 	@DisplayName("Test whether getting and handling list of sprints is successfull")
 	void testHandlingListOfSprints() {
 		// Get list of team related records
-		List<TeamScopeFocus> sprints = teamScopeFocusDAO.getSprintList(tableName, new TeamScopeFocusRowMapper());
+		List<TeamScopeFocus> sprints = teamScopeFocusDAO.getSprintList("team_apple", new TeamScopeFocusRowMapper());
 
 		// Get last record from sprint related team data
 		TeamScopeFocus scopeFocus = sprints.stream().reduce((first, second) -> second).orElse(new TeamScopeFocus());

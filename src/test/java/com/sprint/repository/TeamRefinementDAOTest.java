@@ -38,9 +38,6 @@ class TeamRefinementDAOTest extends DatabaseBaseTest {
 	@Autowired
 	private TeamVelocityDAO teamVelocityDAO;
 
-	/** The table name. */
-	String tableName = "team_mango";
-
 	/**
 	 * Sets the data source for DAO.
 	 */
@@ -106,7 +103,8 @@ class TeamRefinementDAOTest extends DatabaseBaseTest {
 	@DisplayName("Test whether getting and handling list of sprints is successfull")
 	void testHandlingListOfSprints() {
 		// Get list of team related records
-		List<TeamRefinement> refinements = teamRefinementDAO.getCurrentSprint(tableName, new TeamRefinementRowMapper());
+		List<TeamRefinement> refinements = teamRefinementDAO.getCurrentSprint("team_mango",
+				new TeamRefinementRowMapper());
 
 		// Get refinement related team data
 		TeamRefinement refinement = refinements.stream().findFirst().orElse(new TeamRefinement());
