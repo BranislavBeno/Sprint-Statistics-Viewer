@@ -19,9 +19,6 @@ public class SprintRefinement {
 	/** The updated. */
 	private LocalDateTime updated;
 
-	/** The expected velocity. */
-	private int expectedVelocity = 0;
-
 	/**
 	 * Gets the sprint label.
 	 *
@@ -74,23 +71,5 @@ public class SprintRefinement {
 	 */
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
-	}
-
-	/**
-	 * Gets the expected velocity.
-	 *
-	 * @return the expected velocity
-	 */
-	public int getExpectedVelocity() {
-		return expectedVelocity;
-	}
-
-	/**
-	 * Sets the expected velocity.
-	 *
-	 * @param expectedVelocity the new expected velocity
-	 */
-	public void setExpectedVelocity(int expectedVelocity) {
-		this.expectedVelocity = expectedVelocity;
 	}
 }

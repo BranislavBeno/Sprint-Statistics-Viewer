@@ -2,6 +2,7 @@ package com.sprint.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -53,6 +54,19 @@ class TeamScopeFocusDAOTest extends DatabaseBaseTest {
 		JdbcTemplate jdbcTemplate = teamScopeFocusDAO.getJdbcTemplate();
 
 		assertThat(jdbcTemplate).isNotNull();
+	}
+
+	/**
+	 * Test getting list of tables.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
+	@Test
+	@DisplayName("Test whether getting list of team related database tables is successfull")
+	void testGettingListOfTables() throws SQLException {
+		List<String> list = teamScopeFocusDAO.getListOfTables();
+
+		assertThat(list.size()).isEqualTo(2);
 	}
 
 	/**

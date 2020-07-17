@@ -18,6 +18,9 @@ import com.sprint.model.TeamVelocity;
 import com.sprint.repository.impl.TeamVelocityDAO;
 import com.sprint.utils.Utils;
 
+/**
+ * The Class TeamVelocityDAOTest.
+ */
 @SpringBootTest
 @Testcontainers
 class TeamVelocityDAOTest extends DatabaseBaseTest {
@@ -35,6 +38,11 @@ class TeamVelocityDAOTest extends DatabaseBaseTest {
 		teamVelocityDAO.setDataSource(dataSource());
 	}
 
+	/**
+	 * Test getting list of sprints.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
 	@Test
 	@DisplayName("Test whether getting list of sprints from particular database table is successfull")
 	void testGettingListOfSprints() throws SQLException {
@@ -43,7 +51,7 @@ class TeamVelocityDAOTest extends DatabaseBaseTest {
 		TeamVelocity teamVelocity = list.get(0);
 
 		String updated = Utils.convertTimeStampToString(teamVelocity.getUpdated());
-		
+
 		assertThat(updated).isEqualTo("2020-06-02 08:02");
 		assertThat(teamVelocity.getSprintLabel()).isEqualTo("Sprint 1");
 		assertThat(teamVelocity.getTeamName()).isEqualTo("Mango");

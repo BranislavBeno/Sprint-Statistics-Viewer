@@ -2,6 +2,7 @@ package com.sprint.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -70,6 +71,32 @@ class TeamRefinementDAOTest extends DatabaseBaseTest {
 		JdbcTemplate jdbcTemplate = teamVelocityDAO.getJdbcTemplate();
 
 		assertThat(jdbcTemplate).isNotNull();
+	}
+
+	/**
+	 * Test getting database table name returns empty string.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
+	@Test
+	@DisplayName("Test whether putting non existing team name results into getting empty string istead of database table name")
+	void testGettingDatabaseTableNameReturnsEmptyString() throws SQLException {
+		String tablename = teamRefinementDAO.getTableName("banana");
+
+		assertThat(tablename).isEqualTo("");
+	}
+
+	/**
+	 * Test getting database table name succeeds.
+	 *
+	 * @throws SQLException the SQL exception
+	 */
+	@Test
+	@DisplayName("Test whether putting existing team name results into successfull getting database table name")
+	void testGettingDatabaseTableNameSucceeds() throws SQLException {
+		String tablename = teamRefinementDAO.getTableName("mango");
+
+		assertThat(tablename).isEqualTo("team_mango");
 	}
 
 	/**
