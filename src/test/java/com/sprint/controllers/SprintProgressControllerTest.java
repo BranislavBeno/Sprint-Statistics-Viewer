@@ -1,6 +1,6 @@
 package com.sprint.controllers;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,15 +33,6 @@ class SprintProgressControllerTest extends DatabaseBaseTest {
 	@Autowired
 	private SprintProgressDAO sprintProgressDAO;
 
-	/**
-	 * Sets the data source for DAO.
-	 */
-	@BeforeEach
-	private void setDataSource4Dao() {
-		ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
-		sprintProgressDAO.setDataSource(dataSource());
-	}
-
 	/** The port. */
 	@LocalServerPort
 	private int port;
@@ -52,19 +43,28 @@ class SprintProgressControllerTest extends DatabaseBaseTest {
 			.withCapabilities(new ChromeOptions()).withReuse(true);
 
 	/**
+	 * Prepare resources.
+	 */
+	@BeforeEach
+	private void prepareResources() {
+		// Load data from data source
+		ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
+		sprintProgressDAO.setDataSource(dataSource());
+	}
+
+	/**
 	 * Test sprints progress.
 	 */
 	@Test
 	@DisplayName("Test whether model attributes are shown on web page")
 	void testSprintsProgress() {
-		// Get test container web driver
-		// Get IP address that the docker container can reach
+		// Get web driver and its URL
 		container.getWebDriver().get("http://172.17.0.1:" + port + "/sprintprogress?sprint=");
 
 		// Get web element
 		WebElement webElement = container.getWebDriver().findElementById("footerText");
 
 		// Assert expected and actual content
-		assertEquals("Last update: 2020-06-02 08:05", webElement.getText());
+		assertThat(webElement.getText()).isEqualTo("Last update: 2020-06-02 08:05");
 	}
 }
