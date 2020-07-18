@@ -53,14 +53,14 @@ dependencies {
 	implementation "org.springframework:spring-jdbc"
 	implementation "org.apache.commons:commons-math3:3.6.1"
 	implementation "mysql:mysql-connector-java"
-	implementation "org.seleniumhq.selenium:selenium-remote-driver"
-	implementation "org.seleniumhq.selenium:selenium-chrome-driver"
 	developmentOnly "org.springframework.boot:spring-boot-devtools"
 	testImplementation "org.junit.platform:junit-platform-launcher"
 	testImplementation "org.assertj:assertj-core"
 	testImplementation "org.testcontainers:junit-jupiter:${testcontainersVersion}"
 	testImplementation "org.testcontainers:mysql:${testcontainersVersion}"
 	testImplementation "org.testcontainers:selenium:${testcontainersVersion}"
+	testImplementation "org.seleniumhq.selenium:selenium-remote-driver"
+	testImplementation "org.seleniumhq.selenium:selenium-chrome-driver"
 	testImplementation('org.springframework.boot:spring-boot-starter-test') {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}

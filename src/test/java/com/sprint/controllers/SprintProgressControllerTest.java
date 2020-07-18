@@ -50,6 +50,9 @@ class SprintProgressControllerTest extends DatabaseBaseTest {
 		// Load data from data source
 		ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
 		sprintProgressDAO.setDataSource(dataSource());
+
+		// Get web driver's URL
+		container.getWebDriver().get("http://172.17.0.1:" + port + "/sprintprogress?sprint=");
 	}
 
 	/**
@@ -58,9 +61,6 @@ class SprintProgressControllerTest extends DatabaseBaseTest {
 	@Test
 	@DisplayName("Test whether model attributes are shown on web page")
 	void testSprintsProgress() {
-		// Get web driver and its URL
-		container.getWebDriver().get("http://172.17.0.1:" + port + "/sprintprogress?sprint=");
-
 		// Get web element
 		WebElement webElement = container.getWebDriver().findElementById("footerText");
 
