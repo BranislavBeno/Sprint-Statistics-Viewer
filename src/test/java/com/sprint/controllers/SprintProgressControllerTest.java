@@ -7,14 +7,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testcontainers.ext.ScriptUtils;
 import org.testcontainers.jdbc.JdbcDatabaseDelegate;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.sprint.extension.ScreenCaptureOnFailure;
@@ -37,11 +34,6 @@ class SprintProgressControllerTest extends DatabaseBaseTest {
 	@LocalServerPort
 	private int port;
 
-	/** The container. */
-	@Container
-	private BrowserWebDriverContainer<?> container = new BrowserWebDriverContainer<>()
-			.withCapabilities(new ChromeOptions()).withReuse(true);
-
 	/**
 	 * Prepare resources.
 	 */
@@ -52,7 +44,8 @@ class SprintProgressControllerTest extends DatabaseBaseTest {
 		sprintProgressDAO.setDataSource(dataSource());
 
 		// Get web driver's URL
-		container.getWebDriver().get("http://172.17.0.1:" + port + "/sprintprogress?sprint=");
+		ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver()
+				.get(ChromeBrowserInitializer.URL + port + "/sprintprogress?sprint=");
 	}
 
 	/**
@@ -62,7 +55,8 @@ class SprintProgressControllerTest extends DatabaseBaseTest {
 	@DisplayName("Test whether model attributes are shown on web page")
 	void testSprintsProgress() {
 		// Get web element
-		WebElement webElement = container.getWebDriver().findElementById("footerText");
+		WebElement webElement = ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver()
+				.findElementById("footerText");
 
 		// Assert expected and actual content
 		assertThat(webElement.getText()).isEqualTo("Last update: 2020-06-02 08:05");

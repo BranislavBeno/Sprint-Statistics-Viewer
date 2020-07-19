@@ -9,11 +9,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.testcontainers.containers.BrowserWebDriverContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.sprint.extension.ScreenCaptureOnFailure;
@@ -26,23 +23,17 @@ import com.sprint.extension.ScreenCaptureOnFailure;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AboutControllerTest {
 
-	/** The container. */
-	@Container
-	private BrowserWebDriverContainer<?> container = new BrowserWebDriverContainer<>()
-			.withCapabilities(new ChromeOptions()).withReuse(true);
-
 	/** The port. */
 	@LocalServerPort
 	private int port;
 
 	/**
-	 * Gets the web driver url.
-	 *
-	 * @return the web driver url
+	 * Prepare resources.
 	 */
 	@BeforeEach
-	private void getWebDriverUrl() {
-		container.getWebDriver().get("http://172.17.0.1:" + port + "/about");
+	private void prepareResources() {
+		ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver()
+				.get(ChromeBrowserInitializer.URL + port + "/about");
 	}
 
 	/**
@@ -52,9 +43,10 @@ class AboutControllerTest {
 	@DisplayName("Test whether page title is 'About'")
 	void testAboutPageTitle() {
 		// Get page title
-		WebElement pageTitle = container.getWebDriver().findElementByTagName("title");
+		WebElement pageTitle = ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver()
+				.findElementByCssSelector(".blockquote h3");
 		// Assert expected and actual content
-		assertThat(pageTitle.getAttribute("text")).isEqualTo("About");
+		assertThat(pageTitle.getText()).isEqualTo("About");
 	}
 
 	/**
@@ -64,7 +56,8 @@ class AboutControllerTest {
 	@DisplayName("Test whether unordered web elements list has size 8")
 	void testUnsortedWebElementsList() {
 		// Get list of web elements
-		List<WebElement> webElementList = container.getWebDriver().findElementsByCssSelector(".lead li");
+		List<WebElement> webElementList = ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver()
+				.findElementsByCssSelector(".lead li");
 		// Assert expected and actual content
 		assertThat(webElementList.size()).isEqualTo(8);
 	}

@@ -7,11 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.testcontainers.containers.BrowserWebDriverContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import com.sprint.extension.ScreenCaptureOnFailure;
@@ -24,23 +21,16 @@ import com.sprint.extension.ScreenCaptureOnFailure;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SprintStatsErrorControllerTest {
 
-	/** The container. */
-	@Container
-	private BrowserWebDriverContainer<?> container = new BrowserWebDriverContainer<>()
-			.withCapabilities(new ChromeOptions()).withReuse(true);
-
 	/** The port. */
 	@LocalServerPort
 	private int port;
 
 	/**
-	 * Gets the web driver url.
-	 *
-	 * @return the web driver url
+	 * Prepare resources.
 	 */
 	@BeforeEach
-	private void getWebDriverUrl() {
-		container.getWebDriver().get("http://172.17.0.1:" + port + "/error");
+	private void prepareResources() {
+		ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver().get(ChromeBrowserInitializer.URL + port + "/error");
 	}
 
 	/**
@@ -48,9 +38,10 @@ class SprintStatsErrorControllerTest {
 	 */
 	@Test
 	@DisplayName("Test whether page title is 'Error on sprint statistics'")
-	void testAboutPageTitle() {
+	void testErrorPageTitle() {
 		// Get page title
-		WebElement pageTitle = container.getWebDriver().findElementByTagName("title");
+		WebElement pageTitle = ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver()
+				.findElementByTagName("title");
 		// Assert expected and actual content
 		assertThat(pageTitle.getAttribute("text")).isEqualTo("Error on sprint statistics");
 	}
