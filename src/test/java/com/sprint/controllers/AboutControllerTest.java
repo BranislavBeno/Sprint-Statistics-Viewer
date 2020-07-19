@@ -3,6 +3,7 @@ package com.sprint.controllers;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -42,6 +43,9 @@ class AboutControllerTest {
 	@Test
 	@DisplayName("Test whether page title is 'About'")
 	void testAboutPageTitle() {
+		ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver().manage().timeouts().implicitlyWait(17,
+				TimeUnit.SECONDS);
+
 		// Get page title
 		WebElement pageTitle = ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver()
 				.findElementByCssSelector(".blockquote h3");
