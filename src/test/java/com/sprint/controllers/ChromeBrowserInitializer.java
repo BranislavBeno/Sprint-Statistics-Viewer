@@ -10,7 +10,7 @@ import org.testcontainers.junit.jupiter.Container;
 public class ChromeBrowserInitializer {
 
 	/** The Constant URL. */
-	public static final String URL = "http://172.17.0.1:";
+	public static final String URL = "http://host.docker.internal:";
 	
 	/** The web driver container. */
 	@Container
