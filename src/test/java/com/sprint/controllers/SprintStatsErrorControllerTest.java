@@ -30,7 +30,8 @@ class SprintStatsErrorControllerTest {
 	 */
 	@BeforeEach
 	private void prepareResources() {
-		ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver().get(ChromeBrowserInitializer.URL + port + "/error");
+		ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver()
+				.get(ChromeBrowserInitializer.URL + port + "/error");
 	}
 
 	/**
@@ -44,5 +45,19 @@ class SprintStatsErrorControllerTest {
 				.findElementByTagName("title");
 		// Assert expected and actual content
 		assertThat(pageTitle.getAttribute("text")).isEqualTo("Error on sprint statistics");
+	}
+
+	/**
+	 * Test error page button click.
+	 */
+	@Test
+	@DisplayName("Test whether after button click will be page redirected to 'About' page")
+	void testErrorPageButtonClick() {
+		// Click the button
+		ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver().findElementByXPath("/html/body/a").click();
+		// Get page title
+		String pageTitle = ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver().getTitle();
+		// Assert expected and actual content
+		assertThat(pageTitle).isEqualTo("About");
 	}
 }
