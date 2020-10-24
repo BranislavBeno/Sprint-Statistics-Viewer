@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.sprint.enums.FeatureScope;
+import com.sprint.model.FeatureScope;
 import com.sprint.jdbc.TeamScopeFocusRowMapper;
 import com.sprint.model.TeamScopeFocus;
 import com.sprint.repository.impl.TeamScopeFocusDAO;

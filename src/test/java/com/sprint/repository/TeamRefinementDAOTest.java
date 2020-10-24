@@ -16,7 +16,7 @@ import org.testcontainers.ext.ScriptUtils;
 import org.testcontainers.jdbc.JdbcDatabaseDelegate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import com.sprint.enums.FeatureScope;
+import com.sprint.model.FeatureScope;
 import com.sprint.jdbc.TeamRefinementRowMapper;
 import com.sprint.model.TeamRefinement;
 import com.sprint.repository.impl.TeamRefinementDAO;

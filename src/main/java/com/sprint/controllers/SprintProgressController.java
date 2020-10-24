@@ -23,7 +23,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.sprint.enums.ProgressState;
 import com.sprint.model.SprintProgress;
 import com.sprint.repository.impl.SprintProgressDAO;
 

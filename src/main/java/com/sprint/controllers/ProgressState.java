@@ -1,4 +1,4 @@
-package com.sprint.enums;
+package com.sprint.controllers;
 
 /**
  * The Enum ProgressState.

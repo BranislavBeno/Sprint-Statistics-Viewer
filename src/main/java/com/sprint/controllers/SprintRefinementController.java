@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.sprint.enums.FeatureScope;
+import com.sprint.model.FeatureScope;
 import com.sprint.jdbc.TeamVelocityRowMapper;
 import com.sprint.model.SprintRefinement;
 import com.sprint.model.TeamVelocity;

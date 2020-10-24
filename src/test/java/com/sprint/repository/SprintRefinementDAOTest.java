@@ -13,7 +13,7 @@ import org.testcontainers.ext.ScriptUtils;
 import org.testcontainers.jdbc.JdbcDatabaseDelegate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import com.sprint.enums.FeatureScope;
+import com.sprint.model.FeatureScope;
 import com.sprint.model.SprintRefinement;
 import com.sprint.repository.impl.SprintRefinementDAO;
 import com.sprint.utils.Utils;

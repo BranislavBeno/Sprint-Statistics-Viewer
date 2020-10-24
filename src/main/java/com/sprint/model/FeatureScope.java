@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.sprint.enums;
+package com.sprint.model;
 
 /**
  * The enumeration FeatureScope.

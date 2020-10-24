@@ -3,8 +3,6 @@ package com.sprint.model;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-import com.sprint.enums.FeatureScope;
-
 /**
  * The Class TeamRefinement.
  */

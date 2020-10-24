@@ -12,7 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sprint.enums.FeatureScope;
+import com.sprint.model.FeatureScope;
 import com.sprint.model.TeamScopeFocus;
 import com.sprint.utils.Utils;
 
