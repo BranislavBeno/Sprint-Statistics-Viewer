@@ -3,13 +3,15 @@
  */
 package com.sprint.config;
 
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
+import javax.sql.DataSource;
 
 /**
  * The Class SprintConfig.
@@ -34,6 +36,16 @@ public class SprintConfig {
 		dataSource.setPassword(env.getProperty("spring.datasource.password"));
 
 		return dataSource;
+	}
+
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+		PropertySourcesPlaceholderConfigurer propsConfig
+				= new PropertySourcesPlaceholderConfigurer();
+		propsConfig.setLocation(new ClassPathResource("git.properties"));
+		propsConfig.setIgnoreResourceNotFound(true);
+		propsConfig.setIgnoreUnresolvablePlaceholders(true);
+		return propsConfig;
 	}
 
 }
