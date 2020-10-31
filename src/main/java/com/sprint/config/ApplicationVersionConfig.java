@@ -29,8 +29,7 @@ public class ApplicationVersionConfig implements MeterBinder {
 
   private int extractCommitCount() {
     try {
-      Integer count = Integer.valueOf(gitProperties.get("total.commit.count"));
-      return count;
+      return Integer.valueOf(gitProperties.get("total.commit.count"));
     } catch (NumberFormatException e) {
       return 0;
     }

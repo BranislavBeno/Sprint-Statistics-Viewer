@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.sprint.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
