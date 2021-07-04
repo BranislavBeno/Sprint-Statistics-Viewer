@@ -23,7 +23,7 @@ variables:
 ## - run unit tests
 ## - evaluate test coverage 
 test_code:
-  image: openjdk:11
+  image: openjdk:16
   stage: test
   script:
     - sh ./gradlew -S test jacocoTestReport sonarqube
