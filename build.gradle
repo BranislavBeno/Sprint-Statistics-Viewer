@@ -67,14 +67,14 @@ dependencies {
     testImplementation "org.seleniumhq.selenium:selenium-remote-driver"
     testImplementation "org.seleniumhq.selenium:selenium-chrome-driver"
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude group: "org.junit.vintage", module:"junit-vintage-engine"
+        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
     }
 }
 
 def versionMajor = 1
-def versionMinor = 0
-def versionPatch = 1
-def versionBuild = 7
+def versionMinor = 1
+def versionPatch = 0
+def versionBuild = 8
 version = "R${versionMajor}.${versionMinor}.${versionPatch}"
 
 springBoot {
@@ -101,7 +101,7 @@ sonarqube {
 jib {
     to {
         image = 'beo1975/sprint-stats-viewer'
-        tags = ['1.0.1']
+        tags = ['1.1.0']
     }
     container {
         ports = ['5000']
