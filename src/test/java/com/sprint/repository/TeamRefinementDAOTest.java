@@ -1,11 +1,11 @@
 package com.sprint.repository;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
-
+import com.sprint.jdbc.TeamRefinementRowMapper;
+import com.sprint.model.FeatureScope;
+import com.sprint.model.TeamRefinement;
+import com.sprint.repository.impl.TeamRefinementDAO;
+import com.sprint.repository.impl.TeamVelocityDAO;
+import com.sprint.utils.Utils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,107 +16,79 @@ import org.testcontainers.ext.ScriptUtils;
 import org.testcontainers.jdbc.JdbcDatabaseDelegate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import com.sprint.model.FeatureScope;
-import com.sprint.jdbc.TeamRefinementRowMapper;
-import com.sprint.model.TeamRefinement;
-import com.sprint.repository.impl.TeamRefinementDAO;
-import com.sprint.repository.impl.TeamVelocityDAO;
-import com.sprint.utils.Utils;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
-/**
- * The Class TeamRefinementDAOTest.
- */
-@SpringBootTest
-@Testcontainers
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Testcontainers(disabledWithoutDocker = true)
 class TeamRefinementDAOTest extends DatabaseBaseTest {
 
-	/** The team refinement DAO. */
-	@Autowired
-	private TeamRefinementDAO teamRefinementDAO;
+  @Autowired
+  private TeamRefinementDAO teamRefinementDAO;
 
-	/** The team velocity DAO. */
-	@Autowired
-	private TeamVelocityDAO teamVelocityDAO;
+  @Autowired
+  private TeamVelocityDAO teamVelocityDAO;
 
-	/**
-	 * Sets the data source for DAO.
-	 */
-	@BeforeEach
-	private void setDataSource4Dao() {
-		ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
-		teamRefinementDAO.setDataSource(dataSource());
-		teamVelocityDAO.setDataSource(dataSource());
-	}
+  @BeforeEach
+  private void setDataSource4Dao() {
+    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
+    teamRefinementDAO.setDataSource(dataSource());
+    teamVelocityDAO.setDataSource(dataSource());
+  }
 
-	/**
-	 * Test getting jdbc template from refinement dao.
-	 */
-	@Test
-	@DisplayName("Test whether getting instance of JDBC template from team refinement DAO is successfull")
-	void testGettingJdbcTemplateFromRefinementDao() {
-		JdbcTemplate jdbcTemplate = teamRefinementDAO.getJdbcTemplate();
+  @Test
+  @DisplayName("Test whether getting instance of JDBC template from team refinement DAO is successful")
+  void testGettingJdbcTemplateFromRefinementDao() {
+    JdbcTemplate jdbcTemplate = teamRefinementDAO.getJdbcTemplate();
 
-		assertThat(jdbcTemplate).isNotNull();
-	}
+    assertThat(jdbcTemplate).isNotNull();
+  }
 
-	/**
-	 * Test getting jdbc template from velocity dao.
-	 */
-	@Test
-	@DisplayName("Test whether getting instance of JDBC template from team velocity DAO is successfull")
-	void testGettingJdbcTemplateFromVelocityDao() {
-		JdbcTemplate jdbcTemplate = teamVelocityDAO.getJdbcTemplate();
+  @Test
+  @DisplayName("Test whether getting instance of JDBC template from team velocity DAO is successful")
+  void testGettingJdbcTemplateFromVelocityDao() {
+    JdbcTemplate jdbcTemplate = teamVelocityDAO.getJdbcTemplate();
 
-		assertThat(jdbcTemplate).isNotNull();
-	}
+    assertThat(jdbcTemplate).isNotNull();
+  }
 
-	/**
-	 * Test getting database table name returns empty string.
-	 *
-	 * @throws SQLException the SQL exception
-	 */
-	@Test
-	@DisplayName("Test whether putting non existing team name results into getting empty string istead of database table name")
-	void testGettingDatabaseTableNameReturnsEmptyString() throws SQLException {
-		String tablename = teamRefinementDAO.getTableName("banana");
+  @Test
+  @DisplayName("Test whether putting non existing team name results into getting empty string instead of database table name")
+  void testGettingDatabaseTableNameReturnsEmptyString() throws SQLException {
+    String tableName = teamRefinementDAO.getTableName("banana");
 
-		assertThat(tablename).isEqualTo("");
-	}
+    assertThat(tableName).isEmpty();
+  }
 
-	/**
-	 * Test getting database table name succeeds.
-	 *
-	 * @throws SQLException the SQL exception
-	 */
-	@Test
-	@DisplayName("Test whether putting existing team name results into successfull getting database table name")
-	void testGettingDatabaseTableNameSucceeds() throws SQLException {
-		String tablename = teamRefinementDAO.getTableName("mango");
+  @Test
+  @DisplayName("Test whether putting existing team name results into successful getting database table name")
+  void testGettingDatabaseTableNameSucceeds() throws SQLException {
+    String tableName = teamRefinementDAO.getTableName("mango");
 
-		assertThat(tablename).isEqualTo("team_mango");
-	}
+    assertThat(tableName).isEqualTo("team_mango");
+  }
 
-	/**
-	 * Test handling list of sprints.
-	 */
-	@Test
-	@DisplayName("Test whether getting and handling list of sprints is successfull")
-	void testHandlingListOfSprints() {
-		// Get list of team related records
-		List<TeamRefinement> refinements = teamRefinementDAO.getCurrentSprint("team_mango",
-				new TeamRefinementRowMapper());
+  @Test
+  @DisplayName("Test whether getting and handling list of sprints is successful")
+  void testHandlingListOfSprints() {
+    // Get list of team related records
+    List<TeamRefinement> refinements = teamRefinementDAO.getCurrentSprint("team_mango",
+        new TeamRefinementRowMapper());
 
-		// Get refinement related team data
-		TeamRefinement refinement = refinements.stream().findFirst().orElse(new TeamRefinement());
+    // Get refinement related team data
+    TeamRefinement refinement = refinements.stream().findFirst().orElse(new TeamRefinement());
 
-		// Get time stamp of database item last update
-		String updated = Utils.convertTimeStampToString(refinement.getUpdated());
+    // Get time stamp of database item last update
+    String updated = Utils.convertTimeStampToString(refinement.getUpdated());
 
-		// Get map team specific sprint related refinements
-		Map<String, Map<FeatureScope, Integer>> refinedSP = refinement.getRefinedStoryPoints();
+    // Get map team specific sprint related refinements
+    Map<String, Map<FeatureScope, Integer>> refinedSP = refinement.getRefinedStoryPoints();
 
-		assertThat(updated).isEqualTo("2020-06-02 08:05");
-		assertThat(refinement.getTeamName()).isEqualTo("Mango");
-		assertThat(refinedSP.size()).isEqualTo(4);
-	}
+    assertThat(updated).isEqualTo("2020-06-02 08:05");
+    assertThat(refinement.getTeamName()).isEqualTo("Mango");
+    assertThat(refinedSP).hasSize(4);
+  }
 }

@@ -1,37 +1,25 @@
 package com.sprint.repository;
 
-import javax.sql.DataSource;
-
-import org.jetbrains.annotations.NotNull;
+import com.mysql.cj.jdbc.MysqlDataSource;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
+import javax.sql.DataSource;
 
-/**
- * The Class DatabaseBaseTest.
- */
 public abstract class DatabaseBaseTest {
 
-	/** The Constant DATABASE. */
-	@Container
-	public static final MySQLContainer<?> DATABASE = new MySQLContainer<>("mysql:5.7.29");
+  @Container
+  public static final MySQLContainer<?> DATABASE = new MySQLContainer<>("mysql:8.0.25");
 
-	static {
-		DATABASE.withReuse(true).start();
-	}
+  static {
+    DATABASE.withReuse(true).start();
+  }
 
-	/**
-	 * Data source.
-	 *
-	 * @return the data source
-	 */
-	@NotNull
-	public DataSource dataSource() {
-		MysqlDataSource dataSource = new MysqlDataSource();
-		dataSource.setUrl(DATABASE.getJdbcUrl());
-		dataSource.setUser(DATABASE.getUsername());
-		dataSource.setPassword(DATABASE.getPassword());
-		return dataSource;
-	}
+  public DataSource dataSource() {
+    MysqlDataSource dataSource = new MysqlDataSource();
+    dataSource.setUrl(DATABASE.getJdbcUrl());
+    dataSource.setUser(DATABASE.getUsername());
+    dataSource.setPassword(DATABASE.getPassword());
+    return dataSource;
+  }
 }
