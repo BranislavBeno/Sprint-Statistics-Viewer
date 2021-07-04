@@ -98,6 +98,11 @@ sonarqube {
 }
 
 // Docker image building
+
+bootBuildImage {
+    imageName = "beo1975/sprint-stats-viewer:${versionMajor}.${versionMinor}.${versionPatch}"
+}
+
 jib {
     to {
         image = 'beo1975/sprint-stats-viewer'
