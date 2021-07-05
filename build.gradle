@@ -16,6 +16,7 @@ targetCompatibility = JavaVersion.VERSION_16
 ext {
     junitVersion = '5.7.2'
     testcontainersVersion = '1.15.3'
+    selenideVersion = '5.22.2'
     sonarProjectName = 'SprintStatsViewer'
     sonarProjectKey = 'com.view.sprintstats'
     jacocoDestinationFile = file("$buildDir/jacoco/test.exec")
@@ -64,6 +65,7 @@ dependencies {
     testImplementation "org.testcontainers:junit-jupiter:${testcontainersVersion}"
     testImplementation "org.testcontainers:mysql:${testcontainersVersion}"
     testImplementation "org.testcontainers:selenium:${testcontainersVersion}"
+    testImplementation "com.codeborne:selenide:${selenideVersion}"
     testImplementation "org.seleniumhq.selenium:selenium-remote-driver"
     testImplementation "org.seleniumhq.selenium:selenium-chrome-driver"
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
