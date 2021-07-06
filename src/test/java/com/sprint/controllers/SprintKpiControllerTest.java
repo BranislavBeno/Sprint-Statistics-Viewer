@@ -58,11 +58,9 @@ class SprintKpiControllerTest extends DatabaseBaseTest {
     ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
     kpis.setDataSource(dataSource());
 
-    // Get web driver's URL
     Configuration.timeout = 2000;
     Configuration.baseUrl = "http://172.17.0.1:" + port;
 
-    open("/kpi?sprint=");
     RemoteWebDriver remoteWebDriver = webDriverContainer.getWebDriver();
     WebDriverRunner.setWebDriver(remoteWebDriver);
 
