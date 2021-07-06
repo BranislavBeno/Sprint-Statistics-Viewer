@@ -3,6 +3,7 @@ package com.sprint.controllers;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.junit5.ScreenShooterExtension;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -35,14 +36,13 @@ class AboutControllerTest {
 
   @RegisterExtension
   public static ScreenShooterExtension screenShooterExtension =
-      new ScreenShooterExtension().to("target/selenide");
+      new ScreenShooterExtension().to("build/selenide");
 
   @LocalServerPort
   private Integer port;
 
-  @Test
-  @DisplayName("Test whether page title is 'About'")
-  void testAboutPageTitle() {
+  @BeforeEach
+  void setUp() {
     Configuration.timeout = 2000;
     Configuration.baseUrl = "http://172.17.0.1:" + port;
 
@@ -50,6 +50,11 @@ class AboutControllerTest {
     WebDriverRunner.setWebDriver(remoteWebDriver);
 
     open("/about");
+  }
+
+  @Test
+  @DisplayName("Test whether page title is 'About'")
+  void testPageTitle() {
     String caption = $(By.tagName("title")).getOwnText();
     assertThat(caption).isEqualTo("About");
   }
@@ -57,13 +62,6 @@ class AboutControllerTest {
   @Test
   @DisplayName("Test whether unordered web elements list has size 8")
   void testUnsortedWebElementsList() {
-    Configuration.timeout = 2000;
-    Configuration.baseUrl = "http://172.17.0.1:" + port;
-
-    RemoteWebDriver remoteWebDriver = webDriverContainer.getWebDriver();
-    WebDriverRunner.setWebDriver(remoteWebDriver);
-
-    open("/about");
     List<WebElement> elementList = $(By.className("lead")).findElements(By.cssSelector("li"));
     assertThat(elementList.size()).isEqualTo(8);
   }
