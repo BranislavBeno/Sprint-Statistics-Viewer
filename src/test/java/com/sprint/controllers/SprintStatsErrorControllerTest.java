@@ -1,63 +1,69 @@
 package com.sprint.controllers;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
+import com.codeborne.selenide.junit5.ScreenShooterExtension;
+import com.sprint.extension.ScreenCaptureOnFailure;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.openqa.selenium.WebElement;
+import org.junit.jupiter.api.extension.RegisterExtension;
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.testcontainers.containers.BrowserWebDriverContainer;
+import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import com.sprint.extension.ScreenCaptureOnFailure;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
+import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * The Class SprintStatsErrorControllerTest.
- */
-@Testcontainers
-@ExtendWith({ ScreenCaptureOnFailure.class })
+@ExtendWith({ScreenCaptureOnFailure.class})
+@Testcontainers(disabledWithoutDocker = true)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SprintStatsErrorControllerTest {
 
-	/** The port. */
-	@LocalServerPort
-	private int port;
+  @Container
+  public static final BrowserWebDriverContainer<?> webDriverContainer =
+      new BrowserWebDriverContainer<>()
+          .withCapabilities(new ChromeOptions()
+              .addArguments("--no-sandbox")
+              .addArguments("--disable-dev-shm-usage"));
 
-	/**
-	 * Prepare resources.
-	 */
-	@BeforeEach
-	private void prepareResources() {
-		ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver()
-				.get(ChromeBrowserInitializer.URL + port + "/error");
-	}
+  @RegisterExtension
+  public static ScreenShooterExtension screenShooterExtension =
+      new ScreenShooterExtension().to("build/selenide");
 
-	/**
-	 * Test about page title.
-	 */
-	@Test
-	@DisplayName("Test whether page title is 'Error on sprint statistics'")
-	void testErrorPageTitle() {
-		// Get page title
-		WebElement pageTitle = ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver()
-				.findElementByTagName("title");
-		// Assert expected and actual content
-		assertThat(pageTitle.getAttribute("text")).isEqualTo("Error on sprint statistics");
-	}
+  @LocalServerPort
+  private int port;
 
-	/**
-	 * Test error page button click.
-	 */
-	@Test
-	@DisplayName("Test whether after button click will be page redirected to 'About' page")
-	void testErrorPageButtonClick() {
-		// Click the button
-		ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver().findElementByXPath("/html/body/a").click();
-		// Get page title
-		String pageTitle = ChromeBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver().getTitle();
-		// Assert expected and actual content
-		assertThat(pageTitle).isEqualTo("About");
-	}
+  @BeforeEach
+  void setUp() {
+    Configuration.timeout = 2000;
+    Configuration.baseUrl = "http://172.17.0.1:" + port;
+
+    RemoteWebDriver remoteWebDriver = webDriverContainer.getWebDriver();
+    WebDriverRunner.setWebDriver(remoteWebDriver);
+
+    open("/error");
+  }
+
+  @Test
+  @DisplayName("Test whether page title is 'Error on sprint statistics'")
+  void testPageTitle() {
+    String caption = $(By.tagName("title")).getOwnText();
+    assertThat(caption).isEqualTo("Error on sprint statistics");
+  }
+
+  @Test
+  @DisplayName("Test whether after button click will be page redirected to 'About' page")
+  void testErrorPageButtonClick() {
+    $(By.xpath("/html/body/a")).click();
+    String caption = $(By.tagName("title")).getOwnText();
+    assertThat(caption).isEqualTo("About");
+  }
 }
