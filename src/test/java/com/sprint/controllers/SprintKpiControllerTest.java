@@ -13,15 +13,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testcontainers.ext.ScriptUtils;
 import org.testcontainers.jdbc.JdbcDatabaseDelegate;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
@@ -38,13 +35,6 @@ class SprintKpiControllerTest extends DatabaseBaseTest {
   @Autowired
   private SprintKpiDAO kpis;
 
-  @Container
-  public static final BrowserWebDriverContainer<?> webDriverContainer =
-      new BrowserWebDriverContainer<>()
-          .withCapabilities(new ChromeOptions()
-              .addArguments("--no-sandbox")
-              .addArguments("--disable-dev-shm-usage"));
-
   @RegisterExtension
   public static ScreenShooterExtension screenShooterExtension =
       new ScreenShooterExtension().to("build/selenide");
@@ -54,14 +44,13 @@ class SprintKpiControllerTest extends DatabaseBaseTest {
 
   @BeforeEach
   void setUp() {
-    // Load data from data source
     ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
     kpis.setDataSource(dataSource());
 
-    Configuration.timeout = 2000;
-    Configuration.baseUrl = "http://172.17.0.1:" + port;
+    Configuration.timeout = WebBrowserInitializer.TIMEOUT;
+    Configuration.baseUrl = WebBrowserInitializer.URL + port;
 
-    RemoteWebDriver remoteWebDriver = webDriverContainer.getWebDriver();
+    RemoteWebDriver remoteWebDriver = WebBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver();
     WebDriverRunner.setWebDriver(remoteWebDriver);
 
     open("/kpi?sprint=");

@@ -10,12 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.testcontainers.containers.BrowserWebDriverContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static com.codeborne.selenide.Selenide.$;
@@ -27,13 +24,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class SprintStatsErrorControllerTest {
 
-  @Container
-  public static final BrowserWebDriverContainer<?> webDriverContainer =
-      new BrowserWebDriverContainer<>()
-          .withCapabilities(new ChromeOptions()
-              .addArguments("--no-sandbox")
-              .addArguments("--disable-dev-shm-usage"));
-
   @RegisterExtension
   public static ScreenShooterExtension screenShooterExtension =
       new ScreenShooterExtension().to("build/selenide");
@@ -43,10 +33,10 @@ class SprintStatsErrorControllerTest {
 
   @BeforeEach
   void setUp() {
-    Configuration.timeout = 2000;
-    Configuration.baseUrl = "http://172.17.0.1:" + port;
+    Configuration.timeout = WebBrowserInitializer.TIMEOUT;
+    Configuration.baseUrl = WebBrowserInitializer.URL + port;
 
-    RemoteWebDriver remoteWebDriver = webDriverContainer.getWebDriver();
+    RemoteWebDriver remoteWebDriver = WebBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver();
     WebDriverRunner.setWebDriver(remoteWebDriver);
 
     open("/error");
