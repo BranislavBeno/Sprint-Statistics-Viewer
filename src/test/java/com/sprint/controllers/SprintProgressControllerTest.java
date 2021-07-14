@@ -46,6 +46,7 @@ class SprintProgressControllerTest extends DatabaseBaseTest {
 
     Configuration.timeout = WebBrowserInitializer.TIMEOUT;
     Configuration.baseUrl = WebBrowserInitializer.URL + port;
+    Configuration.browser = WebBrowserInitializer.BROWSER;
 
     RemoteWebDriver remoteWebDriver = WebBrowserInitializer.WEB_DRIVER_CONTAINER.getWebDriver();
     WebDriverRunner.setWebDriver(remoteWebDriver);
