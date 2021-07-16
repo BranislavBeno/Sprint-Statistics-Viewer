@@ -7,6 +7,7 @@ import com.sprint.extension.ScreenCaptureOnFailure;
 import com.sprint.repository.DatabaseBaseTest;
 import com.sprint.repository.impl.SprintKpiDAO;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -58,6 +59,7 @@ class SprintKpiControllerTest extends DatabaseBaseTest {
   }
 
   @Test
+  @Disabled("Not possible to run successfully on CI")
   @DisplayName("Test whether page title is 'Sprint KPI's Sprint 2'")
   void testPageTitle() {
     String caption = $(By.tagName("title")).getOwnText();
@@ -65,6 +67,7 @@ class SprintKpiControllerTest extends DatabaseBaseTest {
   }
 
   @Test
+  @Disabled("Not possible to run successfully on CI")
   @DisplayName("Test whether third table column has title 'Team Mango'")
   void testHeaderElementsFromTable() {
     List<WebElement> elementList = $(By.cssSelector("thead tr")).findElements(By.cssSelector("th"));

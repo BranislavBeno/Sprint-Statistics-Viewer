@@ -4,6 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.junit5.ScreenShooterExtension;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
@@ -44,6 +45,7 @@ class AboutControllerTest {
   }
 
   @Test
+  @Disabled("Not possible to run successfully on CI")
   @DisplayName("Test whether page title is 'About'")
   void testPageTitle() {
     String caption = $(By.tagName("title")).getOwnText();
@@ -51,6 +53,7 @@ class AboutControllerTest {
   }
 
   @Test
+  @Disabled("Not possible to run successfully on CI")
   @DisplayName("Test whether unordered web elements list has size 8")
   void testUnsortedWebElementsList() {
     List<WebElement> elementList = $(By.className("lead")).findElements(By.cssSelector("li"));

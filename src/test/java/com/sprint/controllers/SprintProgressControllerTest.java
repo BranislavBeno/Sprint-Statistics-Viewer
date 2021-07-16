@@ -7,6 +7,7 @@ import com.sprint.extension.ScreenCaptureOnFailure;
 import com.sprint.repository.DatabaseBaseTest;
 import com.sprint.repository.impl.SprintProgressDAO;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -55,6 +56,7 @@ class SprintProgressControllerTest extends DatabaseBaseTest {
   }
 
   @Test
+  @Disabled("Not possible to run successfully on CI")
   @DisplayName("Test whether model attributes are shown on web page")
   void testSprintsProgress() {
     String text = $(By.id("footerText")).getOwnText();
