@@ -26,7 +26,7 @@ class TeamWorkProportionDAOTest extends DatabaseBaseTest {
   private TeamWorkProportionDAO teamWorkProportionDAO;
 
   @BeforeEach
-  private void setDataSource4Dao() {
+  void setDataSource4Dao() {
     ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
     teamWorkProportionDAO.setDataSource(dataSource());
   }
