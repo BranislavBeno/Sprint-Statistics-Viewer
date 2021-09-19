@@ -16,7 +16,7 @@ targetCompatibility = JavaVersion.VERSION_16
 ext {
     junitVersion = '5.7.2'
     testcontainersVersion = '1.16.0'
-    selenideVersion = '5.24.0'
+    selenideVersion = '5.24.3'
     sonarProjectName = 'SprintStatsViewer'
     sonarProjectKey = 'com.view.sprintstats'
     jacocoDestinationFile = file("$buildDir/jacoco/test.exec")

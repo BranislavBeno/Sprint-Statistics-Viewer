@@ -1,13 +1,15 @@
 package com.sprint.controllers;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.WebDriverRunner;
 import com.codeborne.selenide.junit5.ScreenShooterExtension;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.RegisterExtension;
+import org.junit.platform.commons.logging.Logger;
+import org.junit.platform.commons.logging.LoggerFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -17,13 +19,15 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 @Testcontainers(disabledWithoutDocker = true)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 class AboutControllerTest {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(AboutControllerTest.class);
 
   @RegisterExtension
   public static ScreenShooterExtension screenShooterExtension =
@@ -45,15 +49,15 @@ class AboutControllerTest {
   }
 
   @Test
-  @Disabled("Not possible to run successfully on CI")
   @DisplayName("Test whether page title is 'About'")
   void testPageTitle() {
-    String caption = $(By.tagName("title")).getOwnText();
-    assertThat(caption).isEqualTo("About");
+    assertThat(Selenide.title()).isEqualTo("About");
+
+    String screenshotPath = screenshot("post-submit");
+    LOGGER.info(() -> "Screenshot is available under %s".formatted(screenshotPath));
   }
 
   @Test
-  @Disabled("Not possible to run successfully on CI")
   @DisplayName("Test whether unordered web elements list has size 8")
   void testUnsortedWebElementsList() {
     List<WebElement> elementList = $(By.className("lead")).findElements(By.cssSelector("li"));
