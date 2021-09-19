@@ -53,7 +53,7 @@ class AboutControllerTest {
   void testPageTitle() {
     assertThat(Selenide.title()).isEqualTo("About");
 
-    String screenshotPath = screenshot("post-submit");
+    String screenshotPath = screenshot("about");
     LOGGER.info(() -> "Screenshot is available under %s".formatted(screenshotPath));
   }
 
