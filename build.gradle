@@ -1,11 +1,11 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.5.4'
+    id 'org.springframework.boot' version '2.6.0'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-    id 'com.google.cloud.tools.jib' version '3.1.1'
     id 'jacoco'
     id 'org.sonarqube' version '3.3'
     id 'com.gorylenko.gradle-git-properties' version '2.3.1'
+    id 'com.github.ben-manes.versions' version '0.39.0'
 }
 
 group = 'com.sprint'
@@ -14,9 +14,6 @@ sourceCompatibility = JavaVersion.VERSION_16
 targetCompatibility = JavaVersion.VERSION_16
 
 ext {
-    junitVersion = '5.7.2'
-    testcontainersVersion = '1.16.0'
-    selenideVersion = '5.24.3'
     sonarProjectName = 'SprintStatsViewer'
     sonarProjectKey = 'com.view.sprintstats'
     jacocoDestinationFile = file("$buildDir/jacoco/test.exec")
@@ -53,24 +50,19 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf"
     implementation "org.springframework.boot:spring-boot-starter-actuator"
-    implementation 'io.micrometer:micrometer-registry-prometheus:1.7.2'
-    implementation 'de.codecentric:spring-boot-admin-starter-client:2.5.0'
+    implementation "io.micrometer:micrometer-registry-prometheus:1.8.0"
+    implementation "de.codecentric:spring-boot-admin-starter-client:2.5.4"
     implementation "org.springframework:spring-jdbc"
     implementation "org.apache.commons:commons-math3:3.6.1"
     implementation "mysql:mysql-connector-java"
     implementation "guru.springframework:chuck-norris-for-actuator:2.4.0"
-    developmentOnly "org.springframework.boot:spring-boot-devtools"
-    testImplementation "org.junit.platform:junit-platform-launcher"
+    implementation platform("org.testcontainers:testcontainers-bom:1.16.2")
+    testImplementation "org.testcontainers:junit-jupiter"
+    testImplementation "org.testcontainers:mysql"
+    testImplementation "org.testcontainers:selenium"
     testImplementation "org.assertj:assertj-core"
-    testImplementation "org.testcontainers:junit-jupiter:${testcontainersVersion}"
-    testImplementation "org.testcontainers:mysql:${testcontainersVersion}"
-    testImplementation "org.testcontainers:selenium:${testcontainersVersion}"
-    testImplementation "com.codeborne:selenide:${selenideVersion}"
-    testImplementation "org.seleniumhq.selenium:selenium-remote-driver"
-    testImplementation "org.seleniumhq.selenium:selenium-chrome-driver"
-    testImplementation("org.springframework.boot:spring-boot-starter-test") {
-        exclude group: "org.junit.vintage", module: "junit-vintage-engine"
-    }
+    testImplementation "com.codeborne:selenide:6.0.3"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 
 def versionMajor = 1
@@ -100,20 +92,6 @@ sonarqube {
 }
 
 // Docker image building
-
 bootBuildImage {
     imageName = "beo1975/sprint-stats-viewer:${versionMajor}.${versionMinor}.${versionPatch}"
 }
-
-jib {
-    to {
-        image = 'beo1975/sprint-stats-viewer'
-        tags = ['1.1.0']
-    }
-    container {
-        ports = ['5000']
-        creationTime = new Date().format("yyyy-MM-dd'T'HH:mm'Z'")
-        volumes = ['/app/log']
-    }
-}
-
