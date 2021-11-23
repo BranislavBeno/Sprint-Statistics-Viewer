@@ -1,7 +1,7 @@
 package com.sprint.controllers;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
+import com.sprint.SprintStatsViewerApplication;
 import com.sprint.repository.DatabaseBaseTest;
 import com.sprint.repository.impl.TeamRefinementDAO;
 import com.sprint.repository.impl.TeamVelocityDAO;
@@ -13,16 +13,17 @@ import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.ext.ScriptUtils;
 import org.testcontainers.jdbc.JdbcDatabaseDelegate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static com.codeborne.selenide.Selenide.open;
 import static com.codeborne.selenide.Selenide.screenshot;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers(disabledWithoutDocker = true)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = SprintStatsViewerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ContextConfiguration(initializers = Initializer.class)
 class TeamRefinementControllerTest extends DatabaseBaseTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TeamRefinementControllerTest.class);
@@ -42,9 +43,8 @@ class TeamRefinementControllerTest extends DatabaseBaseTest {
         refinements.setDataSource(dataSource());
         velocity.setDataSource(dataSource());
 
-        Configuration.baseUrl = WebBrowserInitializer.URL + port;
-
-        open("/apple/refinement");
+        String url = WebBrowserInitializer.URL + port + "/apple/refinement";
+        WebBrowserInitializer.DRIVER.get(url);
     }
 
     @Test

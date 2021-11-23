@@ -1,6 +1,6 @@
 package com.sprint.controllers;
 
-import com.codeborne.selenide.Configuration;
+import com.sprint.SprintStatsViewerApplication;
 import com.sprint.repository.DatabaseBaseTest;
 import com.sprint.repository.impl.SprintProgressDAO;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,15 +12,18 @@ import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.ext.ScriptUtils;
 import org.testcontainers.jdbc.JdbcDatabaseDelegate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.screenshot;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers(disabledWithoutDocker = true)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = SprintStatsViewerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ContextConfiguration(initializers = Initializer.class)
 class SprintProgressControllerTest extends DatabaseBaseTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SprintProgressControllerTest.class);
@@ -36,9 +39,8 @@ class SprintProgressControllerTest extends DatabaseBaseTest {
         ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
         sprintProgressDAO.setDataSource(dataSource());
 
-        Configuration.baseUrl = WebBrowserInitializer.URL + port;
-
-        open("/sprintprogress?sprint=");
+        String url = WebBrowserInitializer.URL + port + "/sprintprogress?sprint=";
+        WebBrowserInitializer.DRIVER.get(url);
     }
 
     @Test
