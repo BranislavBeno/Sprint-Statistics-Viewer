@@ -5,9 +5,7 @@ import com.sprint.SprintStatsViewerApplication;
 import com.sprint.repository.DatabaseBaseTest;
 import com.sprint.repository.impl.TeamRefinementDAO;
 import com.sprint.repository.impl.TeamVelocityDAO;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,9 +35,18 @@ class TeamRefinementControllerTest extends DatabaseBaseTest {
     @LocalServerPort
     private int port;
 
+    @BeforeAll
+    static void setUpAll() {
+        ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "DROP_TEAM_TABLE.sql");
+    }
+
     @BeforeEach
     void setUp() {
-        ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
         refinements.setDataSource(dataSource());
         velocity.setDataSource(dataSource());
 

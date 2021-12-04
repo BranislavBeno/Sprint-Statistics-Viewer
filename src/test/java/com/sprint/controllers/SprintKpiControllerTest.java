@@ -4,9 +4,7 @@ import com.codeborne.selenide.Selenide;
 import com.sprint.SprintStatsViewerApplication;
 import com.sprint.repository.DatabaseBaseTest;
 import com.sprint.repository.impl.SprintKpiDAO;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 import org.openqa.selenium.By;
@@ -38,9 +36,18 @@ class SprintKpiControllerTest extends DatabaseBaseTest {
     @LocalServerPort
     private Integer port;
 
+    @BeforeAll
+    static void setUpAll() {
+        ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
+    }
+
+    @AfterAll
+    static void tearDownAll() {
+        ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "DROP_TEAM_TABLE.sql");
+    }
+
     @BeforeEach
     void setUp() {
-        ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
         kpis.setDataSource(dataSource());
 
         String url = WebBrowserInitializer.URL + port + "/kpi?sprint=";

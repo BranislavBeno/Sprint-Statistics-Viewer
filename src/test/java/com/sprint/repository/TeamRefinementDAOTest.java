@@ -6,9 +6,7 @@ import com.sprint.model.TeamRefinement;
 import com.sprint.repository.impl.TeamRefinementDAO;
 import com.sprint.repository.impl.TeamVelocityDAO;
 import com.sprint.utils.Utils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,9 +30,18 @@ class TeamRefinementDAOTest extends DatabaseBaseTest {
   @Autowired
   private TeamVelocityDAO teamVelocityDAO;
 
+  @BeforeAll
+  static void setUp() {
+    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
+  }
+
+  @AfterAll
+  static void tearDown() {
+    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "DROP_TEAM_TABLE.sql");
+  }
+
   @BeforeEach
   void setDataSource4Dao() {
-    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
     teamRefinementDAO.setDataSource(dataSource());
     teamVelocityDAO.setDataSource(dataSource());
   }

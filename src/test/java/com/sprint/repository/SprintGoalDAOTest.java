@@ -2,9 +2,7 @@ package com.sprint.repository;
 
 import com.sprint.model.SprintGoal;
 import com.sprint.repository.impl.SprintGoalDAO;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -21,9 +19,18 @@ class SprintGoalDAOTest extends DatabaseBaseTest {
   @Autowired
   private SprintGoalDAO sprintGoalDAO;
 
+  @BeforeAll
+  static void setUp() {
+    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
+  }
+
+  @AfterAll
+  static void tearDown() {
+    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "DROP_TEAM_TABLE.sql");
+  }
+
   @BeforeEach
   void setDataSource4Dao() {
-    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
     sprintGoalDAO.setDataSource(dataSource());
   }
 

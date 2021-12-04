@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS `sprint`;
 CREATE TABLE IF NOT EXISTS `sprint` (
   `id` int NOT NULL AUTO_INCREMENT,
   `sprint` varchar(64) DEFAULT NULL,

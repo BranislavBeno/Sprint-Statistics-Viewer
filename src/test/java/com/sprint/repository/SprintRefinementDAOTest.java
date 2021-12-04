@@ -4,9 +4,7 @@ import com.sprint.model.FeatureScope;
 import com.sprint.model.SprintRefinement;
 import com.sprint.repository.impl.SprintRefinementDAO;
 import com.sprint.utils.Utils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.testcontainers.ext.ScriptUtils;
@@ -25,10 +23,18 @@ class SprintRefinementDAOTest extends DatabaseBaseTest {
   @Autowired
   private SprintRefinementDAO sprintRefinementDAO;
 
+  @BeforeAll
+  static void setUp() {
+    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_SPRINT_TABLE.sql");
+  }
+
+  @AfterAll
+  static void tearDown() {
+    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "DROP_SPRINT_TABLE.sql");
+  }
+
   @BeforeEach
   void setDataSource4Dao() {
-    // Initialize database
-    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_SPRINT_TABLE.sql");
     sprintRefinementDAO.setDataSource(dataSource());
   }
 

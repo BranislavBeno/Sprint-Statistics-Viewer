@@ -5,14 +5,12 @@ import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.BrowserWebDriverContainer;
-import org.testcontainers.junit.jupiter.Container;
 
 public class WebBrowserInitializer {
 
     public static final String URL = "http://host.testcontainers.internal:";
     public static final RemoteWebDriver DRIVER;
 
-    @Container
     public static final BrowserWebDriverContainer<?> WEB_DRIVER_CONTAINER = new BrowserWebDriverContainer<>();
 
     static {
