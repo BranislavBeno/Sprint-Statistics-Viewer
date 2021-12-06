@@ -9,6 +9,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
+import java.util.Objects;
 
 /**
  * The Class SprintConfig.
@@ -24,10 +25,10 @@ public class SprintConfig {
 	 * @return the data source
 	 */
 	@Bean
-	public DataSource mysqlDataSource(@Autowired Environment env) {
+	public DataSource dataSource(@Autowired Environment env) {
 		final DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-		dataSource.setDriverClassName(env.getProperty("spring.datasource.driver-class-name"));
+		dataSource.setDriverClassName(Objects.requireNonNull(env.getProperty("spring.datasource.driver-class-name")));
 		dataSource.setUrl(env.getProperty("spring.datasource.url"));
 		dataSource.setUsername(env.getProperty("spring.datasource.username"));
 		dataSource.setPassword(env.getProperty("spring.datasource.password"));
@@ -36,7 +37,7 @@ public class SprintConfig {
 	}
 
 	@Bean
-	public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
+	public static PropertySourcesPlaceholderConfigurer placeholderConfigurator() {
 		PropertySourcesPlaceholderConfigurer propsConfig
 				= new PropertySourcesPlaceholderConfigurer();
 		propsConfig.setLocation(new ClassPathResource("git.properties"));

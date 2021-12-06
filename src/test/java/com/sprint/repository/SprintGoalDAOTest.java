@@ -1,38 +1,27 @@
 package com.sprint.repository;
 
+import com.sprint.config.RepositoryConfiguration;
 import com.sprint.model.SprintGoal;
 import com.sprint.repository.impl.SprintGoalDAO;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.testcontainers.ext.ScriptUtils;
-import org.testcontainers.jdbc.JdbcDatabaseDelegate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers(disabledWithoutDocker = true)
-class SprintGoalDAOTest extends DatabaseBaseTest {
+@JdbcTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Import(value = RepositoryConfiguration.class)
+class SprintGoalDAOTest extends TeamDatabaseTest {
 
   @Autowired
   private SprintGoalDAO sprintGoalDAO;
-
-  @BeforeAll
-  static void setUp() {
-    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
-  }
-
-  @AfterAll
-  static void tearDown() {
-    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "DROP_TEAM_TABLE.sql");
-  }
-
-  @BeforeEach
-  void setDataSource4Dao() {
-    sprintGoalDAO.setDataSource(dataSource());
-  }
 
   @Test
   @DisplayName("Test whether getting instance of JDBC template is successful")

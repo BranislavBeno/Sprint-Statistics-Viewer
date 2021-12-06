@@ -1,44 +1,40 @@
 package com.sprint.repository;
 
+import com.sprint.config.RepositoryConfiguration;
 import com.sprint.jdbc.TeamScopeFocusRowMapper;
 import com.sprint.model.FeatureScope;
 import com.sprint.model.TeamScopeFocus;
 import com.sprint.repository.impl.TeamScopeFocusDAO;
 import com.sprint.utils.Utils;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.testcontainers.ext.ScriptUtils;
 import org.testcontainers.jdbc.JdbcDatabaseDelegate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers(disabledWithoutDocker = true)
-class TeamScopeFocusDAOTest extends DatabaseBaseTest {
+@JdbcTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Import(value = RepositoryConfiguration.class)
+class TeamScopeFocusDAOTest extends TeamDatabaseTest {
 
   @Autowired
   private TeamScopeFocusDAO teamScopeFocusDAO;
 
-  @BeforeAll
-  static void setUp() {
-    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
-  }
-
   @AfterAll
   static void tearDown() {
     ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "DROP_TEAM_TABLE.sql");
-  }
-
-  @BeforeEach
-  void setDataSource4Dao() {
-    teamScopeFocusDAO.setDataSource(dataSource());
   }
 
   @Test
@@ -51,7 +47,7 @@ class TeamScopeFocusDAOTest extends DatabaseBaseTest {
 
   @Test
   @DisplayName("Test whether getting list of team related database tables is successful")
-  void testGettingListOfTables() throws SQLException {
+  void testGettingListOfTables() {
     List<String> list = teamScopeFocusDAO.getListOfTables();
 
     assertThat(list.size()).isEqualTo(2);

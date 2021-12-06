@@ -1,50 +1,37 @@
 package com.sprint.repository;
 
+import com.sprint.config.RepositoryConfiguration;
 import com.sprint.jdbc.TeamRefinementRowMapper;
 import com.sprint.model.FeatureScope;
 import com.sprint.model.TeamRefinement;
 import com.sprint.repository.impl.TeamRefinementDAO;
 import com.sprint.repository.impl.TeamVelocityDAO;
 import com.sprint.utils.Utils;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.testcontainers.ext.ScriptUtils;
-import org.testcontainers.jdbc.JdbcDatabaseDelegate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers(disabledWithoutDocker = true)
-class TeamRefinementDAOTest extends DatabaseBaseTest {
+@JdbcTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Import(value = RepositoryConfiguration.class)
+class TeamRefinementDAOTest extends TeamDatabaseTest {
 
   @Autowired
   private TeamRefinementDAO teamRefinementDAO;
 
   @Autowired
   private TeamVelocityDAO teamVelocityDAO;
-
-  @BeforeAll
-  static void setUp() {
-    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
-  }
-
-  @AfterAll
-  static void tearDown() {
-    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "DROP_TEAM_TABLE.sql");
-  }
-
-  @BeforeEach
-  void setDataSource4Dao() {
-    teamRefinementDAO.setDataSource(dataSource());
-    teamVelocityDAO.setDataSource(dataSource());
-  }
 
   @Test
   @DisplayName("Test whether getting instance of JDBC template from team refinement DAO is successful")
@@ -64,7 +51,7 @@ class TeamRefinementDAOTest extends DatabaseBaseTest {
 
   @Test
   @DisplayName("Test whether putting non existing team name results into getting empty string instead of database table name")
-  void testGettingDatabaseTableNameReturnsEmptyString() throws SQLException {
+  void testGettingDatabaseTableNameReturnsEmptyString() {
     String tableName = teamRefinementDAO.getTableName("banana");
 
     assertThat(tableName).isEmpty();
@@ -72,7 +59,7 @@ class TeamRefinementDAOTest extends DatabaseBaseTest {
 
   @Test
   @DisplayName("Test whether putting existing team name results into successful getting database table name")
-  void testGettingDatabaseTableNameSucceeds() throws SQLException {
+  void testGettingDatabaseTableNameSucceeds() {
     String tableName = teamRefinementDAO.getTableName("mango");
 
     assertThat(tableName).isEqualTo("team_mango");

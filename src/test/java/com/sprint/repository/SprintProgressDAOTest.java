@@ -1,44 +1,32 @@
 package com.sprint.repository;
 
+import com.sprint.config.RepositoryConfiguration;
 import com.sprint.model.SprintProgress;
 import com.sprint.repository.impl.SprintProgressDAO;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.testcontainers.ext.ScriptUtils;
-import org.testcontainers.jdbc.JdbcDatabaseDelegate;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.context.annotation.Import;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers(disabledWithoutDocker = true)
-class SprintProgressDAOTest extends DatabaseBaseTest {
+@JdbcTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Import(value = RepositoryConfiguration.class)
+class SprintProgressDAOTest extends TeamDatabaseTest {
+
+  private static final String TABLE_NAME = "team_mango";
 
   @Autowired
   private SprintProgressDAO sprintProgressDAO;
-
-  private final String tableName = "team_mango";
-
-  @BeforeAll
-  static void setUp() {
-    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
-  }
-
-  @AfterAll
-  static void tearDown() {
-    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "DROP_TEAM_TABLE.sql");
-  }
-
-  @BeforeEach
-  void setDataSource4Dao() {
-    sprintProgressDAO.setDataSource(dataSource());
-  }
 
   @Test
   @DisplayName("Test whether getting database row record by id is successful")
@@ -55,7 +43,7 @@ class SprintProgressDAOTest extends DatabaseBaseTest {
   @Test
   @DisplayName("Test whether getting database row record by sprint label is successful")
   void testGettingSprintRecordByLabel() {
-    SprintProgress sprintProgress = sprintProgressDAO.getSprintByLabel(tableName, "Sprint 1");
+    SprintProgress sprintProgress = sprintProgressDAO.getSprintByLabel(TABLE_NAME, "Sprint 1");
 
     assertThat(sprintProgress.getSprintLabel()).isEqualTo("Sprint 1");
     assertThat(sprintProgress.getFinishedStoryPointsSum()).isEqualTo(67);
@@ -65,7 +53,7 @@ class SprintProgressDAOTest extends DatabaseBaseTest {
 
   @Test
   @DisplayName("Test whether getting database list of tables is successful")
-  void testGettingDatabaseListOfTables() throws SQLException {
+  void testGettingDatabaseListOfTables() {
     List<String> list = sprintProgressDAO.getListOfTables();
 
     assertThat(list.size()).isEqualTo(2);
@@ -74,15 +62,15 @@ class SprintProgressDAOTest extends DatabaseBaseTest {
   @Test
   @DisplayName("Test whether getting database table row count is successful")
   void testGettingDatabaseTableRowCount() {
-    int count = sprintProgressDAO.getRowCount(tableName);
+    int count = sprintProgressDAO.getRowCount(TABLE_NAME);
 
     assertThat(count).isEqualTo(2);
   }
 
   @Test
   @DisplayName("Test whether getting list of sprints from particular database table is successful")
-  void testGettingListOfSprints() throws SQLException {
-    List<String> list = sprintProgressDAO.getSprintList(tableName);
+  void testGettingListOfSprints() {
+    List<String> list = sprintProgressDAO.getSprintList(TABLE_NAME);
 
     assertThat(list.size()).isEqualTo(2);
   }

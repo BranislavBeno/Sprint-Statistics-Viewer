@@ -1,34 +1,23 @@
 /**
- * 
+ *
  */
 package com.sprint.repository.impl;
-
-import javax.sql.DataSource;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 
 import com.sprint.jdbc.SprintProgressRowMapper;
 import com.sprint.model.SprintProgress;
 import com.sprint.repository.SprintDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
-/**
- * The Class SprintProgressDAO.
- */
+import javax.sql.DataSource;
+
 @Repository
 public class SprintProgressDAO implements SprintDAO {
 
-	/** The JDBC template. */
-	private JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 
-	/**
-	 * Sets the data source.
-	 *
-	 * @param dataSource the new data source
-	 */
-	@Autowired
-	public void setDataSource(final DataSource dataSource) {
+	public SprintProgressDAO(@Autowired DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
@@ -51,7 +40,7 @@ public class SprintProgressDAO implements SprintDAO {
 	 */
 	public SprintProgress getSprintById(final String tableName, final int id) {
 		final String query = "select * from " + tableName + " where id = ?";
-		return jdbcTemplate.queryForObject(query, new Object[] { id }, new SprintProgressRowMapper());
+		return jdbcTemplate.queryForObject(query, new SprintProgressRowMapper(), id);
 	}
 
 	/**
@@ -63,6 +52,6 @@ public class SprintProgressDAO implements SprintDAO {
 	 */
 	public SprintProgress getSprintByLabel(final String tableName, final String label) {
 		final String query = "select * from " + tableName + " where sprint = ?";
-		return jdbcTemplate.queryForObject(query, new Object[] { label }, new SprintProgressRowMapper());
+		return jdbcTemplate.queryForObject(query, new SprintProgressRowMapper(), label);
 	}
 }

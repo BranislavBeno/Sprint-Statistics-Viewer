@@ -2,18 +2,18 @@ package com.sprint.controllers;
 
 import com.codeborne.selenide.Selenide;
 import com.sprint.SprintStatsViewerApplication;
-import com.sprint.repository.DatabaseBaseTest;
+import com.sprint.repository.TeamDatabaseTest;
 import com.sprint.repository.impl.TeamRefinementDAO;
 import com.sprint.repository.impl.TeamVelocityDAO;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.platform.commons.logging.Logger;
 import org.junit.platform.commons.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
-import org.testcontainers.ext.ScriptUtils;
-import org.testcontainers.jdbc.JdbcDatabaseDelegate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import static com.codeborne.selenide.Selenide.screenshot;
@@ -22,34 +22,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Testcontainers(disabledWithoutDocker = true)
 @SpringBootTest(classes = SprintStatsViewerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = Initializer.class)
-class TeamRefinementControllerTest extends DatabaseBaseTest {
+class TeamRefinementControllerTest extends TeamDatabaseTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TeamRefinementControllerTest.class);
 
     @Autowired
     private TeamRefinementDAO refinements;
-
     @Autowired
     private TeamVelocityDAO velocity;
 
     @LocalServerPort
     private int port;
 
-    @BeforeAll
-    static void setUpAll() {
-        ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
-    }
-
-    @AfterAll
-    static void tearDownAll() {
-        ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "DROP_TEAM_TABLE.sql");
-    }
-
     @BeforeEach
     void setUp() {
-        refinements.setDataSource(dataSource());
-        velocity.setDataSource(dataSource());
-
         String url = WebBrowserInitializer.URL + port + "/apple/refinement";
         WebBrowserInitializer.DRIVER.get(url);
     }

@@ -1,10 +1,9 @@
 package com.sprint.repository;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
+
+import java.util.List;
 
 /**
  * The Interface SprintDAO.
@@ -16,15 +15,14 @@ public interface SprintDAO {
 	 *
 	 * @return the  template
 	 */
-	abstract JdbcTemplate getJdbcTemplate();
+	JdbcTemplate getJdbcTemplate();
 
 	/**
 	 * Gets the list of tables.
 	 *
 	 * @return the list of tables
-	 * @throws SQLException the SQL exception
 	 */
-	default List<String> getListOfTables() throws SQLException {
+	default List<String> getListOfTables() {
 		return getJdbcTemplate().query("show tables", new SingleColumnRowMapper<>(String.class));
 	}
 
@@ -43,9 +41,8 @@ public interface SprintDAO {
 	 *
 	 * @param tableName the table name
 	 * @return the sprint list
-	 * @throws SQLException the SQL exception
 	 */
-	default List<String> getSprintList(final String tableName) throws SQLException {
+	default List<String> getSprintList(final String tableName) {
 		return getJdbcTemplate().query("select sprint from " + tableName, new SingleColumnRowMapper<>(String.class));
 	}
 }

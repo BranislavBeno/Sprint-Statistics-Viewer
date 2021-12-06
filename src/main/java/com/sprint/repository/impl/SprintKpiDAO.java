@@ -1,31 +1,20 @@
 package com.sprint.repository.impl;
 
-import javax.sql.DataSource;
-
+import com.sprint.jdbc.SprintKpiRowMapper;
+import com.sprint.model.SprintKpi;
+import com.sprint.repository.SprintDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.sprint.jdbc.SprintKpiRowMapper;
-import com.sprint.model.SprintKpi;
-import com.sprint.repository.SprintDAO;
+import javax.sql.DataSource;
 
-/**
- * The Class SprintKpiDAO.
- */
 @Repository
 public class SprintKpiDAO implements SprintDAO {
 
-	/** The jdbc template. */
-	private JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 
-	/**
-	 * Sets the data source.
-	 *
-	 * @param dataSource the new data source
-	 */
-	@Autowired
-	public void setDataSource(final DataSource dataSource) {
+	public SprintKpiDAO(@Autowired DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
@@ -48,7 +37,7 @@ public class SprintKpiDAO implements SprintDAO {
 	 */
 	public SprintKpi getSprintById(final String tableName, final int id) {
 		final String query = "select * from " + tableName + " where id = ?";
-		return jdbcTemplate.queryForObject(query, new Object[] { id }, new SprintKpiRowMapper());
+		return jdbcTemplate.queryForObject(query, new SprintKpiRowMapper(), id);
 	}
 
 	/**
@@ -60,6 +49,6 @@ public class SprintKpiDAO implements SprintDAO {
 	 */
 	public SprintKpi getSprintByLabel(final String tableName, final String label) {
 		final String query = "select * from " + tableName + " where sprint = ?";
-		return jdbcTemplate.queryForObject(query, new Object[] { label }, new SprintKpiRowMapper());
+		return jdbcTemplate.queryForObject(query, new SprintKpiRowMapper(), label);
 	}
 }

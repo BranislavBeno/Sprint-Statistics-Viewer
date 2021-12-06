@@ -3,6 +3,7 @@ package com.sprint.config;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.binder.MeterBinder;
+import io.micrometer.core.lang.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnResource;
 import org.springframework.boot.info.GitProperties;
@@ -19,7 +20,7 @@ public class ApplicationVersionConfig implements MeterBinder {
   }
 
   @Override
-  public void bindTo(MeterRegistry registry) {
+  public void bindTo(@NonNull MeterRegistry registry) {
     Gauge.builder("git.commit.count", this::extractCommitCount)
         .tag("build.version", gitProperties.get("build.version"))
         .tag("commit.message", gitProperties.get("commit.message.short"))

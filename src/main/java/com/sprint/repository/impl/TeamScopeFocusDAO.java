@@ -1,30 +1,19 @@
 package com.sprint.repository.impl;
 
-import javax.sql.DataSource;
-
+import com.sprint.model.TeamScopeFocus;
+import com.sprint.repository.TeamListDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.sprint.model.TeamScopeFocus;
-import com.sprint.repository.TeamListDAO;
+import javax.sql.DataSource;
 
-/**
- * The Class TeamScopeFocusDAO.
- */
 @Repository
 public class TeamScopeFocusDAO implements TeamListDAO<TeamScopeFocus> {
 
-	/** The JDBC template. */
-	private JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 
-	/**
-	 * Sets the data source.
-	 *
-	 * @param dataSource the new data source
-	 */
-	@Autowired
-	public void setDataSource(final DataSource dataSource) {
+	public TeamScopeFocusDAO(@Autowired DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 

@@ -1,11 +1,10 @@
 package com.sprint.repository;
 
-import java.sql.SQLException;
-import java.util.List;
-
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
+
+import java.util.List;
 
 /**
  * The Interface TeamListDAO.
@@ -16,18 +15,17 @@ public interface TeamListDAO<T> {
 
 	/**
 	 * Gets the JDBC template. F
-	 * 
+	 *
 	 * @return the JDBC template
 	 */
-	abstract JdbcTemplate getJdbcTemplate();
+	JdbcTemplate getJdbcTemplate();
 
 	/**
 	 * Gets the list of tables.
 	 *
 	 * @return the list of tables
-	 * @throws SQLException the SQL exception
 	 */
-	default List<String> getListOfTables() throws SQLException {
+	default List<String> getListOfTables() {
 		return getJdbcTemplate().query("show tables", new SingleColumnRowMapper<>(String.class));
 	}
 

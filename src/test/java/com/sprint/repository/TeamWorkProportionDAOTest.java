@@ -1,42 +1,31 @@
 package com.sprint.repository;
 
+import com.sprint.config.RepositoryConfiguration;
 import com.sprint.jdbc.TeamWorkProportionRowMapper;
 import com.sprint.model.TeamWorkProportion;
 import com.sprint.repository.impl.TeamWorkProportionDAO;
 import com.sprint.utils.Utils;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
+import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.testcontainers.ext.ScriptUtils;
-import org.testcontainers.jdbc.JdbcDatabaseDelegate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Testcontainers(disabledWithoutDocker = true)
-class TeamWorkProportionDAOTest extends DatabaseBaseTest {
+@JdbcTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@Import(value = RepositoryConfiguration.class)
+class TeamWorkProportionDAOTest extends TeamDatabaseTest {
 
   @Autowired
   private TeamWorkProportionDAO teamWorkProportionDAO;
-
-  @BeforeAll
-  static void setUp() {
-    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "CREATE_AND_INITIALIZE_TEAM_TABLE.sql");
-  }
-
-  @AfterAll
-  static void tearDown() {
-    ScriptUtils.runInitScript(new JdbcDatabaseDelegate(DATABASE, ""), "DROP_TEAM_TABLE.sql");
-  }
-
-  @BeforeEach
-  void setDataSource4Dao() {
-    teamWorkProportionDAO.setDataSource(dataSource());
-  }
 
   @Test
   @DisplayName("Test whether getting instance of JDBC template is successful")

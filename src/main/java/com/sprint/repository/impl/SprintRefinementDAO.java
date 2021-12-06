@@ -3,36 +3,23 @@
  */
 package com.sprint.repository.impl;
 
-import java.util.List;
-
-import javax.sql.DataSource;
-
+import com.sprint.jdbc.SprintRefinementRowMapper;
+import com.sprint.model.SprintRefinement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.sprint.jdbc.SprintRefinementRowMapper;
-import com.sprint.model.SprintRefinement;
+import javax.sql.DataSource;
+import java.util.List;
 
-/**
- * The Class SprintProgressDAO.
- */
 @Repository
 public class SprintRefinementDAO {
 
-	/** The Constant REFINEMENT_TABLE_NAME. */
 	private static final String REFINEMENT_TABLE_NAME = "sprint";
 
-	/** The JDBC template. */
-	private JdbcTemplate jdbcTemplate;
+	private final JdbcTemplate jdbcTemplate;
 
-	/**
-	 * Sets the data source.
-	 *
-	 * @param dataSource the new data source
-	 */
-	@Autowired
-	public void setDataSource(final DataSource dataSource) {
+	public SprintRefinementDAO(@Autowired DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 
