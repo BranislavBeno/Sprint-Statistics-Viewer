@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -51,7 +52,7 @@ class TeamRefinementDAOTest extends TeamDatabaseTest {
 
   @Test
   @DisplayName("Test whether putting non existing team name results into getting empty string instead of database table name")
-  void testGettingDatabaseTableNameReturnsEmptyString() {
+  void testGettingDatabaseTableNameReturnsEmptyString() throws SQLException {
     String tableName = teamRefinementDAO.getTableName("banana");
 
     assertThat(tableName).isEmpty();
@@ -59,7 +60,7 @@ class TeamRefinementDAOTest extends TeamDatabaseTest {
 
   @Test
   @DisplayName("Test whether putting existing team name results into successful getting database table name")
-  void testGettingDatabaseTableNameSucceeds() {
+  void testGettingDatabaseTableNameSucceeds() throws SQLException {
     String tableName = teamRefinementDAO.getTableName("mango");
 
     assertThat(tableName).isEqualTo("team_mango");

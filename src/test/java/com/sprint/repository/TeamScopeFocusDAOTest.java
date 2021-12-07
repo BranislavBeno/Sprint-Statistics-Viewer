@@ -18,6 +18,7 @@ import org.testcontainers.ext.ScriptUtils;
 import org.testcontainers.jdbc.JdbcDatabaseDelegate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +48,7 @@ class TeamScopeFocusDAOTest extends TeamDatabaseTest {
 
   @Test
   @DisplayName("Test whether getting list of team related database tables is successful")
-  void testGettingListOfTables() {
+  void testGettingListOfTables() throws SQLException {
     List<String> list = teamScopeFocusDAO.getListOfTables();
 
     assertThat(list.size()).isEqualTo(2);

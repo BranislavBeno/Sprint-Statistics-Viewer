@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -25,7 +26,7 @@ public interface TeamListDAO<T> {
 	 *
 	 * @return the list of tables
 	 */
-	default List<String> getListOfTables() {
+	default List<String> getListOfTables() throws SQLException {
 		return getJdbcTemplate().query("show tables", new SingleColumnRowMapper<>(String.class));
 	}
 

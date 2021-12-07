@@ -3,6 +3,7 @@ package com.sprint.repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public interface SprintDAO {
 	 *
 	 * @return the list of tables
 	 */
-	default List<String> getListOfTables() {
+	default List<String> getListOfTables() throws SQLException {
 		return getJdbcTemplate().query("show tables", new SingleColumnRowMapper<>(String.class));
 	}
 
@@ -42,7 +43,7 @@ public interface SprintDAO {
 	 * @param tableName the table name
 	 * @return the sprint list
 	 */
-	default List<String> getSprintList(final String tableName) {
+	default List<String> getSprintList(final String tableName) throws SQLException {
 		return getJdbcTemplate().query("select sprint from " + tableName, new SingleColumnRowMapper<>(String.class));
 	}
 }

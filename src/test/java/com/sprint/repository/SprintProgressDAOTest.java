@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.context.annotation.Import;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -53,7 +54,7 @@ class SprintProgressDAOTest extends TeamDatabaseTest {
 
   @Test
   @DisplayName("Test whether getting database list of tables is successful")
-  void testGettingDatabaseListOfTables() {
+  void testGettingDatabaseListOfTables() throws SQLException {
     List<String> list = sprintProgressDAO.getListOfTables();
 
     assertThat(list.size()).isEqualTo(2);
@@ -69,7 +70,7 @@ class SprintProgressDAOTest extends TeamDatabaseTest {
 
   @Test
   @DisplayName("Test whether getting list of sprints from particular database table is successful")
-  void testGettingListOfSprints() {
+  void testGettingListOfSprints() throws SQLException {
     List<String> list = sprintProgressDAO.getSprintList(TABLE_NAME);
 
     assertThat(list.size()).isEqualTo(2);

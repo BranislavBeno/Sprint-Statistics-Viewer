@@ -4,6 +4,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.SingleColumnRowMapper;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public interface TeamDAO<T> {
 	 * @param teamName the team name
 	 * @return the table name
 	 */
-	default String getTableName(String teamName) {
+	default String getTableName(String teamName) throws SQLException {
 		// Get list of all team related tables
 		List<String> tables = getJdbcTemplate().query("show tables", new SingleColumnRowMapper<>(String.class));
 
