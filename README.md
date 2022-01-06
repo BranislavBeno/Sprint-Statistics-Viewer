@@ -1,7 +1,7 @@
 # Sprint statistics viewer
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Gradle](https://img.shields.io/badge/gradle-v7.3-blue)](https://img.shields.io/badge/gradle-v7.3-blue)
+[![Gradle](https://img.shields.io/badge/gradle-v7.3.3-blue)](https://img.shields.io/badge/gradle-v7.3.3-blue)
 [![Build Status](https://app.travis-ci.com/BranislavBeno/Sprint-Statistics-Viewer.svg?branch=master)](https://app.travis-ci.com/BranislavBeno/Sprint-Statistics-Viewer)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=alert_status)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)
 [![Coverage](https://img.shields.io/sonar/coverage/BranislavBeno_SprintStatsViewer?server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)

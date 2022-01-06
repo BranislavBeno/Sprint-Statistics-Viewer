@@ -9,16 +9,21 @@ plugins {
 }
 
 group = 'com.sprint'
-sourceCompatibility = JavaVersion.VERSION_17
-targetCompatibility = JavaVersion.VERSION_17
+
 def versionMajor = 1
 def versionMinor = 1
 def versionPatch = 0
 version = "R${versionMajor}.${versionMinor}.${versionPatch}" as Object
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 ext {
-    set('sonarProjectName', "SprintStatsViewer")
-    set('sonarProjectKey', "com.view.sprintstats")
+    set('sonarProjectName', "SprintStatsViewer") as Object
+    set('sonarProjectKey', "com.view.sprintstats") as Object
 }
 
 repositories {
