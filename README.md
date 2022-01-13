@@ -1,11 +1,13 @@
 # Sprint statistics viewer
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Gradle](https://img.shields.io/badge/gradle-v7.3.3-blue)](https://img.shields.io/badge/gradle-v7.3.3-blue)
 [![Build Status](https://app.travis-ci.com/BranislavBeno/Sprint-Statistics-Viewer.svg?branch=master)](https://app.travis-ci.com/BranislavBeno/Sprint-Statistics-Viewer)
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=alert_status)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)
-[![Coverage](https://img.shields.io/sonar/coverage/BranislavBeno_SprintStatsViewer?server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=ncloc)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=BranislavBeno_SprintStatsViewer)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=coverage)](https://sonarcloud.io/summary/new_code?id=BranislavBeno_SprintStatsViewer)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=ncloc)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)  
+[![](https://img.shields.io/badge/Java%20Version-17-blue)](/build.gradle)
+[![](https://img.shields.io/badge/gradle-v7.3.3-blue)](https://img.shields.io/badge/gradle-v7.3.3-blue)
+[![](https://img.shields.io/badge/Spring%20Boot%20Version-2.6.2-blue)](/build.gradle)
+[![](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 
 This web application offers various statistics related to the course and history of scrum sprints in a multi-team project.
