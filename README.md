@@ -1,6 +1,6 @@
 # Sprint statistics viewer
 
-[![Build Status](https://app.travis-ci.com/BranislavBeno/Sprint-Statistics-Viewer.svg?branch=master)](https://app.travis-ci.com/BranislavBeno/Sprint-Statistics-Viewer)
+[![Build Status](https://github.com/BranislavBeno/Sprint-Statistics-Viewer/actions/workflows/gradle.yml/badge.svg)](https://github.com/BranislavBeno/Sprint-Statistics-Viewer/actions)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=BranislavBeno_SprintStatsViewer)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=coverage)](https://sonarcloud.io/summary/new_code?id=BranislavBeno_SprintStatsViewer)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=ncloc)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)  
