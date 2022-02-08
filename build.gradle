@@ -65,7 +65,7 @@ dependencies {
     testImplementation "org.testcontainers:mysql"
     testImplementation "org.testcontainers:selenium"
     testImplementation "org.assertj:assertj-core"
-    testImplementation "com.codeborne:selenide:6.2.0"
+    testImplementation "com.codeborne:selenide:6.3.0"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 
