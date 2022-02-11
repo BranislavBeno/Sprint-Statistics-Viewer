@@ -1,6 +1,5 @@
 package com.sprint.controllers;
 
-import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.WebDriverRunner;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -11,16 +10,13 @@ public class WebBrowserInitializer {
     public static final String URL = "http://host.testcontainers.internal:";
     public static final RemoteWebDriver DRIVER;
 
-    public static final BrowserWebDriverContainer<?> WEB_DRIVER_CONTAINER = new BrowserWebDriverContainer<>();
+    public static final BrowserWebDriverContainer<?> WEB_DRIVER_CONTAINER = new BrowserWebDriverContainer<>()
+            .withCapabilities(new FirefoxOptions()
+                    .addArguments("--no-sandbox")
+                    .addArguments("--disable-dev-shm-usage"));
 
     static {
-        WEB_DRIVER_CONTAINER.withCapabilities(new FirefoxOptions()
-                        .addArguments("--no-sandbox")
-                        .addArguments("--disable-dev-shm-usage"))
-                .withReuse(true).start();
-
-        Configuration.browser = "firefox";
-        Configuration.timeout = 10000;
+        WEB_DRIVER_CONTAINER.withReuse(true).start();
 
         DRIVER = WEB_DRIVER_CONTAINER.getWebDriver();
         WebDriverRunner.setWebDriver(DRIVER);
