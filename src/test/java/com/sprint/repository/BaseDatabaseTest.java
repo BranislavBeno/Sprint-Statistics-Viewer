@@ -6,7 +6,7 @@ import org.testcontainers.containers.MySQLContainer;
 
 abstract class BaseDatabaseTest {
 
-    public static final MySQLContainer<?> DATABASE = new MySQLContainer<>("mysql:8.0.25");
+    public static final MySQLContainer<?> DATABASE = new MySQLContainer<>("mysql:8.0.28");
 
     static {
         DATABASE.start();
