@@ -11,7 +11,7 @@
 [![](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 
-This web application offers various statistics related to the course and history of scrum sprints in a multi-team project.
+This [web application](http://sprint-stats-viewer.eu-central-1.elasticbeanstalk.com/) offers various statistics related to the course and history of scrum sprints in a multi-team project.
 
 Currently, the following indicators can be tracked:
 
