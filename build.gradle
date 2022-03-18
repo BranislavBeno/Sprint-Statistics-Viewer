@@ -68,7 +68,7 @@ dependencies {
     testImplementation "org.testcontainers:selenium"
     testImplementation "org.seleniumhq.selenium:selenium-api:${seleniumVersion}"
     testImplementation "org.seleniumhq.selenium:selenium-remote-driver:${seleniumVersion}"
-    testImplementation "com.codeborne:selenide:6.3.4"
+    testImplementation "com.codeborne:selenide:6.3.5"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 
