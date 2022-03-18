@@ -7,11 +7,11 @@
 [![](https://img.shields.io/badge/Java-17-blue)](/build.gradle)
 [![](https://img.shields.io/badge/Spring%20Boot-2.6.4-blue)](/build.gradle)
 [![](https://img.shields.io/badge/Testcontainers-1.16.3-blue)](/build.gradle)
-[![](https://img.shields.io/badge/Gradle-7.4-blue)](/gradle/wrapper/gradle-wrapper.properties)
+[![](https://img.shields.io/badge/Gradle-7.4.1-blue)](/gradle/wrapper/gradle-wrapper.properties)
 [![](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 
-This [web application](http://sprint-stats-viewer.eu-central-1.elasticbeanstalk.com/) offers various statistics related to the course and history of scrum sprints in a multi-team project.
+This web application offers various statistics related to the course and history of scrum sprints in a multi-team project.
 
 Currently, the following indicators can be tracked:
 
