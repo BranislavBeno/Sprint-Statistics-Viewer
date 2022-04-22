@@ -8,7 +8,7 @@ test_code:
     - ./agent &
     - ./agent wait
     - chmod +x gradlew
-    - ./gradlew -S test jacocoTestReport sonarqube
+    - ./gradlew jacocoTestReport
     - cat build/reports/jacoco/test/html/index.html
   tags:
     - DOCKER
