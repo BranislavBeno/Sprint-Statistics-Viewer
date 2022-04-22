@@ -5,9 +5,9 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=coverage)](https://sonarcloud.io/summary/new_code?id=BranislavBeno_SprintStatsViewer)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=ncloc)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)  
 [![](https://img.shields.io/badge/Java-17-blue)](/build.gradle)
-[![](https://img.shields.io/badge/Spring%20Boot-2.6.6-blue)](/build.gradle)
+[![](https://img.shields.io/badge/Spring%20Boot-2.6.7-blue)](/build.gradle)
 [![](https://img.shields.io/badge/Testcontainers-1.17.1-blue)](/build.gradle)
-[![](https://img.shields.io/badge/Gradle-7.4.1-blue)](/gradle/wrapper/gradle-wrapper.properties)
+[![](https://img.shields.io/badge/Gradle-7.4.2-blue)](/gradle/wrapper/gradle-wrapper.properties)
 [![](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
 
