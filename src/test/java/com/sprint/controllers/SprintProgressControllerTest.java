@@ -11,7 +11,7 @@ import org.junit.platform.commons.logging.LoggerFactory;
 import org.openqa.selenium.By;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -24,27 +24,27 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ContextConfiguration(initializers = Initializer.class)
 class SprintProgressControllerTest extends TeamDatabaseTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SprintProgressControllerTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(SprintProgressControllerTest.class);
 
-    @Autowired
-    private SprintProgressDAO sprintProgressDAO;
+  @Autowired
+  private SprintProgressDAO sprintProgressDAO;
 
-    @LocalServerPort
-    private int port;
+  @LocalServerPort
+  private int port;
 
-    @BeforeEach
-    void setUp() {
-        String url = WebBrowserInitializer.URL + port + "/sprintprogress?sprint=";
-        WebBrowserInitializer.DRIVER.get(url);
-    }
+  @BeforeEach
+  void setUp() {
+    String url = WebBrowserInitializer.URL + port + "/sprintprogress?sprint=";
+    WebBrowserInitializer.DRIVER.get(url);
+  }
 
-    @Test
-    @DisplayName("Test whether model attributes are shown on web page")
-    void testSprintsProgress() {
-        String text = $(By.id("footerText")).getOwnText();
-        assertThat(text).isEqualTo("Last update: 2020-06-02 08:05");
+  @Test
+  @DisplayName("Test whether model attributes are shown on web page")
+  void testSprintsProgress() {
+    String text = $(By.id("footerText")).getOwnText();
+    assertThat(text).isEqualTo("Last update: 2020-06-02 08:05");
 
-        String screenshotPath = screenshot("progress");
-        LOGGER.info(() -> "Screenshot is available under %s".formatted(screenshotPath));
-    }
+    String screenshotPath = screenshot("progress");
+    LOGGER.info(() -> "Screenshot is available under %s".formatted(screenshotPath));
+  }
 }
