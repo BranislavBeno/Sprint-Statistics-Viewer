@@ -9,7 +9,7 @@ import org.junit.platform.commons.logging.LoggerFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -24,30 +24,30 @@ import static org.springframework.boot.test.context.SpringBootTest.WebEnvironmen
 @ContextConfiguration(initializers = Initializer.class)
 class AboutControllerTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AboutControllerTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(AboutControllerTest.class);
 
-    @LocalServerPort
-    private Integer port;
+  @LocalServerPort
+  private Integer port;
 
-    @BeforeEach
-    void setUp() {
-        String url = WebBrowserInitializer.URL + port + "/about";
-        WebBrowserInitializer.DRIVER.get(url);
-    }
+  @BeforeEach
+  void setUp() {
+    String url = WebBrowserInitializer.URL + port + "/about";
+    WebBrowserInitializer.DRIVER.get(url);
+  }
 
-    @Test
-    @DisplayName("Test whether page title is 'About'")
-    void testPageTitle() {
-        assertThat(title()).isEqualTo("About");
+  @Test
+  @DisplayName("Test whether page title is 'About'")
+  void testPageTitle() {
+    assertThat(title()).isEqualTo("About");
 
-        String screenshotPath = screenshot("about");
-        LOGGER.info(() -> "Screenshot is available under %s".formatted(screenshotPath));
-    }
+    String screenshotPath = screenshot("about");
+    LOGGER.info(() -> "Screenshot is available under %s".formatted(screenshotPath));
+  }
 
-    @Test
-    @DisplayName("Test whether unordered web elements list has size 8")
-    void testUnsortedWebElementsList() {
-        List<WebElement> elementList = $(By.className("lead")).findElements(By.cssSelector("li"));
-        assertThat(elementList.size()).isEqualTo(8);
-    }
+  @Test
+  @DisplayName("Test whether unordered web elements list has size 8")
+  void testUnsortedWebElementsList() {
+    List<WebElement> elementList = $(By.className("lead")).findElements(By.cssSelector("li"));
+    assertThat(elementList).hasSize(8);
+  }
 }
