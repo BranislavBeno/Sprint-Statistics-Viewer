@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.SQLException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -69,15 +68,15 @@ public class SprintProgressController {
      */
     private List<SprintProgress> findSprintByLabel(final String label) {
         // Initialize list of teams
-        List<SprintProgress> teams = null;
+        List<SprintProgress> teams = new ArrayList<>();
         try {
             teams = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
                     .map(tn -> sprints.getSprintByLabel(tn, label)).toList();
         } catch (Exception e) {
             try {
                 teams = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
-                        .map(tn -> sprints.getSprintById(tn, sprints.getRowCount(tn))).toList();
-            } catch (SQLException e1) {
+                        .map(tn -> sprints.getSprintById(tn, sprints.getRowCount(tn).orElse(0))).toList();
+            } catch (Exception e1) {
                 LOG.warn("No sprint progress data found.");
             }
         }
@@ -329,9 +328,8 @@ public class SprintProgressController {
      * Collect sprints.
      *
      * @return the sets the
-     * @throws SQLException the SQL exception
      */
-    private Set<String> collectSprints() throws SQLException {
+    private Set<String> collectSprints() {
         // Initialize empty set of sprints
         Set<String> sprintSet = new TreeSet<>();
 
@@ -360,9 +358,8 @@ public class SprintProgressController {
      *
      * @param model       the model
      * @param sprintLabel the sprint label
-     * @throws SQLException the SQL exception
      */
-    private void computeDataForSprintProgress(Model model, String sprintLabel) throws SQLException {
+    private void computeDataForSprintProgress(Model model, String sprintLabel) {
         // Get list of sprint related team data
         List<SprintProgress> teamList = findSprintByLabel(sprintLabel);
 
@@ -422,10 +419,9 @@ public class SprintProgressController {
      * @param label the label
      * @param model the model
      * @return the string
-     * @throws SQLException the SQL exception
      */
     @GetMapping("/sprintprogress")
-    public String sprintsProgress(@RequestParam("sprint") String label, Model model) throws SQLException {
+    public String sprintsProgress(@RequestParam("sprint") String label, Model model) {
         computeDataForSprintProgress(model, label);
 
         return "sprintprogress";

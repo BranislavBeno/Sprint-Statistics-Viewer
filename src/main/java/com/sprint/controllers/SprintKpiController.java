@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
@@ -64,8 +63,8 @@ public class SprintKpiController {
         } catch (Exception e) {
             try {
                 teams = kpis.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
-                        .map(tn -> kpis.getSprintById(tn, kpis.getRowCount(tn))).collect(Collectors.toList());
-            } catch (SQLException e1) {
+                        .map(tn -> kpis.getSprintById(tn, kpis.getRowCount(tn).orElse(0))).collect(Collectors.toList());
+            } catch (Exception e1) {
                 LOG.warn("No sprint kpi data found.");
             }
         }
@@ -77,9 +76,8 @@ public class SprintKpiController {
      * Collect sprints.
      *
      * @return the sets the
-     * @throws SQLException the SQL exception
      */
-    private Set<String> collectSprints() throws SQLException {
+    private Set<String> collectSprints() {
         // Initialize empty set of sprints
         Set<String> sprintSet = new TreeSet<>();
 
@@ -109,10 +107,9 @@ public class SprintKpiController {
      * @param label the label
      * @param model the model
      * @return the string
-     * @throws SQLException the SQL exception
      */
     @GetMapping("/kpi")
-    public String kpi(@RequestParam("sprint") String label, Model model) throws SQLException {
+    public String kpi(@RequestParam("sprint") String label, Model model) {
         // Get list of sprint related team data
         List<SprintKpi> teams = findSprintByLabel(label);
 

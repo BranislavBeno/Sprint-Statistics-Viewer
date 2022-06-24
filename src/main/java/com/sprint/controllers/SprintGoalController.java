@@ -16,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -67,8 +66,8 @@ public class SprintGoalController {
         } catch (Exception e) {
             try {
                 teams = sprints.getListOfTables().stream().filter(t -> t.startsWith(TEAM_TABLE_PREFIX))
-                        .map(tn -> sprints.getSprintById(tn, sprints.getRowCount(tn))).toList();
-            } catch (SQLException e1) {
+                        .map(tn -> sprints.getSprintById(tn, sprints.getRowCount(tn).orElse(0))).toList();
+            } catch (Exception e1) {
                 LOG.warn("No sprint goal data found.");
             }
         }
@@ -110,9 +109,8 @@ public class SprintGoalController {
      * Collect sprints.
      *
      * @return the sets the
-     * @throws SQLException the SQL exception
      */
-    private Set<String> collectSprints() throws SQLException {
+    private Set<String> collectSprints() {
         // Initialize empty set of sprints
         Set<String> sprintSet = new TreeSet<>();
 
@@ -142,10 +140,9 @@ public class SprintGoalController {
      * @param label the label
      * @param model the model
      * @return the string
-     * @throws SQLException the SQL exception
      */
     @GetMapping("/goals")
-    public String goals(@RequestParam("sprint") String label, Model model) throws SQLException {
+    public String goals(@RequestParam("sprint") String label, Model model) {
         // Get list of sprint related team data
         List<SprintGoal> teams = findSprintByLabel(label);
 
