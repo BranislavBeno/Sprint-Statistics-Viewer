@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.sprint.model;
 
@@ -9,12 +9,20 @@ package com.sprint.model;
  * @author branislav.beno
  */
 public enum FeatureScope {
-	/** The basic. */
-	BASIC,
-	/** The advanced. */
-	ADVANCED,
-	/** The commercial. */
-	COMMERCIAL,
-	/** The future. */
-	FUTURE;
+    /**
+     * The basic.
+     */
+    BASIC,
+    /**
+     * The advanced.
+     */
+    ADVANCED,
+    /**
+     * The commercial.
+     */
+    COMMERCIAL,
+    /**
+     * The future.
+     */
+    FUTURE
 }
