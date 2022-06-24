@@ -1,19 +1,17 @@
 package com.sprint.controllers;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.sprint.jdbc.TeamWorkProportionRowMapper;
+import com.sprint.model.TeamWorkProportion;
+import com.sprint.repository.impl.TeamWorkProportionDAO;
+import com.sprint.utils.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.sprint.jdbc.TeamWorkProportionRowMapper;
-import com.sprint.model.TeamWorkProportion;
-import com.sprint.repository.impl.TeamWorkProportionDAO;
-import com.sprint.utils.Utils;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Class TeamWorkProportionController.
@@ -21,167 +19,169 @@ import com.sprint.utils.Utils;
 @Controller
 public class TeamWorkProportionController {
 
-	/** The Constant TEAM_TABLE_PREFIX. */
-	private static final String TEAM_TABLE_PREFIX = "team_";
+    /**
+     * The Constant TEAM_TABLE_PREFIX.
+     */
+    private static final String TEAM_TABLE_PREFIX = "team_";
 
-	/** The team. */
-	private TeamWorkProportionDAO team;
+    /**
+     * The team.
+     */
+    private final TeamWorkProportionDAO team;
 
-	/**
-	 * Instantiates a new team work proportion controller.
-	 *
-	 * @param team the team
-	 */
-	@Autowired
-	public TeamWorkProportionController(TeamWorkProportionDAO team) {
-		this.team = team;
-	}
+    /**
+     * Instantiates a new team work proportion controller.
+     *
+     * @param team the team
+     */
+    @Autowired
+    public TeamWorkProportionController(TeamWorkProportionDAO team) {
+        this.team = team;
+    }
 
-	/**
-	 * Collect sprint labels.
-	 *
-	 * @param sprints the sprints
-	 * @return the list
-	 */
-	private List<String> collectSprintLabels(List<TeamWorkProportion> sprints) {
-		// Initialize list of work proportion related sprint data
-		List<String> list = new ArrayList<>();
+    /**
+     * Collect sprint labels.
+     *
+     * @param sprints the sprints
+     * @return the list
+     */
+    private List<String> collectSprintLabels(List<TeamWorkProportion> sprints) {
+        // Initialize list of work proportion related sprint data
+        List<String> list = new ArrayList<>();
 
-		// Get list of work proportion related values
-		if (sprints != null)
-			list = sprints.stream().map(TeamWorkProportion::getSprintLabel).collect(Collectors.toList());
+        // Get list of work proportion related values
+        if (sprints != null)
+            list = sprints.stream().map(TeamWorkProportion::getSprintLabel).toList();
 
-		return list;
-	}
+        return list;
+    }
 
-	/**
-	 * Collect stories SP list.
-	 *
-	 * @param sprints the sprints
-	 * @return the list
-	 */
-	private List<Integer> collectStoriesSPList(List<TeamWorkProportion> sprints) {
-		// Initialize list of work proportion related sprint data
-		List<Integer> list = new ArrayList<>();
+    /**
+     * Collect stories SP list.
+     *
+     * @param sprints the sprints
+     * @return the list
+     */
+    private List<Integer> collectStoriesSPList(List<TeamWorkProportion> sprints) {
+        // Initialize list of work proportion related sprint data
+        List<Integer> list = new ArrayList<>();
 
-		// Get list of work proportion related values
-		if (sprints != null)
-			list = sprints.stream().map(TeamWorkProportion::getFinishedStoriesSP).collect(Collectors.toList());
+        // Get list of work proportion related values
+        if (sprints != null)
+            list = sprints.stream().map(TeamWorkProportion::getFinishedStoriesSP).toList();
 
-		return list;
-	}
+        return list;
+    }
 
-	/**
-	 * Collect bugfixes SP list.
-	 *
-	 * @param sprints the sprints
-	 * @return the list
-	 */
-	private List<Integer> collectBugfixesSPList(List<TeamWorkProportion> sprints) {
-		// Initialize list of work proportion related sprint data
-		List<Integer> list = new ArrayList<>();
+    /**
+     * Collect bugfixes SP list.
+     *
+     * @param sprints the sprints
+     * @return the list
+     */
+    private List<Integer> collectBugfixesSPList(List<TeamWorkProportion> sprints) {
+        // Initialize list of work proportion related sprint data
+        List<Integer> list = new ArrayList<>();
 
-		// Get list of work proportion related values
-		if (sprints != null)
-			list = sprints.stream().map(TeamWorkProportion::getFinishedBugsSP).collect(Collectors.toList());
+        // Get list of work proportion related values
+        if (sprints != null)
+            list = sprints.stream().map(TeamWorkProportion::getFinishedBugsSP).toList();
 
-		return list;
-	}
+        return list;
+    }
 
-	/**
-	 * Collect trend SP list.
-	 *
-	 * @param sprints the sprints
-	 * @return the list
-	 */
-	private List<String> collectTrendSPList(List<TeamWorkProportion> sprints) {
-		// Initialize list of work proportion related sprint data
-		List<Integer> list = new ArrayList<>();
+    /**
+     * Collect trend SP list.
+     *
+     * @param sprints the sprints
+     * @return the list
+     */
+    private List<String> collectTrendSPList(List<TeamWorkProportion> sprints) {
+        // Initialize list of work proportion related sprint data
+        List<Integer> list = new ArrayList<>();
 
-		// Get list of work proportion related values
-		if (sprints != null)
-			list = sprints.stream().map(TeamWorkProportion::getFinishedBugsSP).collect(Collectors.toList());
+        // Get list of work proportion related values
+        if (sprints != null)
+            list = sprints.stream().map(TeamWorkProportion::getFinishedBugsSP).toList();
 
-		return Utils.computeLinearTrend(list);
-	}
+        return Utils.computeLinearTrend(list);
+    }
 
-	/**
-	 * Collect pie chart data.
-	 *
-	 * @param sprints the sprints
-	 * @return the list
-	 */
-	private List<Integer> collectPieChartData(List<TeamWorkProportion> sprints) {
-		// Initialize list of work proportion related sprint data
-		List<Integer> list = new ArrayList<>();
+    /**
+     * Collect pie chart data.
+     *
+     * @param sprints the sprints
+     * @return the list
+     */
+    private List<Integer> collectPieChartData(List<TeamWorkProportion> sprints) {
+        // Initialize list of work proportion related sprint data
+        List<Integer> list = new ArrayList<>();
 
-		// Get list of work proportion related values
-		if (sprints != null) {
-			// Compute absolute sum finished stories
-			int stories = sprints.stream().map(TeamWorkProportion::getFinishedStoriesSP)
-					.collect(Collectors.summingInt(v -> v));
+        // Get list of work proportion related values
+        if (sprints != null) {
+            // Compute absolute sum finished stories
+            int stories = sprints.stream().map(TeamWorkProportion::getFinishedStoriesSP).mapToInt(v -> v).sum();
 
-			// Compute absolute sum fixed bugs
-			int bugs = sprints.stream().map(TeamWorkProportion::getFinishedBugsSP)
-					.collect(Collectors.summingInt(v -> v));
+            // Compute absolute sum fixed bugs
+            int bugs = sprints.stream().map(TeamWorkProportion::getFinishedBugsSP).mapToInt(v -> v).sum();
 
-			// Compute fixed bugs percentage
-			Double res = 100 * (double) bugs / (bugs + stories);
+            // Compute fixed bugs percentage
+            double res = 100 * (double) bugs / (bugs + stories);
 
-			// Add data to output list
-			list.add(100 - res.intValue());
-			list.add(res.intValue());
-		}
+            // Add data to output list
+            list.add(100 - (int) res);
+            list.add((int) res);
+        }
 
-		return list;
-	}
+        return list;
+    }
 
-	/**
-	 * Work proportion.
-	 *
-	 * @param teamId the team id
-	 * @param model  the model
-	 * @return the string
-	 */
-	@GetMapping("/{team}/workproportion")
-	public String workProportion(@PathVariable("team") String teamId, Model model) {
-		// Set database name
-		String tableName = TEAM_TABLE_PREFIX + teamId;
+    /**
+     * Work proportion.
+     *
+     * @param teamId the team id
+     * @param model  the model
+     * @return the string
+     */
+    @GetMapping("/{team}/workproportion")
+    public String workProportion(@PathVariable("team") String teamId, Model model) {
+        // Set database name
+        String tableName = TEAM_TABLE_PREFIX + teamId;
 
-		// Get list of team related records
-		List<TeamWorkProportion> sprints = team.getSprintList(tableName, new TeamWorkProportionRowMapper());
+        // Get list of team related records
+        List<TeamWorkProportion> sprints = team.getSprintList(tableName, new TeamWorkProportionRowMapper());
 
-		// Get last record from sprint related team data
-		TeamWorkProportion velocity = sprints.stream().reduce((first, second) -> second)
-				.orElse(new TeamWorkProportion());
+        // Get last record from sprint related team data
+        TeamWorkProportion velocity = sprints.stream().reduce((first, second) -> second)
+                .orElse(new TeamWorkProportion());
 
-		// Get time stamp of database item last update
-		String updated = Utils.convertTimeStampToString(velocity.getUpdated());
+        // Get time stamp of database item last update
+        String updated = Utils.convertTimeStampToString(velocity.getUpdated());
 
-		// Get team name
-		String teamName = velocity.getTeamName();
+        // Get team name
+        String teamName = velocity.getTeamName();
 
-		// Add updated time stamp
-		model.addAttribute("pageTitle", "Team " + teamName + " work proportion");
+        // Add updated time stamp
+        model.addAttribute("pageTitle", "Team " + teamName + " work proportion");
 
-		// Add updated time stamp
-		model.addAttribute("mUpdated", updated);
+        // Add updated time stamp
+        model.addAttribute("mUpdated", updated);
 
-		// Add labels list
-		model.addAttribute("mLabels", collectSprintLabels(sprints));
+        // Add labels list
+        model.addAttribute("mLabels", collectSprintLabels(sprints));
 
-		// Add new implementation and rework story points list
-		model.addAttribute("mStoriesSP", collectStoriesSPList(sprints));
+        // Add new implementation and rework story points list
+        model.addAttribute("mStoriesSP", collectStoriesSPList(sprints));
 
-		// Add on sprint end planned story points list
-		model.addAttribute("mBugfixesSP", collectBugfixesSPList(sprints));
+        // Add on sprint end planned story points list
+        model.addAttribute("mBugfixesSP", collectBugfixesSPList(sprints));
 
-		// Add on sprint end planned story points list
-		model.addAttribute("mTrendSP", collectTrendSPList(sprints));
+        // Add on sprint end planned story points list
+        model.addAttribute("mTrendSP", collectTrendSPList(sprints));
 
-		// Add on sprint end planned story points list
-		model.addAttribute("mPercentageSP", collectPieChartData(sprints));
+        // Add on sprint end planned story points list
+        model.addAttribute("mPercentageSP", collectPieChartData(sprints));
 
-		return "workproportion";
-	}
+        return "workproportion";
+    }
 }

@@ -1,42 +1,40 @@
 package com.sprint.model;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  * The Class TeamGoal.
+ *
+ * @param teamName The team name.
+ * @param goals    The goals.
  */
-public class TeamGoal {
+public record TeamGoal(String teamName, String[] goals) {
 
-	/** The team name. */
-	private String teamName = "";
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-	/** The goals. */
-	private String[] goals = new String[] {};
+        TeamGoal teamGoal = (TeamGoal) o;
 
-	/**
-	 * Instantiates a new team goal.
-	 *
-	 * @param teamName the team name
-	 * @param goals the goals
-	 */
-	public TeamGoal(String teamName, String[] goals) {
-		this.teamName = teamName;
-		this.goals = goals;
-	}
+        if (!Objects.equals(teamName, teamGoal.teamName)) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(goals, teamGoal.goals);
+    }
 
-	/**
-	 * Gets the team name.
-	 *
-	 * @return the team name
-	 */
-	public String getTeamName() {
-		return teamName;
-	}
+    @Override
+    public int hashCode() {
+        int result = teamName != null ? teamName.hashCode() : 0;
+        result = 31 * result + Arrays.hashCode(goals);
+        return result;
+    }
 
-	/**
-	 * Gets the goals.
-	 *
-	 * @return the goals
-	 */
-	public String[] getGoals() {
-		return goals;
-	}
+    @Override
+    public String toString() {
+        return "TeamGoal{" +
+                "teamName='" + teamName + '\'' +
+                ", goals=" + Arrays.toString(goals) +
+                '}';
+    }
 }

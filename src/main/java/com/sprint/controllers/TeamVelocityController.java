@@ -27,7 +27,7 @@ public class TeamVelocityController {
 	private static final String TEAM_TABLE_PREFIX = "team_";
 
 	/** The team. */
-	private TeamVelocityDAO team;
+	private final TeamVelocityDAO team;
 
 	/**
 	 * Instantiates a new team velocity controller.
@@ -132,14 +132,14 @@ public class TeamVelocityController {
 		// Compute velocity
 		while (counter > 0) {
 			// Compute velocity as double
-			Double velocity = allSprints.stream().collect(Utils.lastN(sprintListSize)).stream()
+			double velocity = allSprints.stream().collect(Utils.lastN(sprintListSize)).stream()
 					.mapToInt(TeamVelocity::getFinishedStoryPointsSum).average().orElse(0);
 
 			// Round the double value
-			Long lNum = StrictMath.round(velocity);
+			long lNum = StrictMath.round(velocity);
 
 			// Put team's velocity to the head of list
-			velocityList.addFirst(lNum.intValue());
+			velocityList.addFirst((int) lNum);
 
 			// Reduce input list
 			TeamVelocity last = allSprints.remove(allSprints.size() - 1);

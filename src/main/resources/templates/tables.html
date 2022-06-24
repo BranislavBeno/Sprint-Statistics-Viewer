@@ -1,32 +1,32 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<title>Employee Directory</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <title>Employee Directory</title>
 </head>
 <body>
-	<div class="container components">
-		<h3>List of tables</h3>
-		<hr>
-		<table class="table table-bordered table-striped">
-			<thead class="thead-dark">
-				<tr>
-					<th>Tables</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="table : ${tableList}">
-					<td th:text="${table}" />
-				</tr>
-			</tbody>
-		</table>
-	</div>
+<div class="container components">
+    <h3>List of tables</h3>
+    <hr>
+    <table aria-label="table" class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Tables</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="table : ${tableList}">
+            <td th:text="${table}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

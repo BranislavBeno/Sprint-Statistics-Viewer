@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '2.7.0'
+    id 'org.springframework.boot' version '2.7.1'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'jacoco'
     id 'org.sonarqube' version '3.4.0.2513'
@@ -62,7 +62,7 @@ dependencies {
     testImplementation "org.testcontainers:junit-jupiter"
     testImplementation "org.testcontainers:mysql"
     testImplementation "org.testcontainers:selenium"
-    testImplementation "com.codeborne:selenide:6.6.4"
+    testImplementation "com.codeborne:selenide:6.6.5"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 

@@ -13,26 +13,26 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnResource(resources = "classpath:git.properties")
 public class ApplicationVersionConfig implements MeterBinder {
 
-  final GitProperties gitProperties;
+    final GitProperties gitProperties;
 
-  public ApplicationVersionConfig(@Autowired GitProperties gitProperties) {
-    this.gitProperties = gitProperties;
-  }
-
-  @Override
-  public void bindTo(@NonNull MeterRegistry registry) {
-    Gauge.builder("git.commit.count", this::extractCommitCount)
-        .tag("build.version", gitProperties.get("build.version"))
-        .tag("commit.message", gitProperties.get("commit.message.short"))
-        .tag("branch", gitProperties.getBranch())
-        .register(registry);
-  }
-
-  private int extractCommitCount() {
-    try {
-      return Integer.valueOf(gitProperties.get("total.commit.count"));
-    } catch (NumberFormatException e) {
-      return 0;
+    public ApplicationVersionConfig(@Autowired GitProperties gitProperties) {
+        this.gitProperties = gitProperties;
     }
-  }
+
+    @Override
+    public void bindTo(@NonNull MeterRegistry registry) {
+        Gauge.builder("git.commit.count", this::extractCommitCount)
+                .tag("build.version", gitProperties.get("build.version"))
+                .tag("commit.message", gitProperties.get("commit.message.short"))
+                .tag("branch", gitProperties.getBranch())
+                .register(registry);
+    }
+
+    private int extractCommitCount() {
+        try {
+            return Integer.parseInt(gitProperties.get("total.commit.count"));
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
 }
