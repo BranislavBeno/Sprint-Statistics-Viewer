@@ -3,7 +3,7 @@ image: openjdk:17
 test_code:
   stage: test
   script:
-    - curl -L -o agent https://app.testcontainers.cloud/download/testcontainers-cloud-agent_linux_x86-64
+    - curl -L -o agent https://app.testcontainers.cloud/download/testcontainers-cloud-agent_linux_x86-64 --max-concurrency
     - chmod +x agent
     - ./agent &
     - ./agent wait

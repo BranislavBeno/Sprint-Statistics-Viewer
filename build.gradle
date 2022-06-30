@@ -33,6 +33,7 @@ repositories {
 test {
     useJUnitPlatform()
     finalizedBy jacocoTestReport
+    maxParallelForks = 4
     afterSuite { desc, result ->
         if (!desc.parent) {
             println "\nTest result: ${result.resultType}"
