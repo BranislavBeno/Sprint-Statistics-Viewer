@@ -11,4 +11,4 @@ test_code:
     - ./gradlew jacocoTestReport
     - cat build/reports/jacoco/test/html/index.html
   tags:
-    - DOCKER
+    - docker
