@@ -6,7 +6,15 @@ import org.testcontainers.containers.MySQLContainer;
 
 abstract class BaseDatabaseTest {
 
-    public static final MySQLContainer<?> DATABASE = new MySQLContainer<>("mysql:8.0.28");
+    public static final MySQLContainer<?> DATABASE = populateDatabase();
+
+    private static MySQLContainer<?> populateDatabase() {
+        try (MySQLContainer<?> container = new MySQLContainer<>("mysql:8.0.28")) {
+            container.withReuse(true);
+
+            return container;
+        }
+    }
 
     static {
         DATABASE.start();
