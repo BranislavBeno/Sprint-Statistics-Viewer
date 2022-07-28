@@ -7,23 +7,23 @@ import org.testcontainers.containers.BrowserWebDriverContainer;
 
 public class WebBrowserInitializer {
 
-  public static final String URL = "http://host.testcontainers.internal:";
-  public static final RemoteWebDriver DRIVER;
+    public static final String URL = "http://host.testcontainers.internal:";
+    public static final RemoteWebDriver DRIVER;
 
-  public static final BrowserWebDriverContainer<?> WEB_DRIVER_CONTAINER = populateWebDriver();
+    public static final BrowserWebDriverContainer<?> WEB_DRIVER_CONTAINER = populateWebDriver();
 
-  private static BrowserWebDriverContainer<?> populateWebDriver() {
-    try (BrowserWebDriverContainer<?> driver = new BrowserWebDriverContainer<>()) {
-      return driver.withCapabilities(new FirefoxOptions()
-          .addArguments("--no-sandbox")
-          .addArguments("--disable-dev-shm-usage"));
+    private static BrowserWebDriverContainer<?> populateWebDriver() {
+        try (BrowserWebDriverContainer<?> driver = new BrowserWebDriverContainer<>()) {
+            return driver.withCapabilities(new FirefoxOptions()
+                    .addArguments("--no-sandbox")
+                    .addArguments("--disable-dev-shm-usage"));
+        }
     }
-  }
 
-  static {
-    WEB_DRIVER_CONTAINER.withReuse(true).start();
+    static {
+        WEB_DRIVER_CONTAINER.start();
 
-    DRIVER = WEB_DRIVER_CONTAINER.getWebDriver();
-    WebDriverRunner.setWebDriver(DRIVER);
-  }
+        DRIVER = WEB_DRIVER_CONTAINER.getWebDriver();
+        WebDriverRunner.setWebDriver(DRIVER);
+    }
 }
