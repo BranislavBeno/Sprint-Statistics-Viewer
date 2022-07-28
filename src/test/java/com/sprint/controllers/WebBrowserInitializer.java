@@ -1,9 +1,13 @@
 package com.sprint.controllers;
 
 import com.codeborne.selenide.WebDriverRunner;
+import com.github.dockerjava.api.command.CreateNetworkCmd;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.BrowserWebDriverContainer;
+import org.testcontainers.containers.Network;
+
+import java.util.Map;
 
 public class WebBrowserInitializer {
 
@@ -14,10 +18,22 @@ public class WebBrowserInitializer {
 
     private static BrowserWebDriverContainer<?> populateWebDriver() {
         try (BrowserWebDriverContainer<?> driver = new BrowserWebDriverContainer<>()) {
-            return driver.withCapabilities(new FirefoxOptions()
-                    .addArguments("--no-sandbox")
-                    .addArguments("--disable-dev-shm-usage"));
+            return driver.
+                    withCapabilities(new FirefoxOptions()
+                            .addArguments("--no-sandbox")
+                            .addArguments("--disable-dev-shm-usage"))
+                    .withNetwork(buildNetwork());
         }
+    }
+
+    private static Network.NetworkImpl buildNetwork() {
+        return Network.builder()
+                .createNetworkCmdModifier(WebBrowserInitializer::createNetworkCmd)
+                .build();
+    }
+
+    private static void createNetworkCmd(CreateNetworkCmd cmd) {
+        cmd.withOptions(Map.of("com.docker.network.driver.mtu", "1400"));
     }
 
     static {
