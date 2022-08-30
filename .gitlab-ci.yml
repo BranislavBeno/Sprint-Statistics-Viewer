@@ -1,4 +1,4 @@
-image: openjdk:17
+image: openjdk:20
 
 test_code:
   stage: test
