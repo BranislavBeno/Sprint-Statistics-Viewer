@@ -4,7 +4,7 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=BranislavBeno_SprintStatsViewer)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=coverage)](https://sonarcloud.io/summary/new_code?id=BranislavBeno_SprintStatsViewer)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=ncloc)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)  
-[![](https://img.shields.io/badge/Java-17-blue)](/build.gradle)
+[![](https://img.shields.io/badge/Java-18-blue)](/build.gradle)
 [![](https://img.shields.io/badge/Spring%20Boot-2.7.3-blue)](/build.gradle)
 [![](https://img.shields.io/badge/Testcontainers-1.17.3-blue)](/build.gradle)
 [![](https://img.shields.io/badge/Gradle-7.5.1-blue)](/gradle/wrapper/gradle-wrapper.properties)
