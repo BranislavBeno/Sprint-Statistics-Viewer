@@ -6,6 +6,7 @@ import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testcontainers.containers.BrowserWebDriverContainer;
 import org.testcontainers.containers.Network;
+import org.testcontainers.utility.DockerImageName;
 
 import java.util.Map;
 
@@ -17,7 +18,10 @@ public class WebBrowserInitializer {
     public static final BrowserWebDriverContainer<?> WEB_DRIVER_CONTAINER = populateWebDriver();
 
     private static BrowserWebDriverContainer<?> populateWebDriver() {
-        try (BrowserWebDriverContainer<?> driver = new BrowserWebDriverContainer<>()) {
+        try (BrowserWebDriverContainer<?> driver = new BrowserWebDriverContainer<>(
+                DockerImageName.parse("seleniarm/standalone-firefox:4.3.0-20220728")
+                        .asCompatibleSubstituteFor("selenium/standalone-firefox"))
+        ) {
             return driver.
                     withCapabilities(new FirefoxOptions()
                             .addArguments("--no-sandbox")

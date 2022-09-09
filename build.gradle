@@ -24,6 +24,7 @@ java {
 ext {
     set('sonarProjectName', "SprintStatsViewer") as Object
     set('sonarProjectKey', "com.view.sprintstats") as Object
+    set('selenium.version', "4.3.0") as Object
 }
 
 repositories {
@@ -71,7 +72,6 @@ dependencyManagement {
         mavenBom "org.testcontainers:testcontainers-bom:1.17.3"
     }
 }
-
 
 springBoot {
     buildInfo()
