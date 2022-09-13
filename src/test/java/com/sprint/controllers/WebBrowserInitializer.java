@@ -19,7 +19,7 @@ public class WebBrowserInitializer {
 
     private static BrowserWebDriverContainer<?> populateWebDriver() {
         try (BrowserWebDriverContainer<?> driver = new BrowserWebDriverContainer<>(
-                DockerImageName.parse("seleniarm/standalone-firefox:4.3.0-20220728")
+                DockerImageName.parse("seleniarm/standalone-firefox:100.0.2-20220728")
                         .asCompatibleSubstituteFor("selenium/standalone-firefox"))
         ) {
             return driver.
