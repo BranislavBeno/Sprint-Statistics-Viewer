@@ -24,7 +24,6 @@ java {
 ext {
     set('sonarProjectName', "SprintStatsViewer") as Object
     set('sonarProjectKey', "com.view.sprintstats") as Object
-    set('selenium.version', "4.3.0") as Object
 }
 
 repositories {
@@ -63,7 +62,8 @@ dependencies {
     testImplementation "org.testcontainers:junit-jupiter"
     testImplementation "org.testcontainers:mysql"
     testImplementation "org.testcontainers:selenium"
-    testImplementation "com.codeborne:selenide:6.7.4"
+    testImplementation "com.codeborne:selenide:6.8.0"
+    testImplementation 'org.seleniumhq.selenium:selenium-java:4.4.0'
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 
