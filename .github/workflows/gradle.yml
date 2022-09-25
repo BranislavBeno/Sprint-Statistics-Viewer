@@ -22,7 +22,7 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-gradle-jdk18-      
 
-    - name: Set up JDK 18
+    - name: Set up JDK
       uses: actions/setup-java@v3
       with:
         java-version: '18'
@@ -30,7 +30,7 @@ jobs:
         java-package: jdk
 
     - name: Run Tests
-      run: ./gradlew test
+      run: ./gradlew jacocoTestReport
 
     - name: Run Code Analysis
       run: ./gradlew sonarqube
