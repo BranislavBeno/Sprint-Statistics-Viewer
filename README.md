@@ -1,12 +1,12 @@
 # Sprint statistics viewer
 
-[![Build Status](https://github.com/BranislavBeno/Sprint-Statistics-Viewer/actions/workflows/gradle.yml/badge.svg)](https://github.com/BranislavBeno/Sprint-Statistics-Viewer/actions)
+[![Application Tests](https://github.com/BranislavBeno/Sprint-Statistics-Viewer/actions/workflows/gradle.yml/badge.svg)](https://github.com/BranislavBeno/Sprint-Statistics-Viewer/actions)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=BranislavBeno_SprintStatsViewer)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=coverage)](https://sonarcloud.io/summary/new_code?id=BranislavBeno_SprintStatsViewer)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=ncloc)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)  
 [![](https://img.shields.io/badge/Java-18-blue)](/build.gradle)
 [![](https://img.shields.io/badge/Spring%20Boot-2.7.4-blue)](/build.gradle)
-[![](https://img.shields.io/badge/Testcontainers-1.17.4-blue)](/build.gradle)
+[![](https://img.shields.io/badge/Testcontainers-1.17.5-blue)](/build.gradle)
 [![](https://img.shields.io/badge/Gradle-7.5.1-blue)](/gradle/wrapper/gradle-wrapper.properties)
 [![](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
