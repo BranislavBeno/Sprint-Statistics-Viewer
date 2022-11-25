@@ -6,17 +6,16 @@ on:
 
 jobs:
   build-and-test:
-
+    name: Test the application
     runs-on: ubuntu-22.04
-    name: Build and Test the Application
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
-      
+
     - name: Set up JDK
       uses: actions/setup-java@v3
       with:
-        java-version: '18'
+        java-version: '19'
         distribution: 'temurin'
         java-package: jdk
 

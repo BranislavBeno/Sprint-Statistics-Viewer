@@ -11,13 +11,13 @@ plugins {
 group = 'com.sprint'
 
 def versionMajor = 1
-def versionMinor = 1
+def versionMinor = 2
 def versionPatch = 0
 version = "R${versionMajor}.${versionMinor}.${versionPatch}" as Object
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(18)
+        languageVersion = JavaLanguageVersion.of(19)
     }
 }
 
@@ -28,27 +28,6 @@ ext {
 
 repositories {
     mavenCentral()
-}
-
-test {
-    useJUnitPlatform()
-    finalizedBy jacocoTestReport
-    afterSuite { desc, result ->
-        if (!desc.parent) {
-            println "\nTest result: ${result.resultType}"
-            println "Test summary: ${result.testCount} tests, " +
-                    "${result.successfulTestCount} succeeded, " +
-                    "${result.failedTestCount} failed, " +
-                    "${result.skippedTestCount} skipped"
-        }
-    }
-}
-
-configurations {
-    developmentOnly
-    runtimeClasspath {
-        extendsFrom developmentOnly
-    }
 }
 
 dependencies {
@@ -70,6 +49,24 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom "org.testcontainers:testcontainers-bom:1.17.6"
+    }
+}
+
+bootJar {
+    archiveFileName = "sprint-stats-viewer.jar"
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+    afterSuite { desc, result ->
+        if (!desc.parent) {
+            println "\nTest result: ${result.resultType}"
+            println "Test summary: ${result.testCount} tests, " +
+                    "${result.successfulTestCount} succeeded, " +
+                    "${result.failedTestCount} failed, " +
+                    "${result.skippedTestCount} skipped"
+        }
     }
 }
 
