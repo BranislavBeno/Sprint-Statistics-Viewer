@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class SprintStatsErrorController implements ErrorController {
@@ -27,9 +27,5 @@ public class SprintStatsErrorController implements ErrorController {
       }
     }
     return "error";
-  }
-
-  public String getErrorPath() {
-    return "/error";
   }
 }
