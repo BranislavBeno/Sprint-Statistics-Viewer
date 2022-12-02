@@ -1,9 +1,11 @@
-FROM azul/zulu-openjdk-alpine:19 AS build
+FROM gradle:7.6.0-jdk19-jammy AS build
 RUN mkdir /project
 COPY . /project
 WORKDIR /project
 # create fat jar
-RUN chmod +x gradlew && ./gradlew build -x test && cp build/libs/sprint-stats-viewer.jar ./
+RUN gradle build -x test
+# move the jar file
+RUN cd build/libs/ && cp sprint-stats-viewer.jar /project/
 # extrect layered jar file
 RUN java -Djarmode=layertools -jar sprint-stats-viewer.jar extract
 
