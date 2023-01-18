@@ -9,7 +9,7 @@ abstract class BaseDatabaseTest {
     public static final MySQLContainer<?> DATABASE = populateDatabase();
 
     private static MySQLContainer<?> populateDatabase() {
-        try (MySQLContainer<?> container = new MySQLContainer<>("mysql:8.0.31")) {
+        try (MySQLContainer<?> container = new MySQLContainer<>("mysql:8.0.32")) {
             container.withReuse(true);
 
             return container;
