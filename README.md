@@ -1,6 +1,5 @@
-# Sprint statistics viewer
-
-[![Application Tests](https://github.com/BranislavBeno/Sprint-Statistics-Viewer/actions/workflows/gradle.yml/badge.svg)](https://github.com/BranislavBeno/Sprint-Statistics-Viewer/actions)
+[![Application Tests](https://github.com/BranislavBeno/Sprint-Statistics-Viewer/actions/workflows/tests.yml/badge.svg)](https://github.com/BranislavBeno/Sprint-Statistics-Viewer/actions/workflows/tests.yml)
+[![Docker Image Deploy](https://github.com/BranislavBeno/Sprint-Statistics-Viewer/actions/workflows/deploy.yml/badge.svg)](https://github.com/BranislavBeno/Sprint-Statistics-Viewer/actions/workflows/deploy.yml)  
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=BranislavBeno_SprintStatsViewer)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=coverage)](https://sonarcloud.io/summary/new_code?id=BranislavBeno_SprintStatsViewer)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=ncloc)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)  
@@ -9,6 +8,8 @@
 [![](https://img.shields.io/badge/Testcontainers-1.17.6-blue)](/build.gradle)
 [![](https://img.shields.io/badge/Gradle-8.0.1-blue)](/gradle/wrapper/gradle-wrapper.properties)
 [![](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)  
+
+# Sprint statistics viewer
 
 This web application offers various statistics related to the course and history of scrum sprints in a multi-team project.
 
