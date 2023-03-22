@@ -41,7 +41,7 @@ dependencies {
     testImplementation "org.testcontainers:junit-jupiter"
     testImplementation "org.testcontainers:mysql"
     testImplementation "org.testcontainers:selenium"
-    testImplementation "com.codeborne:selenide:6.12.3"
+    testImplementation "com.codeborne:selenide:6.12.4"
     testImplementation "org.springframework.boot:spring-boot-starter-test"
 }
 
