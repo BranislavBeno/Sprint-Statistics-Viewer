@@ -17,7 +17,6 @@ version = "R${versionMajor}.${versionMinor}.${versionPatch}" as Object
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(19)
-        vendor = JvmVendorSpec.AZUL
     }
 }
 
