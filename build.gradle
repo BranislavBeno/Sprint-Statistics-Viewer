@@ -43,9 +43,6 @@ dependencies {
     testImplementation "org.testcontainers:junit-jupiter"
     testImplementation "org.testcontainers:mysql"
     testImplementation "org.testcontainers:selenium"
-    testImplementation "com.google.code.findbugs:jsr305:3.0.2"
-    testImplementation "org.checkerframework:checker-qual:3.36.0"
-    testImplementation "com.google.errorprone:error_prone_annotations:2.20.0"
 }
 
 dependencyManagement {
