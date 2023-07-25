@@ -12,10 +12,12 @@ import java.util.Map;
 
 public class WebBrowserInitializer {
 
-    public static final String URL = "http://host.testcontainers.internal:";
-    public static final RemoteWebDriver DRIVER;
-
-    public static final BrowserWebDriverContainer<?> WEB_DRIVER_CONTAINER = populateWebDriver();
+    private static final FirefoxOptions CAPABILITIES = new FirefoxOptions()
+            .addArguments("--no-sandbox")
+            .addArguments("--disable-dev-shm-usage");
+    private static final BrowserWebDriverContainer<?> WEB_DRIVER_CONTAINER = populateWebDriver();
+    static final String URL = "http://host.testcontainers.internal:";
+    static final RemoteWebDriver DRIVER;
 
     private static BrowserWebDriverContainer<?> populateWebDriver() {
         try (BrowserWebDriverContainer<?> driver = new BrowserWebDriverContainer<>(
@@ -23,9 +25,7 @@ public class WebBrowserInitializer {
                         .asCompatibleSubstituteFor("selenium/standalone-firefox"))
         ) {
             return driver.
-                    withCapabilities(new FirefoxOptions()
-                            .addArguments("--no-sandbox")
-                            .addArguments("--disable-dev-shm-usage"))
+                    withCapabilities(CAPABILITIES)
                     .withNetwork(buildNetwork());
         }
     }
@@ -43,7 +43,7 @@ public class WebBrowserInitializer {
     static {
         WEB_DRIVER_CONTAINER.start();
 
-        DRIVER = WEB_DRIVER_CONTAINER.getWebDriver();
+        DRIVER = new RemoteWebDriver(WEB_DRIVER_CONTAINER.getSeleniumAddress(), CAPABILITIES);
         WebDriverRunner.setWebDriver(DRIVER);
     }
 }
