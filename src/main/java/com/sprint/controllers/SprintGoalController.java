@@ -10,7 +10,6 @@ import com.sprint.model.TeamGoal;
 import com.sprint.repository.impl.SprintGoalDAO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,7 +45,6 @@ public class SprintGoalController {
      *
      * @param dao the dao
      */
-    @Autowired
     public SprintGoalController(SprintGoalDAO dao) {
         this.sprints = dao;
     }

@@ -3,18 +3,19 @@ package com.sprint.repository.impl;
 import com.sprint.jdbc.SprintKpiRowMapper;
 import com.sprint.model.SprintKpi;
 import com.sprint.repository.SprintDAO;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 
+@DependsOnDatabaseInitialization
 @Repository
 public class SprintKpiDAO implements SprintDAO {
 
 	private final JdbcTemplate jdbcTemplate;
 
-	public SprintKpiDAO(@Autowired DataSource dataSource) {
+	public SprintKpiDAO(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 

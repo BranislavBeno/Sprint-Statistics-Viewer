@@ -4,7 +4,6 @@ import com.sprint.model.SprintKpi;
 import com.sprint.repository.impl.SprintKpiDAO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,7 +42,6 @@ public class SprintKpiController {
      *
      * @param kpis the kpis
      */
-    @Autowired
     public SprintKpiController(SprintKpiDAO kpis) {
         this.kpis = kpis;
     }

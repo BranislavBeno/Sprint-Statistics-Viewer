@@ -6,18 +6,19 @@ package com.sprint.repository.impl;
 import com.sprint.jdbc.SprintProgressRowMapper;
 import com.sprint.model.SprintProgress;
 import com.sprint.repository.SprintDAO;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 
+@DependsOnDatabaseInitialization
 @Repository
 public class SprintProgressDAO implements SprintDAO {
 
 	private final JdbcTemplate jdbcTemplate;
 
-	public SprintProgressDAO(@Autowired DataSource dataSource) {
+	public SprintProgressDAO(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 

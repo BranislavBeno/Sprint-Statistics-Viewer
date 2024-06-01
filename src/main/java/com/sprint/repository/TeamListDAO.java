@@ -44,7 +44,7 @@ public interface TeamListDAO<T> {
 
         // Remove last sprint - it is current, hence not finished sprint - its
         // statistics are not final
-        list.remove(list.size() - 1);
+        list.removeLast();
 
         return list;
     }

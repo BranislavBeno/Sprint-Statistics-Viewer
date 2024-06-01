@@ -6,7 +6,6 @@ import com.sprint.model.SprintRefinement;
 import com.sprint.model.TeamVelocity;
 import com.sprint.repository.impl.SprintRefinementDAO;
 import com.sprint.repository.impl.TeamVelocityDAO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +40,6 @@ public class SprintRefinementController {
      * @param dao        the dao
      * @param velocities the velocities
      */
-    @Autowired
     public SprintRefinementController(SprintRefinementDAO dao, TeamVelocityDAO velocities) {
         this.refinements = dao;
         this.velocities = velocities;
@@ -137,7 +135,7 @@ public class SprintRefinementController {
 
         // Remove last sprint - it is current not finished sprint - its count of
         // finished story points is not final
-        sprints.remove(sprints.size() - 1);
+        sprints.removeLast();
 
         // Compute velocity
         double velocity = sprints.stream().mapToInt(TeamVelocity::getFinishedStoryPointsSum).average().orElse(0);

@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +33,6 @@ public class TeamVelocityController {
 	 *
 	 * @param team the team
 	 */
-	@Autowired
 	public TeamVelocityController(TeamVelocityDAO team) {
 		this.team = team;
 	}
@@ -142,7 +140,7 @@ public class TeamVelocityController {
 			velocityList.addFirst((int) lNum);
 
 			// Reduce input list
-			TeamVelocity last = allSprints.remove(allSprints.size() - 1);
+			TeamVelocity last = allSprints.removeLast();
 
 			// Get team member count for related sprint
 			int memCount = last.getTeamMemberCount();
@@ -205,7 +203,7 @@ public class TeamVelocityController {
 		model.addAttribute("mFinishedSP", collectFinishedSPList(sprints));
 
 		// Add team's velocity list
-		model.addAttribute("mVelocitySP", velocityList.get(0));
+		model.addAttribute("mVelocitySP", velocityList.getFirst());
 
 		// Add team's velocity per developer list
 		model.addAttribute("mDevVelocitySP", velocityList.get(1));

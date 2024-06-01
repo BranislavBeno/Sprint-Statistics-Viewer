@@ -5,7 +5,6 @@ import com.sprint.model.FeatureScope;
 import com.sprint.model.TeamScopeFocus;
 import com.sprint.repository.impl.TeamScopeFocusDAO;
 import com.sprint.utils.Utils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +37,6 @@ public class TeamScopeFocusController {
      *
      * @param team the team
      */
-    @Autowired
     public TeamScopeFocusController(TeamScopeFocusDAO team) {
         this.team = team;
     }

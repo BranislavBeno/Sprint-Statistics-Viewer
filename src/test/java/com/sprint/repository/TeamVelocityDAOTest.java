@@ -30,7 +30,7 @@ class TeamVelocityDAOTest extends TeamDatabaseTest {
   void testGettingListOfSprints() {
     List<TeamVelocity> list = teamVelocityDAO.getFullSprintList(("team_mango"));
 
-    TeamVelocity teamVelocity = list.get(0);
+    TeamVelocity teamVelocity = list.getFirst();
 
     String updated = Utils.convertTimeStampToString(teamVelocity.getUpdated());
 
