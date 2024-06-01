@@ -5,6 +5,7 @@ plugins {
     id 'jacoco'
     id 'org.sonarqube' version '5.0.0.4638'
     id 'com.gorylenko.gradle-git-properties' version '2.4.2'
+    id 'org.openrewrite.rewrite' version '6.15.1'
 }
 
 group = 'com.sprint'
@@ -37,17 +38,27 @@ dependencies {
     implementation "org.springframework:spring-jdbc"
     implementation "org.apache.commons:commons-math3:3.6.1"
     implementation "com.mysql:mysql-connector-j"
+
     testImplementation "org.springframework.boot:spring-boot-starter-test"
     testImplementation "com.codeborne:selenide:7.3.2"
     testImplementation "org.testcontainers:junit-jupiter"
     testImplementation "org.testcontainers:mysql"
     testImplementation "org.testcontainers:selenium"
+
+    rewrite "org.openrewrite.recipe:rewrite-migrate-java:2.16.0"
+//    rewrite "org.openrewrite.recipe:rewrite-spring:5.11.0"
 }
 
 dependencyManagement {
     imports {
         mavenBom "org.testcontainers:testcontainers-bom:1.19.8"
     }
+}
+
+rewrite {
+    activeRecipe("org.openrewrite.java.migrate.UpgradeToJava21")
+//    activeRecipe("org.openrewrite.java.spring.boot3.SpringBoot3BestPractices")
+//    activeRecipe("org.openrewrite.java.spring.boot3.UpgradeSpringBoot_3_3")
 }
 
 bootJar {

@@ -137,7 +137,7 @@ public class SprintRefinementController {
 
         // Remove last sprint - it is current not finished sprint - its count of
         // finished story points is not final
-        sprints.remove(sprints.size() - 1);
+        sprints.removeLast();
 
         // Compute velocity
         double velocity = sprints.stream().mapToInt(TeamVelocity::getFinishedStoryPointsSum).average().orElse(0);

@@ -142,7 +142,7 @@ public class TeamVelocityController {
 			velocityList.addFirst((int) lNum);
 
 			// Reduce input list
-			TeamVelocity last = allSprints.remove(allSprints.size() - 1);
+			TeamVelocity last = allSprints.removeLast();
 
 			// Get team member count for related sprint
 			int memCount = last.getTeamMemberCount();
@@ -205,7 +205,7 @@ public class TeamVelocityController {
 		model.addAttribute("mFinishedSP", collectFinishedSPList(sprints));
 
 		// Add team's velocity list
-		model.addAttribute("mVelocitySP", velocityList.get(0));
+		model.addAttribute("mVelocitySP", velocityList.getFirst());
 
 		// Add team's velocity per developer list
 		model.addAttribute("mDevVelocitySP", velocityList.get(1));
