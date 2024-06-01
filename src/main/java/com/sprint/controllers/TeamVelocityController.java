@@ -6,7 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,7 +33,6 @@ public class TeamVelocityController {
 	 *
 	 * @param team the team
 	 */
-	@Autowired
 	public TeamVelocityController(TeamVelocityDAO team) {
 		this.team = team;
 	}

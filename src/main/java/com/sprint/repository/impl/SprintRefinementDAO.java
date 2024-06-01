@@ -5,13 +5,14 @@ package com.sprint.repository.impl;
 
 import com.sprint.jdbc.SprintRefinementRowMapper;
 import com.sprint.model.SprintRefinement;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
 
+@DependsOnDatabaseInitialization
 @Repository
 public class SprintRefinementDAO {
 
@@ -19,7 +20,7 @@ public class SprintRefinementDAO {
 
 	private final JdbcTemplate jdbcTemplate;
 
-	public SprintRefinementDAO(@Autowired DataSource dataSource) {
+	public SprintRefinementDAO(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 

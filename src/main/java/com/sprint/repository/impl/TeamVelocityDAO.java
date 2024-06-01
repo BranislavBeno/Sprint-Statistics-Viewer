@@ -3,19 +3,20 @@ package com.sprint.repository.impl;
 import com.sprint.jdbc.TeamVelocityRowMapper;
 import com.sprint.model.TeamVelocity;
 import com.sprint.repository.TeamListDAO;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
 
+@DependsOnDatabaseInitialization
 @Repository
 public class TeamVelocityDAO implements TeamListDAO<TeamVelocity> {
 
 	private final JdbcTemplate jdbcTemplate;
 
-	public TeamVelocityDAO(@Autowired DataSource dataSource) {
+	public TeamVelocityDAO(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 

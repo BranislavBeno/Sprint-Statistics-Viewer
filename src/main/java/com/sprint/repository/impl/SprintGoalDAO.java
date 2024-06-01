@@ -3,7 +3,7 @@ package com.sprint.repository.impl;
 import com.sprint.jdbc.SprintGoalRowMapper;
 import com.sprint.model.SprintGoal;
 import com.sprint.repository.SprintDAO;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,12 +12,13 @@ import javax.sql.DataSource;
 /**
  * The Class SprintGoalDAO.
  */
+@DependsOnDatabaseInitialization
 @Repository
 public class SprintGoalDAO implements SprintDAO {
 
 	private final JdbcTemplate jdbcTemplate;
 
-	public SprintGoalDAO(@Autowired DataSource dataSource) {
+	public SprintGoalDAO(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 

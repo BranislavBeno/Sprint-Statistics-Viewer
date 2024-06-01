@@ -45,8 +45,8 @@ dependencies {
     testImplementation "org.testcontainers:mysql"
     testImplementation "org.testcontainers:selenium"
 
-    rewrite "org.openrewrite.recipe:rewrite-migrate-java:2.16.0"
-//    rewrite "org.openrewrite.recipe:rewrite-spring:5.11.0"
+//    rewrite "org.openrewrite.recipe:rewrite-migrate-java:2.16.0"
+    rewrite "org.openrewrite.recipe:rewrite-spring:5.11.0"
 }
 
 dependencyManagement {
@@ -56,9 +56,9 @@ dependencyManagement {
 }
 
 rewrite {
-    activeRecipe("org.openrewrite.java.migrate.UpgradeToJava21")
+//    activeRecipe("org.openrewrite.java.migrate.UpgradeToJava21")
 //    activeRecipe("org.openrewrite.java.spring.boot3.SpringBoot3BestPractices")
-//    activeRecipe("org.openrewrite.java.spring.boot3.UpgradeSpringBoot_3_3")
+    activeRecipe("org.openrewrite.java.spring.boot3.UpgradeSpringBoot_3_3")
 }
 
 bootJar {

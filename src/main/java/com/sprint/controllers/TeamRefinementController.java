@@ -8,7 +8,6 @@ import com.sprint.model.TeamVelocity;
 import com.sprint.repository.impl.TeamRefinementDAO;
 import com.sprint.repository.impl.TeamVelocityDAO;
 import com.sprint.utils.Utils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +43,6 @@ public class TeamRefinementController {
      * @param team       the team
      * @param velocities the velocities
      */
-    @Autowired
     public TeamRefinementController(TeamRefinementDAO team, TeamVelocityDAO velocities) {
         this.team = team;
         this.velocities = velocities;

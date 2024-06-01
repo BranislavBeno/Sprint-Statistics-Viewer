@@ -3,6 +3,7 @@ package com.sprint.config;
 import com.sprint.repository.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
@@ -22,43 +23,51 @@ public class RepositoryConfiguration {
     return dataSource;
   }
 
-  @Bean
-  public TeamVelocityDAO teamVelocityDAO(@Autowired DataSource dataSource) {
+    @Bean
+    @DependsOnDatabaseInitialization
+    public TeamVelocityDAO teamVelocityDAO(@Autowired DataSource dataSource) {
     return new TeamVelocityDAO(dataSource);
   }
 
-  @Bean
-  public TeamRefinementDAO teamRefinementDAO(@Autowired DataSource dataSource) {
+    @Bean
+    @DependsOnDatabaseInitialization
+    public TeamRefinementDAO teamRefinementDAO(@Autowired DataSource dataSource) {
     return new TeamRefinementDAO(dataSource);
   }
 
-  @Bean
-  public TeamScopeFocusDAO teamScopeFocusDAO(@Autowired DataSource dataSource) {
+    @Bean
+    @DependsOnDatabaseInitialization
+    public TeamScopeFocusDAO teamScopeFocusDAO(@Autowired DataSource dataSource) {
     return new TeamScopeFocusDAO(dataSource);
   }
 
-  @Bean
-  public TeamWorkProportionDAO teamWorkProportionDAO(@Autowired DataSource dataSource) {
+    @Bean
+    @DependsOnDatabaseInitialization
+    public TeamWorkProportionDAO teamWorkProportionDAO(@Autowired DataSource dataSource) {
     return new TeamWorkProportionDAO(dataSource);
   }
 
-  @Bean
-  public SprintGoalDAO sprintGoalDAO(@Autowired DataSource dataSource) {
+    @Bean
+    @DependsOnDatabaseInitialization
+    public SprintGoalDAO sprintGoalDAO(@Autowired DataSource dataSource) {
     return new SprintGoalDAO(dataSource);
   }
 
-  @Bean
-  public SprintKpiDAO sprintKpiDAO(@Autowired DataSource dataSource) {
+    @Bean
+    @DependsOnDatabaseInitialization
+    public SprintKpiDAO sprintKpiDAO(@Autowired DataSource dataSource) {
     return new SprintKpiDAO(dataSource);
   }
 
-  @Bean
-  public SprintProgressDAO sprintProgressDAO(@Autowired DataSource dataSource) {
+    @Bean
+    @DependsOnDatabaseInitialization
+    public SprintProgressDAO sprintProgressDAO(@Autowired DataSource dataSource) {
     return new SprintProgressDAO(dataSource);
   }
 
-  @Bean
-  public SprintRefinementDAO sprintRefinementDAO(@Autowired DataSource dataSource) {
+    @Bean
+    @DependsOnDatabaseInitialization
+    public SprintRefinementDAO sprintRefinementDAO(@Autowired DataSource dataSource) {
     return new SprintRefinementDAO(dataSource);
   }
 }
