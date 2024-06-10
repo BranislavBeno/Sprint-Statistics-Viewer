@@ -5,6 +5,7 @@ import com.sprint.SprintStatsViewerApplication;
 import com.sprint.repository.TeamDatabaseTest;
 import com.sprint.repository.impl.TeamRefinementDAO;
 import com.sprint.repository.impl.TeamVelocityDAO;
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,13 +17,10 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static com.codeborne.selenide.Selenide.screenshot;
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Testcontainers(disabledWithoutDocker = true)
 @SpringBootTest(classes = SprintStatsViewerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = Initializer.class)
-class TeamRefinementControllerTest extends TeamDatabaseTest {
+class TeamRefinementControllerTest extends TeamDatabaseTest implements WithAssertions {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(TeamRefinementControllerTest.class);
 
@@ -45,7 +43,7 @@ class TeamRefinementControllerTest extends TeamDatabaseTest {
   void testPageTitle() {
     assertThat(Selenide.title()).isEqualTo("Team Apple refinement");
 
-    String screenshotPath = screenshot("refinement");
+    String screenshotPath = Selenide.screenshot("refinement");
     LOGGER.info(() -> "Screenshot is available under %s".formatted(screenshotPath));
   }
 }

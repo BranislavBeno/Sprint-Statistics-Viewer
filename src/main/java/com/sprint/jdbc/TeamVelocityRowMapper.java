@@ -1,12 +1,11 @@
 package com.sprint.jdbc;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
-import org.springframework.jdbc.core.RowMapper;
-
 import com.sprint.model.TeamVelocity;
 import com.sprint.utils.Utils;
+import org.springframework.jdbc.core.RowMapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * The Class TeamVelocityRowMapper.

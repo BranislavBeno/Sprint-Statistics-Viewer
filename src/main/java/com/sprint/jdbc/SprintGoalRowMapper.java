@@ -1,11 +1,10 @@
 package com.sprint.jdbc;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-
+import com.sprint.model.SprintGoal;
 import org.springframework.jdbc.core.RowMapper;
 
-import com.sprint.model.SprintGoal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * The Class SprintGoalRowMapper.

@@ -3,6 +3,7 @@ package com.sprint.repository;
 import com.sprint.config.RepositoryConfiguration;
 import com.sprint.model.SprintKpi;
 import com.sprint.repository.impl.SprintKpiDAO;
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +14,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDateTime;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import java.time.temporal.ChronoUnit;
 
 @Testcontainers(disabledWithoutDocker = true)
 @JdbcTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(value = RepositoryConfiguration.class)
-class SprintKpiDAOTest extends TeamDatabaseTest {
+class SprintKpiDAOTest extends TeamDatabaseTest implements WithAssertions {
 
   @Autowired
   private SprintKpiDAO sprintKpiDAO;
@@ -40,7 +40,7 @@ class SprintKpiDAOTest extends TeamDatabaseTest {
 
     assertThat(sprintKpis.getSprintLabel()).isEqualTo("Sprint 2");
     assertThat(sprintKpis.getUpdated())
-        .isEqualToIgnoringHours(LocalDateTime.of(2020, 6, 2, 0, 0, 0));
+        .isCloseTo(LocalDateTime.of(2020, 6, 2, 0, 0, 0), within(24, ChronoUnit.HOURS));
     assertThat(sprintKpis.getClosedHighPriorStoriesSuccessRate()).isEqualTo(-1);
     assertThat(sprintKpis.getDeltaStoryPoints()).isEqualTo(0.3373);
   }

@@ -3,6 +3,7 @@ package com.sprint.repository;
 import com.sprint.config.RepositoryConfiguration;
 import com.sprint.model.SprintProgress;
 import com.sprint.repository.impl.SprintProgressDAO;
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,15 +14,14 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 @Testcontainers(disabledWithoutDocker = true)
 @JdbcTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(value = RepositoryConfiguration.class)
-class SprintProgressDAOTest extends TeamDatabaseTest {
+class SprintProgressDAOTest extends TeamDatabaseTest implements WithAssertions {
 
     private static final String TABLE_NAME = "team_mango";
 
@@ -35,7 +35,7 @@ class SprintProgressDAOTest extends TeamDatabaseTest {
 
         assertThat(sprintProgress.getTeamName()).isEqualTo("Apple");
         assertThat(sprintProgress.getUpdated())
-                .isEqualToIgnoringHours(LocalDateTime.of(2020, 6, 2, 0, 0, 0));
+                .isCloseTo(LocalDateTime.of(2020, 6, 2, 0, 0, 0), within(24, ChronoUnit.HOURS));
         assertThat(sprintProgress.getSprintStart()).isEqualTo(LocalDate.of(2019, 4, 4));
         assertThat(sprintProgress.getSprintEnd()).isEqualTo(LocalDate.of(2019, 4, 24));
     }

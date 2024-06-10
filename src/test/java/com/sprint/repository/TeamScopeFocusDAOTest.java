@@ -6,6 +6,7 @@ import com.sprint.model.FeatureScope;
 import com.sprint.model.TeamScopeFocus;
 import com.sprint.repository.impl.TeamScopeFocusDAO;
 import com.sprint.utils.Utils;
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,13 +22,11 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Testcontainers(disabledWithoutDocker = true)
 @JdbcTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(value = RepositoryConfiguration.class)
-class TeamScopeFocusDAOTest extends TeamDatabaseTest {
+class TeamScopeFocusDAOTest extends TeamDatabaseTest implements WithAssertions {
 
     @Autowired
     private TeamScopeFocusDAO teamScopeFocusDAO;

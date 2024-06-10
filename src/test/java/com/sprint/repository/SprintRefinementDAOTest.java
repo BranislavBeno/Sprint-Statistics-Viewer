@@ -5,6 +5,7 @@ import com.sprint.model.FeatureScope;
 import com.sprint.model.SprintRefinement;
 import com.sprint.repository.impl.SprintRefinementDAO;
 import com.sprint.utils.Utils;
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,11 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.util.List;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Testcontainers(disabledWithoutDocker = true)
 @JdbcTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(value = RepositoryConfiguration.class)
-class SprintRefinementDAOTest extends SprintDatabaseTest {
+class SprintRefinementDAOTest extends SprintDatabaseTest implements WithAssertions {
 
   @Autowired
   private SprintRefinementDAO sprintRefinementDAO;

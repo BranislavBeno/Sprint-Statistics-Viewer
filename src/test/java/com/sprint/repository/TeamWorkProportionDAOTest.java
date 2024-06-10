@@ -5,6 +5,7 @@ import com.sprint.jdbc.TeamWorkProportionRowMapper;
 import com.sprint.model.TeamWorkProportion;
 import com.sprint.repository.impl.TeamWorkProportionDAO;
 import com.sprint.utils.Utils;
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,11 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Testcontainers(disabledWithoutDocker = true)
 @JdbcTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(value = RepositoryConfiguration.class)
-class TeamWorkProportionDAOTest extends TeamDatabaseTest {
+class TeamWorkProportionDAOTest extends TeamDatabaseTest implements WithAssertions {
 
   @Autowired
   private TeamWorkProportionDAO teamWorkProportionDAO;
