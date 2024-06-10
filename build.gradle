@@ -57,7 +57,7 @@ dependencyManagement {
 }
 
 rewrite {
-//    activeRecipe("com.sprint.NoConstantStaticImport")
+    activeRecipe("com.sprint.NoConstantStaticImport")
     activeRecipe("org.openrewrite.java.RemoveUnusedImports")
     activeRecipe("org.openrewrite.java.OrderImports")
     activeRecipe("org.openrewrite.java.migrate.UpgradeToJava21")

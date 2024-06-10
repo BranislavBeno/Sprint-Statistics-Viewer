@@ -4,6 +4,7 @@ import com.codeborne.selenide.Selenide;
 import com.sprint.SprintStatsViewerApplication;
 import com.sprint.repository.TeamDatabaseTest;
 import com.sprint.repository.impl.SprintKpiDAO;
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,14 +20,10 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.screenshot;
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Testcontainers(disabledWithoutDocker = true)
 @SpringBootTest(classes = SprintStatsViewerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = Initializer.class)
-class SprintKpiControllerTest extends TeamDatabaseTest {
+class SprintKpiControllerTest extends TeamDatabaseTest implements WithAssertions {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SprintKpiControllerTest.class);
 
@@ -47,14 +44,14 @@ class SprintKpiControllerTest extends TeamDatabaseTest {
   void testPageTitle() {
     assertThat(Selenide.title()).isEqualTo("Sprint KPI's Sprint 2");
 
-    String screenshotPath = screenshot("kpi");
+    String screenshotPath = Selenide.screenshot("kpi");
     LOGGER.info(() -> "Screenshot is available under %s".formatted(screenshotPath));
   }
 
   @Test
   @DisplayName("Test whether third table column has title 'Team Mango'")
   void testHeaderElementsFromTable() {
-    List<WebElement> elementList = $(By.cssSelector("thead tr")).findElements(By.cssSelector("th"));
+    List<WebElement> elementList = Selenide.$(By.cssSelector("thead tr")).findElements(By.cssSelector("th"));
     assertThat(elementList.get(2).getText()).isEqualTo("Team Mango");
   }
 }

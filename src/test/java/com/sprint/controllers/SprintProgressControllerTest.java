@@ -1,8 +1,10 @@
 package com.sprint.controllers;
 
+import com.codeborne.selenide.Selenide;
 import com.sprint.SprintStatsViewerApplication;
 import com.sprint.repository.TeamDatabaseTest;
 import com.sprint.repository.impl.SprintProgressDAO;
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,14 +17,10 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.screenshot;
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Testcontainers(disabledWithoutDocker = true)
 @SpringBootTest(classes = SprintStatsViewerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = Initializer.class)
-class SprintProgressControllerTest extends TeamDatabaseTest {
+class SprintProgressControllerTest extends TeamDatabaseTest implements WithAssertions {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SprintProgressControllerTest.class);
 
@@ -41,10 +39,10 @@ class SprintProgressControllerTest extends TeamDatabaseTest {
   @Test
   @DisplayName("Test whether model attributes are shown on web page")
   void testSprintsProgress() {
-    String text = $(By.id("footerText")).getOwnText();
+    String text = Selenide.$(By.id("footerText")).getOwnText();
     assertThat(text).isEqualTo("Last update: 2020-06-02 08:05");
 
-    String screenshotPath = screenshot("progress");
+    String screenshotPath = Selenide.screenshot("progress");
     LOGGER.info(() -> "Screenshot is available under %s".formatted(screenshotPath));
   }
 }

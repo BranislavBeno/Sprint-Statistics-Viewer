@@ -2,6 +2,7 @@ package com.sprint.controllers;
 
 import com.codeborne.selenide.Selenide;
 import com.sprint.SprintStatsViewerApplication;
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,14 +14,10 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.screenshot;
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Testcontainers(disabledWithoutDocker = true)
 @SpringBootTest(classes = SprintStatsViewerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = Initializer.class)
-class SprintStatsErrorControllerTest {
+class SprintStatsErrorControllerTest implements WithAssertions {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SprintStatsErrorControllerTest.class);
 
@@ -38,15 +35,15 @@ class SprintStatsErrorControllerTest {
   void testPageTitle() {
     assertThat(Selenide.title()).isEqualTo("Error on sprint statistics");
 
-    String screenshotPath = screenshot("error");
+    String screenshotPath = Selenide.screenshot("error");
     LOGGER.info(() -> "Screenshot is available under %s".formatted(screenshotPath));
   }
 
   @Test
   @DisplayName("Test whether after button click will be page redirected to 'About' page")
   void testErrorPageButtonClick() {
-    $(By.xpath("/html/body/a")).click();
-    String caption = $(By.tagName("title")).getOwnText();
+    Selenide.$(By.xpath("/html/body/a")).click();
+    String caption = Selenide.$(By.tagName("title")).getOwnText();
 
     assertThat(caption).isEqualTo("About");
   }

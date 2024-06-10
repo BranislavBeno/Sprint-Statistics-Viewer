@@ -1,6 +1,8 @@
 package com.sprint.controllers;
 
+import com.codeborne.selenide.Selenide;
 import com.sprint.SprintStatsViewerApplication;
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,14 +17,10 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.List;
 
-import static com.codeborne.selenide.Selenide.*;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
-
 @Testcontainers(disabledWithoutDocker = true)
-@SpringBootTest(classes = SprintStatsViewerApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = SprintStatsViewerApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ContextConfiguration(initializers = Initializer.class)
-class AboutControllerTest {
+class AboutControllerTest implements WithAssertions {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AboutControllerTest.class);
 
@@ -38,16 +36,16 @@ class AboutControllerTest {
   @Test
   @DisplayName("Test whether page title is 'About'")
   void testPageTitle() {
-    assertThat(title()).isEqualTo("About");
+    assertThat(Selenide.title()).isEqualTo("About");
 
-    String screenshotPath = screenshot("about");
+    String screenshotPath = Selenide.screenshot("about");
     LOGGER.info(() -> "Screenshot is available under %s".formatted(screenshotPath));
   }
 
   @Test
   @DisplayName("Test whether unordered web elements list has size 8")
   void testUnsortedWebElementsList() {
-    List<WebElement> elementList = $(By.className("lead")).findElements(By.cssSelector("li"));
+    List<WebElement> elementList = Selenide.$(By.className("lead")).findElements(By.cssSelector("li"));
     assertThat(elementList).hasSize(8);
   }
 }

@@ -1,0 +1,11 @@
+---
+type: specs.openrewrite.org/v1beta/recipe
+name: com.sprint.NoConstantStaticImport
+displayName: Remove static import
+recipeList:
+  - org.openrewrite.java.NoStaticImport:
+      methodPattern: com.codeborne.selenide.Selenide *(..)
+  - org.openrewrite.java.NoStaticImport:
+      methodPattern: org.testcontainers.Testcontainers *(..)
+  - org.openrewrite.java.NoStaticImport:
+      methodPattern: org.junit.jupiter.api.Assertions *(..)

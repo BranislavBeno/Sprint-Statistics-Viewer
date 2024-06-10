@@ -3,6 +3,7 @@ package com.sprint.repository;
 import com.sprint.config.RepositoryConfiguration;
 import com.sprint.model.SprintGoal;
 import com.sprint.repository.impl.SprintGoalDAO;
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +13,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Testcontainers(disabledWithoutDocker = true)
 @JdbcTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(value = RepositoryConfiguration.class)
-class SprintGoalDAOTest extends TeamDatabaseTest {
+class SprintGoalDAOTest extends TeamDatabaseTest implements WithAssertions {
 
   @Autowired
   private SprintGoalDAO sprintGoalDAO;

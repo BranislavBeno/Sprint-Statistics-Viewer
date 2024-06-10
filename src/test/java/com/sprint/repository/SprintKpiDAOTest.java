@@ -3,6 +3,7 @@ package com.sprint.repository;
 import com.sprint.config.RepositoryConfiguration;
 import com.sprint.model.SprintKpi;
 import com.sprint.repository.impl.SprintKpiDAO;
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +15,11 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDateTime;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 @Testcontainers(disabledWithoutDocker = true)
 @JdbcTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Import(value = RepositoryConfiguration.class)
-class SprintKpiDAOTest extends TeamDatabaseTest {
+class SprintKpiDAOTest extends TeamDatabaseTest implements WithAssertions {
 
   @Autowired
   private SprintKpiDAO sprintKpiDAO;
