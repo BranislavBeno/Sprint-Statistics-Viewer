@@ -1,20 +1,19 @@
 package com.sprint.controllers;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.sprint.jdbc.TeamVelocityRowMapper;
+import com.sprint.model.TeamVelocity;
+import com.sprint.repository.impl.TeamVelocityDAO;
+import com.sprint.utils.Utils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.sprint.jdbc.TeamVelocityRowMapper;
-import com.sprint.model.TeamVelocity;
-import com.sprint.repository.impl.TeamVelocityDAO;
-import com.sprint.utils.Utils;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * The Class TeamVelocityController.

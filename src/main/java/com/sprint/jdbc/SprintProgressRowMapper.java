@@ -1,16 +1,15 @@
 package com.sprint.jdbc;
 
+import com.sprint.model.SprintProgress;
+import com.sprint.utils.Utils;
+import org.springframework.jdbc.core.RowMapper;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-
-import org.springframework.jdbc.core.RowMapper;
-
-import com.sprint.model.SprintProgress;
-import com.sprint.utils.Utils;
 
 /**
  * The Class SprintProgressRowMapper.
