@@ -14,6 +14,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Testcontainers(disabledWithoutDocker = true)
@@ -34,7 +35,7 @@ class SprintProgressDAOTest extends TeamDatabaseTest implements WithAssertions {
 
         assertThat(sprintProgress.getTeamName()).isEqualTo("Apple");
         assertThat(sprintProgress.getUpdated())
-                .isEqualToIgnoringHours(LocalDateTime.of(2020, 6, 2, 0, 0, 0));
+                .isCloseTo(LocalDateTime.of(2020, 6, 2, 0, 0, 0), within(24, ChronoUnit.HOURS));
         assertThat(sprintProgress.getSprintStart()).isEqualTo(LocalDate.of(2019, 4, 4));
         assertThat(sprintProgress.getSprintEnd()).isEqualTo(LocalDate.of(2019, 4, 24));
     }

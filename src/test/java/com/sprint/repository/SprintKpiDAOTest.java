@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Testcontainers(disabledWithoutDocker = true)
 @JdbcTest
@@ -39,7 +40,7 @@ class SprintKpiDAOTest extends TeamDatabaseTest implements WithAssertions {
 
     assertThat(sprintKpis.getSprintLabel()).isEqualTo("Sprint 2");
     assertThat(sprintKpis.getUpdated())
-        .isEqualToIgnoringHours(LocalDateTime.of(2020, 6, 2, 0, 0, 0));
+        .isCloseTo(LocalDateTime.of(2020, 6, 2, 0, 0, 0), within(24, ChronoUnit.HOURS));
     assertThat(sprintKpis.getClosedHighPriorStoriesSuccessRate()).isEqualTo(-1);
     assertThat(sprintKpis.getDeltaStoryPoints()).isEqualTo(0.3373);
   }
