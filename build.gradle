@@ -1,12 +1,12 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.3.3'
+    id 'org.springframework.boot' version '3.3.4'
     id 'io.spring.dependency-management' version '1.1.6'
     id 'jacoco'
     id 'org.sonarqube' version '5.1.0.4882'
     id 'com.gorylenko.gradle-git-properties' version '2.4.2'
     id 'org.cyclonedx.bom' version '1.10.0'
-    id 'org.openrewrite.rewrite' version '6.23.3'
+    id 'org.openrewrite.rewrite' version '6.24.0'
 }
 
 group = 'com.sprint'
@@ -41,13 +41,13 @@ dependencies {
     implementation("com.mysql:mysql-connector-j")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("com.codeborne:selenide:7.5.0")
+    testImplementation("com.codeborne:selenide:7.5.1")
     testImplementation(platform("org.testcontainers:testcontainers-bom:1.20.1"))
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:mysql")
     testImplementation("org.testcontainers:selenium")
 
-    rewrite(platform("org.openrewrite.recipe:rewrite-recipe-bom:2.19.0"))
+    rewrite(platform("org.openrewrite.recipe:rewrite-recipe-bom:2.20.0"))
     rewrite("org.openrewrite.recipe:rewrite-migrate-java")
     rewrite("org.openrewrite.recipe:rewrite-spring")
 }
