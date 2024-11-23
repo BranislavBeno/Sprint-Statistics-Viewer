@@ -4,9 +4,9 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=coverage)](https://sonarcloud.io/summary/new_code?id=BranislavBeno_SprintStatsViewer)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=BranislavBeno_SprintStatsViewer&metric=ncloc)](https://sonarcloud.io/dashboard?id=BranislavBeno_SprintStatsViewer)  
 [![](https://img.shields.io/badge/Java-21-blue)](/build.gradle)
-[![](https://img.shields.io/badge/Spring%20Boot-3.3.5-blue)](/build.gradle)
-[![](https://img.shields.io/badge/Testcontainers-1.20.3-blue)](/build.gradle)
-[![](https://img.shields.io/badge/Gradle-8.10.2-blue)](/gradle/wrapper/gradle-wrapper.properties)
+[![](https://img.shields.io/badge/Spring%20Boot-3.4.0-blue)](/build.gradle)
+[![](https://img.shields.io/badge/Testcontainers-1.20.4-blue)](/build.gradle)
+[![](https://img.shields.io/badge/Gradle-8.11.1-blue)](/gradle/wrapper/gradle-wrapper.properties)
 [![](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)  
 
 # Sprint statistics viewer
