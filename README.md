@@ -6,7 +6,7 @@
 [![](https://img.shields.io/badge/Java-21-blue)](/build.gradle)
 [![](https://img.shields.io/badge/Spring%20Boot-3.4.3-blue)](/build.gradle)
 [![](https://img.shields.io/badge/Testcontainers-1.20.5-blue)](/build.gradle)
-[![](https://img.shields.io/badge/Gradle-8.12.1-blue)](/gradle/wrapper/gradle-wrapper.properties)
+[![](https://img.shields.io/badge/Gradle-8.13-blue)](/gradle/wrapper/gradle-wrapper.properties)
 [![](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)  
 
 # Sprint statistics viewer
